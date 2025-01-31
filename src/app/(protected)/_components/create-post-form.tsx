@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Loader2 } from 'lucide-react'
 
 // hooks
-import { useActionState, useEffect, useState } from 'react'
+import { useActionState, useState } from 'react'
 
 // actions
 import { createPost } from '@/actions/create-post'
@@ -15,6 +15,9 @@ import { createPost } from '@/actions/create-post'
 export function CreatePostForm() {
     const [_, action, isPending] = useActionState(createPost, undefined)
     const [charsInputted, setCharsInputted] = useState(0)
+
+    const isReachingTextLimit = charsInputted > 80 && charsInputted < 140
+    const isAtTextLimit = charsInputted === 140
 
     return (
         <Form action={action} className="space-y-4">
@@ -28,8 +31,8 @@ export function CreatePostForm() {
             />
             <span
                 className={`text-xs block ${
-                    charsInputted === 140 && 'text-destructive'
-                }`}
+                    isAtTextLimit && 'text-destructive'
+                } ${isReachingTextLimit && 'text-amber-500'}`}
             >
                 {charsInputted}/140
             </span>

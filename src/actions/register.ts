@@ -75,6 +75,22 @@ export async function register(
     })
 
     try {
+        if (
+            process.env.VERCEL_ENV !== 'production' &&
+            process.env.VERCEL_ENV !== 'preview'
+        ) {
+            console.log('dev mode')
+            await prisma.user.update({
+                data: {
+                    isVerified: true,
+                },
+                where: {
+                    id: newUser.id,
+                },
+            })
+            return { success: true, error: {} }
+        }
+
         const redirectJwt = jwt.sign({ id: newUser?.id }, 'emailsecret', {
             expiresIn: '24h',
         })

@@ -16,14 +16,14 @@ import { LogoutButton } from './logout-button'
 import { ThemeSwitch } from './theme-switch'
 
 // hooks
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 // other
 import { getInitials } from '@/helpers/get-initials'
+import { useCurrentSession } from '@/hooks/use-current-session'
 
 export function NavbarOptions() {
-    const { data: session } = useSession()
+    const { session } = useCurrentSession()
 
     const [open, setOpen] = useState(false)
 
