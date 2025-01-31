@@ -1,8 +1,7 @@
 import { Geist } from 'next/font/google'
 import Link from 'next/link'
-import { Button } from '../ui/button'
-import { Trash } from 'lucide-react'
 import { DeletePostButton } from '../delete-post-button'
+import { EditPostButton } from '../edit-post-button'
 
 const geist = Geist({
     subsets: ['latin'],
@@ -43,6 +42,10 @@ export function Content({
 
             {isPostFromCurrentUser && (
                 <div className="flex gap-2 items-center">
+                    <EditPostButton
+                        id={id}
+                        originalPostContent={children?.toString()}
+                    />
                     <DeletePostButton id={id} />
                 </div>
             )}

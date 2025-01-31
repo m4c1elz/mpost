@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react'
 import Form from 'next/form'
 
 // actions
-import { register } from '@/actions/register'
+import { register } from '@/actions/auth/register'
 
 // hooks
 import { useActionState, useEffect } from 'react'

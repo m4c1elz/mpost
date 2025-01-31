@@ -5,7 +5,7 @@ import { LogOut, Loader2 } from 'lucide-react'
 
 import { useActionState } from 'react'
 
-import { logout } from '@/actions/logout'
+import { logout } from '@/actions/auth/logout'
 import Form from 'next/form'
 
 export function LogoutButton() {

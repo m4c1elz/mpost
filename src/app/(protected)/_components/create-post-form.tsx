@@ -10,7 +10,7 @@ import { Loader2 } from 'lucide-react'
 import { useActionState, useState } from 'react'
 
 // actions
-import { createPost } from '@/actions/create-post'
+import { createPost } from '@/actions/post/create-post'
 
 export function CreatePostForm() {
     const [_, action, isPending] = useActionState(createPost, undefined)

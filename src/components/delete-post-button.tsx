@@ -20,7 +20,7 @@ import { useToast } from '@/hooks/use-toast'
 import { usePathname, useRouter } from 'next/navigation'
 
 // action
-import { deletePost } from '@/actions/delete-post'
+import { deletePost } from '@/actions/post/delete-post'
 
 interface DeletePostButtonProps {
     id: number
