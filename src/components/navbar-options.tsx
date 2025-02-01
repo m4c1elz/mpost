@@ -1,7 +1,7 @@
 'use client'
 
 // components
-import { ChevronDown, Loader2, Menu, Plus, X } from 'lucide-react'
+import { ChevronDown, Loader2, Menu, Plus, X, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import {
@@ -54,6 +54,13 @@ export function NavbarOptions() {
                                 href="/posts/create"
                             >
                                 <Plus /> Criar Postagem
+                            </Link>
+                        </Button>
+                    </li>
+                    <li>
+                        <Button variant="link" asChild>
+                            <Link href="/settings/user">
+                                <Settings /> Opções
                             </Link>
                         </Button>
                     </li>
