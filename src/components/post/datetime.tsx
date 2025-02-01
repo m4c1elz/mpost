@@ -12,15 +12,17 @@ interface DateTimeProps {
 export function DateTime({ createdAt, updatedAt }: DateTimeProps) {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
-    const zonedDate = new TZDate(createdAt, userTimezone)
+    const zonedCreatedAt = new TZDate(createdAt, userTimezone)
+    const zonedUpdatedAt = new TZDate(updatedAt, userTimezone)
     const zonedTodayDate = new TZDate(new Date(), userTimezone)
 
     return (
         <p className="text-foreground/50 hidden sm:block">
-            {formatRelative(zonedDate, zonedTodayDate, {
+            {formatRelative(zonedCreatedAt, zonedTodayDate, {
                 locale: ptBR,
             })}{' '}
-            {updatedAt.getTime() !== createdAt.getTime() && '(editado)'}
+            {zonedUpdatedAt.getTime() !== zonedCreatedAt.getTime() &&
+                '(editado)'}
         </p>
     )
 }
