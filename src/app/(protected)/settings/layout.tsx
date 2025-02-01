@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Toaster } from '@/components/ui/toaster'
 import Link from 'next/link'
 
 interface SettingsLayoutProps {
@@ -20,6 +21,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
                 </nav>
                 {children}
             </div>
+            <Toaster />
         </div>
     )
 }

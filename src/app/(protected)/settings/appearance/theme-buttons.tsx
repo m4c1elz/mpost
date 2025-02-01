@@ -13,7 +13,7 @@ export function ThemeButtons() {
         },
     }
 
-    const { resolvedTheme, setTheme } = useTheme()
+    const { setTheme } = useTheme()
 
     return (
         <div className="flex gap-4 items-center">

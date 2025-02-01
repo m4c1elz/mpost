@@ -1,15 +1,12 @@
 import { auth } from '@/auth'
-import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
     CardHeader,
     CardDescription,
     CardTitle,
-    CardFooter,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { EditUserForm } from './edit-user-form'
 
 export default async function UserSettings() {
     const session = await auth()
@@ -25,26 +22,11 @@ export default async function UserSettings() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                        <Label>Nome</Label>
-                        <Input
-                            type="text"
-                            placeholder="Fulano Beltrano"
-                            defaultValue={session?.user.name ?? ''}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label>Apelido</Label>
-                        <Input
-                            type="text"
-                            placeholder="Fulano Beltrano"
-                            defaultValue={session?.user.atsign ?? ''}
-                        />
-                    </div>
+                    <EditUserForm
+                        defaultAtsign={session?.user.atsign ?? ''}
+                        defaultName={session?.user.name ?? ''}
+                    />
                 </CardContent>
-                <CardFooter>
-                    <Button>Enviar</Button>
-                </CardFooter>
             </Card>
         </div>
     )

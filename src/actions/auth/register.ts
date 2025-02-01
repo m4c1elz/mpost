@@ -79,11 +79,9 @@ export async function register(
     })
 
     try {
-        if (
-            process.env.VERCEL_ENV !== 'production' &&
-            process.env.VERCEL_ENV !== 'preview'
-        ) {
-            console.log('dev mode')
+        if (process.env.VERCEL_ENV === 'development') {
+            console.log('---DEV MODE---')
+            console.log('Skipping email verification')
             await prisma.user.update({
                 data: {
                     isVerified: true,
