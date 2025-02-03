@@ -65,7 +65,10 @@ export function NavbarOptions() {
                     </li>
                     <li>
                         <Button variant="link" asChild>
-                            <Link href="/settings/user">
+                            <Link
+                                href="/settings/user"
+                                onClick={() => setOpen(false)}
+                            >
                                 <Settings /> Opções
                             </Link>
                         </Button>

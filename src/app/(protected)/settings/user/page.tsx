@@ -12,9 +12,9 @@ export default async function UserSettings() {
     const session = await auth()
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 w-full">
             <h3 className="text-xl font-bold">Usuário</h3>
-            <Card className="min-w-[450px]">
+            <Card className="w-full md:w-[450px]">
                 <CardHeader>
                     <CardTitle>Informações</CardTitle>
                     <CardDescription>
