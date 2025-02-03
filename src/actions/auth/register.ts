@@ -9,13 +9,17 @@ import nodemailer from 'nodemailer'
 import { render } from '@react-email/components'
 
 const registerSchema = z.object({
-    email: z.string().email('E-mail inválido.'),
-    password: z.string().min(8, 'Senha deve conter no mínimo 8 caracteres.'),
-    name: z.string().min(3, 'Nome deve conter no mínimo 3 caracteres.'),
+    email: z.string().email('E-mail inválido.').trim(),
+    password: z
+        .string()
+        .min(8, 'Senha deve conter no mínimo 8 caracteres.')
+        .trim(),
+    name: z.string().min(3, 'Nome deve conter no mínimo 3 caracteres.').trim(),
     atsign: z
         .string()
         .min(3, 'Apelido deve conter ao menos 3 caracteres.')
-        .max(12, 'Apelido não pode conter mais de 12 caracteres.'),
+        .max(12, 'Apelido não pode conter mais de 12 caracteres.')
+        .trim(),
 })
 
 type Response =
@@ -75,11 +79,9 @@ export async function register(
     })
 
     try {
-        if (
-            process.env.VERCEL_ENV !== 'production' &&
-            process.env.VERCEL_ENV !== 'preview'
-        ) {
-            console.log('dev mode')
+        if (process.env.VERCEL_ENV === 'development') {
+            console.log('---DEV MODE---')
+            console.log('Skipping email verification')
             await prisma.user.update({
                 data: {
                     isVerified: true,

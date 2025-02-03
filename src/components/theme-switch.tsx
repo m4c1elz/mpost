@@ -3,16 +3,16 @@ import { Switch } from './ui/switch'
 import { useTheme } from 'next-themes'
 
 export function ThemeSwitch() {
-    const { theme, setTheme } = useTheme()
+    const { setTheme, resolvedTheme } = useTheme()
 
     return (
         <div className="flex gap-2 w-min">
             <Switch
-                checked={theme === 'dark'}
+                checked={resolvedTheme === 'dark'}
                 onCheckedChange={() => {
-                    setTheme(theme == 'dark' ? 'light' : 'dark')
+                    setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')
                 }}
-            />{' '}
+            />
             <Moon />
         </div>
     )

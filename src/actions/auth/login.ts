@@ -6,8 +6,11 @@ import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import { z } from 'zod'
 
 const loginSchema = z.object({
-    email: z.string().email('E-mail inválido.'),
-    password: z.string().min(8, 'Senha deve conter no mínimo 8 caracteres.'),
+    email: z.string().email('E-mail inválido.').trim(),
+    password: z
+        .string()
+        .min(8, 'Senha deve conter no mínimo 8 caracteres.')
+        .trim(),
 })
 
 type ErrorResponse = z.inferFlattenedErrors<typeof loginSchema>['fieldErrors']

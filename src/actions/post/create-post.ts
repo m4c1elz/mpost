@@ -9,6 +9,7 @@ const createPostSchema = z
     .string()
     .max(140, 'Postagem não deve conter mais de 140 caracteres.')
     .nonempty('Postagem não pode estar vazia.')
+    .trim()
 
 export async function createPost(_prevState: any, formData: FormData) {
     const session = await auth()
