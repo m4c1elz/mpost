@@ -20,6 +20,7 @@ export default function RegisterForm() {
 
     useEffect(() => {
         if (state && state.success === true) {
+            console.log('should run???')
             toast({
                 title: 'E-mail de confirmação enviado',
                 description: 'Verifique sua caixa de entrada.',

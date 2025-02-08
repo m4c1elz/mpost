@@ -15,7 +15,7 @@ import { Button } from './ui/button'
 import { Loader2, Trash } from 'lucide-react'
 
 // hooks
-import { useActionState, useEffect, useState } from 'react'
+import { startTransition, useActionState, useEffect, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -79,22 +79,20 @@ export function DeletePostButton({ id }: DeletePostButtonProps) {
                     <DialogClose asChild>
                         <Button variant="outline">Cancelar</Button>
                     </DialogClose>
-                    <form action={action}>
-                        <Button
-                            type="submit"
-                            disabled={isPending}
-                            variant="destructive"
-                        >
-                            {isPending ? (
-                                <>
-                                    <Loader2 className="animate-spin" />{' '}
-                                    Excluindo...
-                                </>
-                            ) : (
-                                'Excluir'
-                            )}
-                        </Button>
-                    </form>
+                    <Button
+                        disabled={isPending}
+                        variant="destructive"
+                        onClick={() => startTransition(action)}
+                    >
+                        {isPending ? (
+                            <>
+                                <Loader2 className="animate-spin" />{' '}
+                                Excluindo...
+                            </>
+                        ) : (
+                            'Excluir'
+                        )}
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

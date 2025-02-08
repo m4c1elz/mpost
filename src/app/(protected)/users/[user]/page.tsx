@@ -3,19 +3,13 @@ import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getInitials } from '@/helpers/get-initials'
 import { CalendarDays, Mail } from 'lucide-react'
-import { format, formatRelative } from 'date-fns'
+import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
-import { Geist } from 'next/font/google'
-import Link from 'next/link'
 import { PostList } from '../../_components/post-list'
 
 type UserProps = {
     params: Promise<{ user: string }>
 }
-
-const geist = Geist({
-    subsets: ['latin'],
-})
 
 export default async function User({ params }: UserProps) {
     const { user: atsign } = await params

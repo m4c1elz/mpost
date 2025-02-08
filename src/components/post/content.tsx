@@ -25,7 +25,7 @@ export function Content({
             {asLink ? (
                 <Link href={`/posts/${id}`} className="block">
                     <article
-                        className={`${geist.className} whitespace-pre text-wrap break-words`}
+                        className={`${geist.className} whitespace-pre-line text-wrap break-words`}
                     >
                         {children}
                     </article>
@@ -33,7 +33,7 @@ export function Content({
             ) : (
                 <div>
                     <article
-                        className={`${geist.className} whitespace-pre text-wrap break-words`}
+                        className={`${geist.className} whitespace-pre-line text-wrap break-words`}
                     >
                         {children}
                     </article>

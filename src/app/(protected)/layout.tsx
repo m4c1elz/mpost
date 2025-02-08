@@ -7,10 +7,12 @@ interface ProtectedLayoutProps {
 
 export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
     return (
-        <div className="px-6 py-4 md:px-16 md:py-6">
-            <Navbar />
-            <main className="mt-6">{children}</main>
+        <>
+            <div className="px-6 py-4 md:px-16 md:py-6">
+                <Navbar />
+                <main className="mt-6">{children}</main>
+            </div>
             <Toaster />
-        </div>
+        </>
     )
 }
