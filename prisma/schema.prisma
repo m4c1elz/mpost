@@ -7,44 +7,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id         String    @id @default(cuid())
-  name       String    @db.VarChar(80)
-  email      String    @unique
-  password   String    @db.Text
-  image      String?   @db.Text
-  atsign     String    @unique @db.VarChar(12)
-  isVerified Boolean   @default(false) @db.Boolean
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Post       Post[]
-  Comment    Comment[]
+model Comment {
+  id        Int       @id(map: "Comment_pkey") @default(autoincrement())
+  content   String
+  userId    String    @map("user_id")
+  postId    Int       @map("post_id")
+  parentId  Int?      @map("parent_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  parent    Comment?  @relation("commentsTocomments", fields: [parentId], references: [id])
+  children  Comment[] @relation("commentsTocomments")
+  post      Post      @relation(fields: [postId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "comments_userId_fkey")
 
-  @@map("user")
+  @@map("comments")
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
+  id        Int       @id(map: "post_pkey") @default(autoincrement())
   content   String    @db.VarChar(144)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  userId    String    @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
   comments  Comment[]
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("post")
+  @@map("posts")
 }
 
-model Comment {
-  id        Int       @id @default(autoincrement())
-  content   String
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId    Int
-  Post      Post      @relation(fields: [postId], references: [id])
-  parentId  Int?
-  parent    Comment?  @relation("CommentThread", fields: [parentId], references: [id])
-  children  Comment[] @relation("CommentThread")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model User {
+  id         String    @id(map: "user_pkey") @default(cuid())
+  name       String    @db.VarChar(80)
+  email      String    @unique(map: "user_email_key")
+  password   String
+  image      String?
+  atsign     String    @unique(map: "user_atsign_key") @db.VarChar(12)
+  isVerified Boolean   @default(false) @map("is_verified")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @map("updated_at")
+  comments   Comment[]
+  posts      Post[]
+
+  @@map("users")
 }

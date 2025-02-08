@@ -24,7 +24,7 @@ export default async function User({ params }: UserProps) {
             image: true,
             email: true,
             createdAt: true,
-            Post: {
+            posts: {
                 select: {
                     id: true,
                     content: true,
@@ -79,7 +79,7 @@ export default async function User({ params }: UserProps) {
             </div>
             <div className="space-y-6">
                 <p className="text-xl font-bold">Postagens</p>
-                <PostList posts={user.Post} />
+                <PostList posts={user.posts} />
             </div>
         </div>
     )

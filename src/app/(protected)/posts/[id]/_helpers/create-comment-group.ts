@@ -2,7 +2,7 @@ type Comments = {
     id: number
     parentId: number | null
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     content: string
     user: {
         atsign: string

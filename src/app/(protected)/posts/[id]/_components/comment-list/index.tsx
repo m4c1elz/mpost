@@ -13,7 +13,7 @@ type CommentType = {
         atsign: string
     }
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     content: string
     parentId: number | null
 }
