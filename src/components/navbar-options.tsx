@@ -21,6 +21,7 @@ import { useSession } from 'next-auth/react'
 
 // other
 import { getInitials } from '@/helpers/get-initials'
+import { cn } from '@/lib/utils'
 
 export function NavbarOptions() {
     const { data: session, update } = useSession()
@@ -41,16 +42,19 @@ export function NavbarOptions() {
         <>
             <Menu className="md:hidden" onClick={() => setOpen(true)} />
             <div
-                className={`size-full absolute inset-0 transition-opacity bg-black/50 md:static md:size-auto md:bg-none md:opacity-100 md:pointer-events-none ${
+                className={cn(
+                    'size-full absolute inset-0 z-10 transition-opacity bg-black/50 md:static md:size-auto md:bg-none md:opacity-100 md:pointer-events-none',
                     open
                         ? 'opacity-100 pointer-events-auto'
                         : 'opacity-0 pointer-events-none'
-                }`}
+                )}
             >
                 <ul
-                    className={`transition-all duration-200 absolute flex flex-col gap-6 items-end w-1/2 bg-background border-l h-screen ${
+                    className={cn(
+                        'transition-all duration-200 absolute flex flex-col gap-6 items-end w-1/2 bg-background border-l h-screen top-0 font-medium px-4 py-2',
+                        'md:flex-row md:bg-none md:border-none md:static md:w-auto md:h-auto md:items-center md:pointer-events-auto',
                         open ? 'right-0' : '-right-96'
-                    } top-0 font-medium px-4 py-2 md:flex-row md:bg-none md:border-none md:static md:w-auto md:h-auto md:items-center md:pointer-events-auto`}
+                    )}
                 >
                     <X onClick={() => setOpen(false)} className="md:hidden" />
                     <li>

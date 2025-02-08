@@ -4,20 +4,22 @@ import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { SettingsNavbarLink } from './link'
 import { useSettingsNavbar } from './provider'
+import { cn } from '@/lib/utils'
 
 export function SettingsNavbar() {
     const { open, setOpen } = useSettingsNavbar()
 
-    const baseClassName =
-        'transition border-r flex flex-col gap-4 items-start w-1/2 absolute h-screen z-10 top-0 bg-background pt-12 sm:pt-0 sm:opacity-100 sm:static sm:md:h-[600px] sm:w-72 sm:pointer-events-auto before:w-screen before:h-screen before:bg-background/50 before:absolute before:-z-1 before:inset-0 sm:before:bg-transparent sm:before:pointer-events-none'
-
     return (
         <nav
-            className={`${baseClassName} ${
-                open
-                    ? 'opacity-100 pointer-events-auto'
-                    : 'opacity-0 pointer-events-none'
-            }`}
+            className={cn(
+                'transition border-r flex flex-col gap-4 items-start w-1/2 absolute h-screen z-10 top-0 bg-background pt-12',
+                'sm:pt-0 sm:opacity-100 sm:static sm:md:h-[600px] sm:w-72 sm:pointer-events-auto',
+                'before:w-screen before:h-screen before:bg-background/50 before:absolute before:-z-1 before:inset-0 sm:before:bg-transparent sm:before:pointer-events-none',
+                {
+                    'opacity-100 pointer-events-auto': open,
+                    'opacity-0 pointer-events-none': !open,
+                }
+            )}
         >
             <Button
                 variant="ghost"
