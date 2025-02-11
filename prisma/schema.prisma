@@ -14,7 +14,7 @@ model Comment {
   postId    Int       @map("post_id")
   parentId  Int?      @map("parent_id")
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
   parent    Comment?  @relation("commentsTocomments", fields: [parentId], references: [id])
   children  Comment[] @relation("commentsTocomments")
   post      Post      @relation(fields: [postId], references: [id])
@@ -28,7 +28,7 @@ model Post {
   content   String    @db.VarChar(144)
   userId    String    @map("user_id")
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
   comments  Comment[]
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -44,7 +44,7 @@ model User {
   atsign     String    @unique(map: "user_atsign_key") @db.VarChar(12)
   isVerified Boolean   @default(false) @map("is_verified")
   createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
   comments   Comment[]
   posts      Post[]
 
