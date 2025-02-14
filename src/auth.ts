@@ -3,9 +3,10 @@ import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
 import { prisma } from './lib/prisma'
 import { compare } from 'bcrypt-ts'
+import { env } from '@/env'
 
 export const { auth, signOut, signIn, handlers } = NextAuth({
-    secret: process.env.AUTH_SECRET,
+    secret: env.AUTH_SECRET,
     providers: [
         Credentials({
             credentials: {
