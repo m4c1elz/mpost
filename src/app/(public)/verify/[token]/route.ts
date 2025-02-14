@@ -1,6 +1,7 @@
-import { prisma } from '@/lib/prisma'
 import jwt from 'jsonwebtoken'
+import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
+import { env } from '@/env'
 
 interface Params {
     params: Promise<{ token: string }>
@@ -14,7 +15,7 @@ export async function GET(req: Request, { params }: Params) {
     const { token } = await params
 
     try {
-        const payload = jwt.verify(token, 'emailsecret') as EmailPayload
+        const payload = jwt.verify(token, env.EMAIL_JWT_SECRET) as EmailPayload
         await prisma.user.update({
             data: {
                 isVerified: true,

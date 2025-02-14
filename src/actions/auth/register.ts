@@ -94,9 +94,13 @@ export async function register(
             return { success: true, error: {} }
         }
 
-        const redirectJwt = jwt.sign({ id: newUser?.id }, 'emailsecret', {
-            expiresIn: '24h',
-        })
+        const redirectJwt = jwt.sign(
+            { id: newUser?.id },
+            env.EMAIL_JWT_SECRET,
+            {
+                expiresIn: '24h',
+            }
+        )
 
         const transport = nodemailer.createTransport({
             service: 'gmail',
