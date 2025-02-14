@@ -7,6 +7,7 @@ import { z } from 'zod'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import { render } from '@react-email/components'
+import { env } from '@/env'
 
 const registerSchema = z.object({
     email: z.string().email('E-mail inválido.').trim(),
@@ -79,10 +80,7 @@ export async function register(
     })
 
     try {
-        if (
-            process.env.VERCEL_ENV === 'development' ||
-            process.env.NODE_ENV == 'development'
-        ) {
+        if (env.VERCEL_ENV === 'development' || env.NODE_ENV == 'development') {
             console.log('---DEV MODE---')
             console.log('Skipping email verification')
             await prisma.user.update({
@@ -103,20 +101,20 @@ export async function register(
         const transport = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.EMAIL_SENDER_ADDRESS,
-                pass: process.env.EMAIL_SENDER_PASSWORD,
+                user: env.EMAIL_SENDER_ADDRESS,
+                pass: env.EMAIL_SENDER_PASSWORD,
             },
         })
 
         const info = await transport.sendMail({
-            from: process.env.EMAIL_SENDER_ADDRESS,
+            from: env.EMAIL_SENDER_ADDRESS,
             to: data.email,
             subject: 'Confirmação de E-mail',
             html: await render(
                 VerifyEmail({
                     redirectUrl: new URL(
                         `/verify/${redirectJwt}`,
-                        process.env.EMAIL_REDIRECT_URL
+                        env.EMAIL_REDIRECT_URL
                     ).toString(),
                 })
             ),
