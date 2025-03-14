@@ -1,8 +1,8 @@
-import { Bell } from 'lucide-react'
+import { Bell, Loader2 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Notification } from './notification'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 type NotificationList = {
     id: string
@@ -14,12 +14,7 @@ type NotificationList = {
 }[]
 
 async function getNotifications() {
-    const response = await fetch('/api/notifications', {
-        next: {
-            tags: ['notifications'],
-        },
-        cache: 'no-cache',
-    })
+    const response = await fetch('/api/notifications')
 
     if (!response.ok) {
         throw new Error('Error finding notifications')
@@ -30,28 +25,20 @@ async function getNotifications() {
 }
 
 export function NotificationsButton() {
-    const [notifications, setNotifications] = useState<NotificationList | null>(
-        null
-    )
-    const [isPending, setIsPending] = useState(false)
-
-    useEffect(() => {
-        ;(async () => {
-            setIsPending(true)
-            const result = await getNotifications()
-            setNotifications(result)
-            setIsPending(false)
-        })()
-    }, [])
+    const { data: notifications, isPending } = useQuery({
+        queryKey: ['notifications'],
+        queryFn: getNotifications,
+    })
 
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon" disabled={isPending}>
+                <Button variant="ghost" size="icon">
                     <Bell />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 overflow-hidden w-64">
+            <PopoverContent className="p-0 w-64 max-h-70 overflow-auto">
+                {isPending && <Loader2 className="animate-spin mx-auto my-2" />}
                 {notifications?.length == 0 && (
                     <p className="text-sm p-4 font-bold">
                         Não há notificações.
