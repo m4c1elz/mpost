@@ -39,6 +39,10 @@ export async function getPost(id: number) {
                         },
                     },
                 },
+                where: {
+                    // only get root comments server-side
+                    parentId: null,
+                },
             },
         },
     })

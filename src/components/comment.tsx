@@ -10,6 +10,7 @@ import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from '@/app/(protected)/posts/[id]/_components/add-comment-form'
 import { useComment } from './comment.hooks'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign'>
@@ -45,8 +46,6 @@ export function Comment({
         setRepliesHidden,
     } = useComment()
 
-    const hasReplies = children.length > 0
-
     const {
         data: replies,
         isLoading: isLoadingReplies,
@@ -57,6 +56,8 @@ export function Comment({
         queryKey: ['comment-replies', { commentId: id, parentId }],
         queryFn: () => getReplies(id),
     })
+
+    const [hasReplies, setHasReplies] = useState(children.length > 0)
 
     return (
         <div className="space-y-2">
@@ -82,6 +83,8 @@ export function Comment({
                         postId={postId}
                         parentId={id}
                         onSuccess={() => {
+                            fetchReplies()
+                            if (!hasReplies) setHasReplies(true)
                             setFormOpen(false)
                             setRepliesHidden(false)
                         }}
