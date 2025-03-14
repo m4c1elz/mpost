@@ -1,7 +1,7 @@
 import { Post } from '@/components/post'
 import { notFound, redirect } from 'next/navigation'
 import { AddCommentForm } from '@/components/add-comment-form'
-import { getPost } from './_services/get-post'
+import { getPost } from './get-post'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
 import { Comment } from '@/components/comment'
