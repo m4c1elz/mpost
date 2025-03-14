@@ -39,7 +39,10 @@ export async function addComment(
     })
 
     // create notification
-    if (createdComment.post.userId !== session?.user.id!) {
+    if (
+        createdComment.post.userId !== session?.user.id! &&
+        createdComment.parent?.userId !== session?.user.id
+    ) {
         await prisma.notification.create({
             data: {
                 type: isReplyingComment ? 'RepliedComment' : 'CommentedOnPost',
