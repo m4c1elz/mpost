@@ -1,7 +1,15 @@
 'use client'
 
 // components
-import { ChevronDown, Loader2, Menu, Plus, X, Settings } from 'lucide-react'
+import {
+    ChevronDown,
+    Loader2,
+    Menu,
+    Plus,
+    X,
+    Settings,
+    Bell,
+} from 'lucide-react'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import {
@@ -22,6 +30,7 @@ import { useSession } from 'next-auth/react'
 // other
 import { getInitials } from '@/helpers/get-initials'
 import { cn } from '@/lib/utils'
+import { NotificationsButton } from './notifications-button'
 
 export function NavbarOptions() {
     const { data: session, update } = useSession()
@@ -76,6 +85,9 @@ export function NavbarOptions() {
                                 <Settings /> Opções
                             </Link>
                         </Button>
+                    </li>
+                    <li>
+                        <NotificationsButton />
                     </li>
                     <li>
                         <DropdownMenu modal={false}>
