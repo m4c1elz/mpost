@@ -4,7 +4,8 @@ import { TZDate } from '@date-fns/tz'
 import { formatRelative } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 import { useRouter } from 'next-nprogress-bar'
-import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { cn } from '@/lib/utils'
 
 async function markNotificationAsRead(id: string) {
     await fetch(`/api/notifications/${id}/read`, {
@@ -31,19 +32,24 @@ export function Notification({
 }: NotificationProps) {
     const { setOpen: setNavbarOpen } = useNavbar()
     const router = useRouter()
+    const queryClient = useQueryClient()
 
     // handling date
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const notificationDate = new TZDate(createdAt, timezone)
     const today = new TZDate(new Date(), timezone)
 
-    const [notificationRead, setNotificationRead] = useState(isRead)
-
-    console.log({ notificationRead })
+    const { mutateAsync: markAsRead } = useMutation({
+        mutationFn: markNotificationAsRead,
+    })
 
     async function handleClick() {
-        setNotificationRead(true)
-        await markNotificationAsRead(id)
+        if (!isRead) {
+            await markAsRead(id)
+            queryClient.invalidateQueries({
+                queryKey: ['notifications'],
+            })
+        }
         setNavbarOpen(false)
         router.push(href)
     }
@@ -52,9 +58,10 @@ export function Notification({
         <PopoverClose key={id} asChild>
             <button
                 onClick={handleClick}
-                className={`cursor-pointer p-4 text-start transition-colors text-sm w-full ${
-                    !notificationRead && 'bg-foreground/5'
-                } hover:bg-foreground/10`}
+                className={cn(
+                    'cursor-pointer p-4 text-start transition-colors text-sm w-full hover:bg-foreground/10',
+                    !isRead && 'bg-foreground/5'
+                )}
             >
                 <span>
                     <b>{user}</b> {message}
