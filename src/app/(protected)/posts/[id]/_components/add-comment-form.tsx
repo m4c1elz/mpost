@@ -8,7 +8,7 @@ import { Ref, useActionState, useEffect } from 'react'
 
 interface AddCommentFormProps {
     postId: number
-    parentId?: number | null
+    parentId?: number
     ref?: Ref<HTMLFormElement>
     onSuccess?: () => void
 }
@@ -19,9 +19,9 @@ export function AddCommentForm({
     ref,
     onSuccess,
 }: AddCommentFormProps) {
-    const addComment = addCommentFn
-        .bind(null, parentId as number)
-        .bind(null, postId as number)
+    const addComment = (_prevState: any, formData: FormData) => {
+        return addCommentFn(postId, _prevState, formData, parentId)
+    }
 
     const [state, action, isPending] = useActionState(addComment, undefined)
 
