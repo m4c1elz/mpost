@@ -1,7 +1,7 @@
 'use client'
 
 import { SessionProvider } from 'next-auth/react'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider, useTheme } from 'next-themes'
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
 
 interface ClientProvidersProps {
@@ -9,6 +9,8 @@ interface ClientProvidersProps {
 }
 
 export function ClientProviders({ children }: ClientProvidersProps) {
+    const { resolvedTheme } = useTheme()
+
     return (
         <SessionProvider>
             <ThemeProvider
@@ -16,12 +18,12 @@ export function ClientProviders({ children }: ClientProvidersProps) {
                 enableSystem
                 disableTransitionOnChange
             >
+                {children}
                 <ProgressBar
-                    color="#fff"
+                    color={resolvedTheme === 'light' ? 'black' : 'white'}
                     options={{ showSpinner: false }}
                     shallowRouting
                 />
-                {children}
             </ThemeProvider>
         </SessionProvider>
     )

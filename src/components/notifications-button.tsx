@@ -1,12 +1,8 @@
 import { Bell } from 'lucide-react'
 import { Button } from './ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
-import { PopoverClose } from '@radix-ui/react-popover'
+import { Notification } from './notification'
 import { useEffect, useState } from 'react'
-import { TZDate } from '@date-fns/tz'
-import { formatRelative } from 'date-fns'
-import { ptBR } from 'date-fns/locale/pt-BR'
-import { useRouter } from 'next-nprogress-bar'
 
 type NotificationList = {
     id: string
@@ -24,6 +20,7 @@ async function getNotifications() {
         },
         cache: 'no-cache',
     })
+
     if (!response.ok) {
         throw new Error('Error finding notifications')
     }
@@ -32,18 +29,11 @@ async function getNotifications() {
     return result
 }
 
-async function markNotificationAsRead(id: string) {
-    await fetch(`/api/notifications/${id}/read`, {
-        method: 'PATCH',
-    })
-}
-
 export function NotificationsButton() {
     const [notifications, setNotifications] = useState<NotificationList | null>(
         null
     )
     const [isPending, setIsPending] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         ;(async () => {
@@ -67,41 +57,9 @@ export function NotificationsButton() {
                         Não há notificações.
                     </p>
                 )}
-                {notifications?.map((notification, i) => {
-                    const timezone =
-                        Intl.DateTimeFormat().resolvedOptions().timeZone
-                    const notificationDate = new TZDate(
-                        notification.createdAt,
-                        timezone
-                    )
-                    const today = new TZDate(new Date(), timezone)
-                    return (
-                        <PopoverClose asChild>
-                            <button
-                                onClick={async () => {
-                                    await markNotificationAsRead(
-                                        notification.id
-                                    )
-                                    router.push(notification.href)
-                                }}
-                                key={i}
-                                className={`cursor-pointer p-4 text-start transition-colors text-sm w-full ${
-                                    !notification.isRead && 'bg-foreground/5'
-                                } hover:bg-foreground/10`}
-                            >
-                                <span>
-                                    <b>{notification.user}</b>{' '}
-                                    {notification.message}
-                                </span>
-                                <small className="block text-foreground/50">
-                                    {formatRelative(notificationDate, today, {
-                                        locale: ptBR,
-                                    })}
-                                </small>
-                            </button>
-                        </PopoverClose>
-                    )
-                })}
+                {notifications?.map(notification => (
+                    <Notification key={notification.id} {...notification} />
+                ))}
             </PopoverContent>
         </Popover>
     )
