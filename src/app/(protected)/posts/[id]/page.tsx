@@ -1,9 +1,7 @@
 import { Post } from '@/components/post'
 import { notFound, redirect } from 'next/navigation'
-import { AddCommentForm } from './_components/add-comment-form'
-import { CommentList } from './_components/comment-list'
+import { AddCommentForm } from '@/components/add-comment-form'
 import { getPost } from './_services/get-post'
-import { createCommentGroup } from './_helpers/create-comment-group'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
 import { Comment } from '@/components/comment'
@@ -40,9 +38,6 @@ export default async function PostPage({ params }: PostPageProps) {
     const session = await auth()
     const isPostFromCurrentUser = session?.user.atsign == post.user.atsign
 
-    // const commentGroup = createCommentGroup(post.comments)
-    // const rootComments = commentGroup['root']
-
     return (
         <div className="space-y-4">
             <p className="text-xl font-bold">Postagem</p>
@@ -68,14 +63,6 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.comments.map(comment => (
                 <Comment {...comment} postId={post.id} key={comment.id} />
             ))}
-            {/* {rootComments?.map(comment => (
-                <CommentList
-                    key={comment.id}
-                    comment={comment}
-                    postId={post.id}
-                    commentGroup={commentGroup}
-                />
-            ))} */}
         </div>
     )
 }
