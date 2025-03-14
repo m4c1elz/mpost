@@ -7,7 +7,7 @@ import {
 import { Post } from './post'
 import { Button } from './ui/button'
 import { Loader2, MessageSquareText } from 'lucide-react'
-import { AddCommentForm } from '@/app/(protected)/posts/[id]/_components/add-comment-form'
+import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
