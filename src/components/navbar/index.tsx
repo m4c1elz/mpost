@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { NavbarOptions } from './navbar-options'
+import { NavbarOptions } from './options'
 
 export function Navbar() {
     return (

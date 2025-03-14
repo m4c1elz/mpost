@@ -5,9 +5,13 @@ import { $Enums } from '@prisma/client'
 export async function GET() {
     const session = await auth()
 
+    if (!session) {
+        return new Response('Unauthorized', { status: 401 })
+    }
+
     const notifications = await prisma.notification.findMany({
         where: {
-            targetUserId: session?.user.id,
+            targetUserId: session.user.id,
         },
         orderBy: {
             createdAt: 'desc',
