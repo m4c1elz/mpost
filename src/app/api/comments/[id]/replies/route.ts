@@ -34,6 +34,9 @@ export async function GET(_request: Request, { params }: { params: Params }) {
                 },
             },
         },
+        orderBy: {
+            createdAt: 'desc',
+        },
     })
 
     return Response.json(replies)
