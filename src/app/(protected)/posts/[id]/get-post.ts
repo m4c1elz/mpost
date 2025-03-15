@@ -1,8 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import 'server-only'
 
-const commentPropsToSelect = {}
-
 export async function getPost(id: number) {
     const post = await prisma.post.findUnique({
         where: {
@@ -25,6 +23,7 @@ export async function getPost(id: number) {
                     id: true,
                     user: {
                         select: {
+                            id: true,
                             atsign: true,
                             name: true,
                         },
@@ -33,6 +32,19 @@ export async function getPost(id: number) {
                     createdAt: true,
                     updatedAt: true,
                     parentId: true,
+                    children: {
+                        // only to verify if there's any children
+                        select: {
+                            id: true,
+                        },
+                    },
+                },
+                where: {
+                    // only get root comments server-side
+                    parentId: null,
+                },
+                orderBy: {
+                    createdAt: 'desc',
                 },
             },
         },
