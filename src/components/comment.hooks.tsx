@@ -1,7 +1,12 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 
-export function useComment() {
+interface UseCommentProps {
+    initialHasReplies: boolean
+}
+
+export function useComment({ initialHasReplies }: UseCommentProps) {
     const [formOpen, setFormOpen] = useState(false)
+    const [hasReplies, setHasReplies] = useState(initialHasReplies)
     const [repliesHidden, setRepliesHidden] = useState(true)
     const formElementRef = useRef<HTMLFormElement>(null)
 
@@ -28,5 +33,7 @@ export function useComment() {
         formElementRef,
         repliesHidden,
         setRepliesHidden,
+        hasReplies,
+        setHasReplies,
     }
 }

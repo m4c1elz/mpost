@@ -43,6 +43,9 @@ export async function getPost(id: number) {
                     // only get root comments server-side
                     parentId: null,
                 },
+                orderBy: {
+                    createdAt: 'desc',
+                },
             },
         },
     })

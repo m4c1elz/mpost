@@ -10,7 +10,6 @@ import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 
 interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign'>
@@ -37,14 +36,18 @@ export function Comment({
     postId,
     children,
     parentId,
+    createdAt,
+    updatedAt,
 }: CommentProps) {
     const {
+        hasReplies,
+        setHasReplies,
         formElementRef,
         formOpen,
         setFormOpen,
         repliesHidden,
         setRepliesHidden,
-    } = useComment()
+    } = useComment({ initialHasReplies: children.length > 0 })
 
     const {
         data: replies,
@@ -57,13 +60,20 @@ export function Comment({
         queryFn: () => getReplies(id),
     })
 
-    const [hasReplies, setHasReplies] = useState(children.length > 0)
+    async function handleFetchReplies() {
+        if (!isFetched) await fetchReplies()
+        setRepliesHidden(false)
+    }
 
     return (
         <div className="space-y-2">
             <Post.Root>
                 <Post.Header>
                     <Post.UserInfo atsign={user.atsign} username={user.name} />
+                    <Post.DateTime
+                        createdAt={createdAt}
+                        updatedAt={updatedAt}
+                    />
                 </Post.Header>
                 <Post.Content id={id} asLink={false}>
                     {content}
@@ -92,13 +102,7 @@ export function Comment({
                 )}
             </Post.Root>
             {hasReplies && repliesHidden && (
-                <Button
-                    onClick={async () => {
-                        if (!isFetched) await fetchReplies()
-                        setRepliesHidden(false)
-                    }}
-                    variant="outline"
-                >
+                <Button onClick={handleFetchReplies} variant="outline">
                     {isLoadingReplies ? (
                         <Loader2 className="animate-spin" />
                     ) : (
