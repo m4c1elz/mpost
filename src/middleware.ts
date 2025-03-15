@@ -15,20 +15,12 @@ export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl
     const session = await auth()
 
-    let isPrivateRoute = false
-    let isPublicRoute = false
-
-    PRIVATE.forEach(path => {
-        if (pathname.startsWith(path)) {
-            isPrivateRoute = true
-        }
-    })
-
-    PUBLIC.forEach(path => {
-        if (pathname.startsWith(path)) {
-            isPublicRoute = true
-        }
-    })
+    const isPrivateRoute =
+        PRIVATE.includes(pathname) ||
+        PRIVATE.some(route => pathname.startsWith(`${route}/`))
+    const isPublicRoute =
+        PUBLIC.includes(pathname) ||
+        PUBLIC.some(route => pathname.startsWith(`${route}/`))
 
     if (session && isPublicRoute) {
         return NextResponse.redirect(new URL('/', req.url))
@@ -43,6 +35,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+        '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
     ],
 }
