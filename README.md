@@ -12,6 +12,7 @@ Algumas das funcionalidades que o projeto inclui:
 -   Verificação de E-mail
 -   Autorização e Autenticação com Next-Auth
 -   Extensivo uso de Server Actions e funcionalidades do App Router (Next.js 15)
+-   Notificações ao comentar em postagens e responder comentários
 -   Validação de dados em formulários com Zod
 -   Tema Claro/Noturno
 -   Interface feita com Shadcn/ui
