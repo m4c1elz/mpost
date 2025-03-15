@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { CommentProps } from './comment'
 
@@ -25,11 +25,19 @@ export function useComment({
     commentId,
     parentId,
 }: UseCommentProps) {
+    const { commentId: highlightedCommentId } = useParams<{
+        commentId: string
+    }>()
+
+    const isHighlighted = Number(highlightedCommentId) === commentId
+
     const searchParams = useSearchParams()
     const showRepliesByDefault = !!searchParams.get('showReplies')
+
     const [formOpen, setFormOpen] = useState(false)
     const [hasReplies, setHasReplies] = useState(initialHasReplies)
     const [repliesHidden, setRepliesHidden] = useState(!showRepliesByDefault)
+
     const formElementRef = useRef<HTMLFormElement>(null)
 
     const handleOutsideClick = useCallback((e: MouseEvent) => {
@@ -69,6 +77,7 @@ export function useComment({
         setRepliesHidden,
         hasReplies,
         setHasReplies,
+        isHighlighted,
         repliesQuery,
     }
 }

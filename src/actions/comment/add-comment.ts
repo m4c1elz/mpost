@@ -14,7 +14,7 @@ export async function addComment(
     const session = await auth()
 
     // if there's a parentId, then we're replying a comment
-    const isReplyingComment = typeof parentId == 'number'
+    const isReplyingComment = typeof parentId === 'number'
 
     const createdComment = await prisma.comment.create({
         data: {
@@ -59,7 +59,7 @@ export async function addComment(
                     : createdComment.post.userId,
                 redirectTo: `/posts/${createdComment.post.id}/comment/${
                     createdComment.id
-                }/${isReplyingComment && '?showReplies=true'}`,
+                }/${isReplyingComment ? '?showReplies=true' : ''}`,
             },
         })
     }

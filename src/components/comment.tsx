@@ -48,6 +48,7 @@ export function Comment({
         repliesHidden,
         setRepliesHidden,
         repliesQuery,
+        isHighlighted,
     } = useComment({
         initialHasReplies: children.length > 0,
         commentId: id,
@@ -62,8 +63,14 @@ export function Comment({
     return (
         <div className="space-y-2">
             <Post.Root>
+                {isHighlighted && (
+                    <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
+                        Comentário em destaque
+                    </small>
+                )}
                 <Post.Header>
                     <Post.UserInfo atsign={user.atsign} username={user.name} />
+
                     <Post.DateTime
                         createdAt={createdAt}
                         updatedAt={updatedAt}
@@ -95,7 +102,7 @@ export function Comment({
                     />
                 )}
             </Post.Root>
-            {hasReplies && repliesHidden && (
+            {hasReplies && (repliesHidden || repliesQuery.isLoading) && (
                 <Button onClick={handleFetchReplies} variant="outline">
                     {repliesQuery.isLoading ? (
                         <Loader2 className="animate-spin" />
@@ -105,12 +112,12 @@ export function Comment({
                 </Button>
             )}
             {!repliesHidden && repliesQuery.data && (
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-4 mt-2">
                     <button
                         className="transition-all cursor-pointer w-1 rounded bg-foreground/20 h-auto hover:w-2"
                         onClick={() => setRepliesHidden(true)}
                     />
-                    <div className="space-y-4 flex-1">
+                    <div className="space-y-1 flex-1">
                         {repliesQuery.data.map(reply => (
                             <Comment key={reply.id} {...reply} />
                         ))}
