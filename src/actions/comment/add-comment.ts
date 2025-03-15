@@ -40,9 +40,16 @@ export async function addComment(
     })
 
     // create notification only if the user isn't replying himself
+
+    const isPostFromCurrentUser =
+        createdComment.post.userId === session?.user.id!
+
+    const isParentFromCurrentUser =
+        createdComment.parent?.userId === session?.user.id
+
     if (
-        createdComment.post.userId !== session?.user.id! &&
-        createdComment.parent?.userId !== session?.user.id
+        (isPostFromCurrentUser && isReplyingComment) ||
+        (!isParentFromCurrentUser && !isReplyingComment)
     ) {
         await prisma.notification.create({
             data: {
