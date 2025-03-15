@@ -24,6 +24,7 @@ export async function addComment(
             postId,
         },
         select: {
+            id: true,
             post: {
                 select: {
                     id: true,
@@ -38,7 +39,7 @@ export async function addComment(
         },
     })
 
-    // create notification
+    // create notification only if the user isn't replying himself
     if (
         createdComment.post.userId !== session?.user.id! &&
         createdComment.parent?.userId !== session?.user.id
@@ -50,7 +51,7 @@ export async function addComment(
                 targetUserId: isReplyingComment
                     ? createdComment.parent?.userId!
                     : createdComment.post.userId,
-                redirectTo: `/posts/${createdComment.post.id}`,
+                redirectTo: `/posts/${createdComment.post.id}/comment/${createdComment.id}`,
             },
         })
     }
