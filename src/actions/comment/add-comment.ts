@@ -14,7 +14,7 @@ export async function addComment(
     const session = await auth()
 
     // if there's a parentId, then we're replying a comment
-    const isReplyingComment = typeof parentId == 'number'
+    const isReplyingComment = typeof parentId === 'number'
 
     const createdComment = await prisma.comment.create({
         data: {
@@ -40,9 +40,15 @@ export async function addComment(
     })
 
     // create notification only if the user isn't replying himself
+    const isPostFromCurrentUser =
+        createdComment.post.userId === session?.user.id!
+
+    const isParentFromCurrentUser =
+        createdComment.parent?.userId === session?.user.id
+
     if (
-        createdComment.post.userId !== session?.user.id! &&
-        createdComment.parent?.userId !== session?.user.id
+        (isPostFromCurrentUser && isReplyingComment) ||
+        (!isParentFromCurrentUser && !isReplyingComment)
     ) {
         await prisma.notification.create({
             data: {
@@ -51,7 +57,9 @@ export async function addComment(
                 targetUserId: isReplyingComment
                     ? createdComment.parent?.userId!
                     : createdComment.post.userId,
-                redirectTo: `/posts/${createdComment.post.id}/comment/${createdComment.id}`,
+                redirectTo: `/posts/${createdComment.post.id}/comment/${
+                    createdComment.id
+                }/${isReplyingComment ? '?showReplies=true' : ''}`,
             },
         })
     }

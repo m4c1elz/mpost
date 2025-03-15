@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { formatRelativeDate } from '@/helpers/format-relative-date'
 import { getQueryClient } from '@/lib/react-query'
+import { sleep } from '@/helpers/sleep'
 
 async function markNotificationAsRead(id: string) {
     await fetch(`/api/notifications/${id}/read`, {
@@ -44,6 +45,7 @@ export function Notification({
                 queryKey: ['notifications'],
             })
         }
+        await sleep(200)
         setNavbarOpen(false)
         router.push(href)
     }
