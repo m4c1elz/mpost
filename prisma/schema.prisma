@@ -17,7 +17,7 @@ model Comment {
   updatedAt DateTime? @updatedAt @map("updated_at")
   parent    Comment?  @relation("commentsTocomments", fields: [parentId], references: [id])
   children  Comment[] @relation("commentsTocomments")
-  post      Post      @relation(fields: [postId], references: [id])
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "comments_userId_fkey")
 
   @@map("comments")
