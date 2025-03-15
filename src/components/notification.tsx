@@ -4,6 +4,7 @@ import { useRouter } from 'next-nprogress-bar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { formatRelativeDate } from '@/helpers/format-relative-date'
+import { getQueryClient } from '@/lib/react-query'
 
 async function markNotificationAsRead(id: string) {
     await fetch(`/api/notifications/${id}/read`, {
@@ -30,7 +31,7 @@ export function Notification({
 }: NotificationProps) {
     const { setOpen: setNavbarOpen } = useNavbar()
     const router = useRouter()
-    const queryClient = useQueryClient()
+    const queryClient = getQueryClient()
 
     const { mutateAsync: markAsRead } = useMutation({
         mutationFn: markNotificationAsRead,

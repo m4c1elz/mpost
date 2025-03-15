@@ -3,6 +3,8 @@ import { Button } from './ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Notification } from './notification'
 import { useQuery } from '@tanstack/react-query'
+import { useState, useEffect } from 'react'
+import { cn } from '@/lib/utils'
 
 type NotificationList = {
     id: string
@@ -25,15 +27,32 @@ async function getNotifications() {
 }
 
 export function NotificationsButton() {
+    const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
+
     const { data: notifications, isPending } = useQuery({
         queryKey: ['notifications'],
         queryFn: getNotifications,
     })
 
+    useEffect(() => {
+        if (notifications) {
+            const hasUnseen = notifications.some(n => !n.isRead)
+            setHasUnseenNotifications(hasUnseen)
+        }
+    }, [notifications])
+
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                        'relative',
+                        hasUnseenNotifications &&
+                            'after:size-2 after:absolute after:bg-amber-600 after:rounded-full after:top-1 after:right-1'
+                    )}
+                >
                     <Bell />
                 </Button>
             </PopoverTrigger>
