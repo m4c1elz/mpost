@@ -1,8 +1,7 @@
 'use client'
 
-import { formatRelative } from 'date-fns'
 import { TZDate } from '@date-fns/tz'
-import { ptBR } from 'date-fns/locale/pt-BR'
+import { formatRelativeDate } from '@/helpers/format-relative-date'
 
 interface DateTimeProps {
     createdAt: Date
@@ -14,13 +13,12 @@ export function DateTime({ createdAt, updatedAt }: DateTimeProps) {
 
     const zonedCreatedAt = new TZDate(createdAt, userTimezone)
     const zonedUpdatedAt = updatedAt && new TZDate(updatedAt, userTimezone)
-    const zonedTodayDate = new TZDate(new Date(), userTimezone)
+
+    const formattedCreatedAt = formatRelativeDate(createdAt)
 
     return (
         <p className="text-foreground/50 hidden sm:block">
-            {formatRelative(zonedCreatedAt, zonedTodayDate, {
-                locale: ptBR,
-            })}{' '}
+            {formattedCreatedAt}{' '}
             {zonedUpdatedAt?.getTime() !== zonedCreatedAt.getTime() &&
                 '(editado)'}
         </p>
