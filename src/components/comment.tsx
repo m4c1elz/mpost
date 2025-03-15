@@ -11,7 +11,7 @@ import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
 import { useQuery } from '@tanstack/react-query'
 
-interface CommentProps extends Omit<CommentType, 'userId'> {
+export interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign'>
     children: {
         id: number
@@ -47,21 +47,15 @@ export function Comment({
         setFormOpen,
         repliesHidden,
         setRepliesHidden,
-    } = useComment({ initialHasReplies: children.length > 0 })
-
-    const {
-        data: replies,
-        isLoading: isLoadingReplies,
-        refetch: fetchReplies,
-        isFetched,
-    } = useQuery({
-        enabled: false,
-        queryKey: ['comment-replies', { commentId: id, parentId }],
-        queryFn: () => getReplies(id),
+        repliesQuery,
+    } = useComment({
+        initialHasReplies: children.length > 0,
+        commentId: id,
+        parentId,
     })
 
     async function handleFetchReplies() {
-        if (!isFetched) await fetchReplies()
+        if (!repliesQuery.isFetched) await repliesQuery.refetch()
         setRepliesHidden(false)
     }
 
@@ -93,7 +87,7 @@ export function Comment({
                         postId={postId}
                         parentId={id}
                         onSuccess={() => {
-                            fetchReplies()
+                            repliesQuery.refetch()
                             if (!hasReplies) setHasReplies(true)
                             setFormOpen(false)
                             setRepliesHidden(false)
@@ -103,21 +97,21 @@ export function Comment({
             </Post.Root>
             {hasReplies && repliesHidden && (
                 <Button onClick={handleFetchReplies} variant="outline">
-                    {isLoadingReplies ? (
+                    {repliesQuery.isLoading ? (
                         <Loader2 className="animate-spin" />
                     ) : (
                         'Mostrar respostas'
                     )}
                 </Button>
             )}
-            {!repliesHidden && replies && (
+            {!repliesHidden && repliesQuery.data && (
                 <div className="flex gap-4 mt-4">
                     <button
                         className="transition-all cursor-pointer w-1 rounded bg-foreground/20 h-auto hover:w-2"
                         onClick={() => setRepliesHidden(true)}
                     />
                     <div className="space-y-4 flex-1">
-                        {replies.map(reply => (
+                        {repliesQuery.data.map(reply => (
                             <Comment key={reply.id} {...reply} />
                         ))}
                     </div>

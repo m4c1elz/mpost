@@ -40,7 +40,6 @@ export async function addComment(
     })
 
     // create notification only if the user isn't replying himself
-
     const isPostFromCurrentUser =
         createdComment.post.userId === session?.user.id!
 
@@ -58,7 +57,9 @@ export async function addComment(
                 targetUserId: isReplyingComment
                     ? createdComment.parent?.userId!
                     : createdComment.post.userId,
-                redirectTo: `/posts/${createdComment.post.id}/comment/${createdComment.id}`,
+                redirectTo: `/posts/${createdComment.post.id}/comment/${
+                    createdComment.id
+                }/${isReplyingComment && '?showReplies=true'}`,
             },
         })
     }

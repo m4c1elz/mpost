@@ -26,6 +26,12 @@ export async function getComment(commentId: number) {
                     user: true,
                 },
             },
+            parent: {
+                include: {
+                    user: true,
+                    children: true,
+                },
+            },
         },
     })
 
