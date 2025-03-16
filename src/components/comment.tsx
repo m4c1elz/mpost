@@ -9,24 +9,12 @@ import { Button } from './ui/button'
 import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
-import { useQuery } from '@tanstack/react-query'
 
 export interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign'>
     children: {
         id: number
     }[]
-}
-
-async function getReplies(commentId: number) {
-    const response = await fetch(`/api/comments/${commentId}/replies`)
-
-    if (!response.ok) {
-        throw new Error('Error finding comment replies')
-    }
-
-    const result: CommentProps[] = await response.json()
-    return result
 }
 
 export function Comment({
