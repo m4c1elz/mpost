@@ -127,6 +127,10 @@
     }
 }
 
+@utility break-anywhere {
+    overflow-wrap: anywhere;
+}
+
 /* 
     progress bar styles. globally overriding is needed 
     to dynamically change color based on theme 
