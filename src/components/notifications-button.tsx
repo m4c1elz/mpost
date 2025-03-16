@@ -32,6 +32,7 @@ export function NotificationsButton() {
     const { data: notifications, isPending } = useQuery({
         queryKey: ['notifications'],
         queryFn: getNotifications,
+        refetchInterval: 2 * 60 * 1000,
     })
 
     useEffect(() => {
