@@ -13,9 +13,6 @@ export async function addComment(
     const comment = formData.get('content') as string
     const session = await auth()
 
-    // if there's a parentId, then we're replying a comment
-    const isReplyingComment = typeof parentId === 'number'
-
     const createdComment = await prisma.comment.create({
         data: {
             content: comment,
@@ -39,27 +36,40 @@ export async function addComment(
         },
     })
 
-    // create notification only if the user isn't replying himself
+    const isPostComment = createdComment.parent === null
+
     const isPostFromCurrentUser =
         createdComment.post.userId === session?.user.id!
 
     const isParentFromCurrentUser =
         createdComment.parent?.userId === session?.user.id
 
-    if (
-        (isPostFromCurrentUser && isReplyingComment) ||
-        (!isParentFromCurrentUser && !isReplyingComment)
-    ) {
+    const targetUserId = isPostComment
+        ? createdComment.post.userId
+        : createdComment.parent?.userId!
+
+    const baseRedirectUrl = `/posts/${createdComment.post.id}/comment/${createdComment.id}`
+
+    // is commenting on post
+    if (isPostComment && !isPostFromCurrentUser) {
         await prisma.notification.create({
             data: {
-                type: isReplyingComment ? 'RepliedComment' : 'CommentedOnPost',
+                type: 'CommentedOnPost',
+                redirectTo: baseRedirectUrl,
                 userId: session?.user.id!,
-                targetUserId: isReplyingComment
-                    ? createdComment.parent?.userId!
-                    : createdComment.post.userId,
-                redirectTo: `/posts/${createdComment.post.id}/comment/${
-                    createdComment.id
-                }/${isReplyingComment ? '?showReplies=true' : ''}`,
+                targetUserId,
+            },
+        })
+    }
+
+    // is replying a comment
+    if (!isPostComment && !isParentFromCurrentUser) {
+        await prisma.notification.create({
+            data: {
+                type: 'RepliedComment',
+                redirectTo: `${baseRedirectUrl}?showReplies=true`,
+                userId: session?.user.id!,
+                targetUserId,
             },
         })
     }
