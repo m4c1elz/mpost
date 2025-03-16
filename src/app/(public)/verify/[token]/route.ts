@@ -30,7 +30,9 @@ export async function GET(req: Request, { params }: Params) {
                 error: error.message,
                 stack: error.stack,
             })
-            return NextResponse.json({ error: error.message })
+            return NextResponse.redirect(
+                new URL('/verify/failed?token=' + token, req.url)
+            )
         }
     }
 }

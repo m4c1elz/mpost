@@ -126,3 +126,19 @@
         @apply bg-background text-foreground;
     }
 }
+
+@utility break-anywhere {
+    overflow-wrap: anywhere;
+}
+
+/* 
+    progress bar styles. globally overriding is needed 
+    to dynamically change color based on theme 
+*/
+#nprogress .bar {
+    background: hsl(var(--foreground)) !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px hsl(var(--foreground)), 0 0 5px hsl(var(--foreground));
+}

@@ -17,7 +17,7 @@ model Comment {
   updatedAt DateTime? @updatedAt @map("updated_at")
   parent    Comment?  @relation("commentsTocomments", fields: [parentId], references: [id])
   children  Comment[] @relation("commentsTocomments")
-  post      Post      @relation(fields: [postId], references: [id])
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "comments_userId_fkey")
 
   @@map("comments")
@@ -36,17 +36,41 @@ model Post {
 }
 
 model User {
-  id         String    @id(map: "user_pkey") @default(cuid())
-  name       String    @db.VarChar(80)
-  email      String    @unique(map: "user_email_key")
-  password   String
-  image      String?
-  atsign     String    @unique(map: "user_atsign_key") @db.VarChar(12)
-  isVerified Boolean   @default(false) @map("is_verified")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-  comments   Comment[]
-  posts      Post[]
+  id                String         @id(map: "user_pkey") @default(cuid())
+  name              String         @db.VarChar(80)
+  email             String         @unique(map: "user_email_key")
+  password          String
+  image             String?
+  atsign            String         @unique(map: "user_atsign_key") @db.VarChar(12)
+  isVerified        Boolean        @default(false) @map("is_verified")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime?      @updatedAt @map("updated_at")
+  comments          Comment[]
+  posts             Post[]
+  notifications     Notification[] @relation("notificated_user")
+  sentNotifications Notification[] @relation("notification_user")
 
   @@map("users")
+}
+
+model Notification {
+  id           String           @id @default(uuid())
+  type         NotificationType
+  userId       String           @map("user_id")
+  user         User             @relation("notification_user", fields: [userId], references: [id])
+  targetUserId String           @map("target_user_id")
+  targetUser   User             @relation("notificated_user", fields: [targetUserId], references: [id])
+  isRead       Boolean          @default(false) @map("is_read")
+  redirectTo   String           @map("redirect_to")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime?        @updatedAt @map("updated_at")
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  CommentedOnPost
+  RepliedComment
+
+  @@map("notification_type")
 }
