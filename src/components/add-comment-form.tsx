@@ -19,7 +19,7 @@ export function AddCommentForm({
     ref,
     onSuccess,
 }: AddCommentFormProps) {
-    const addComment = (_prevState: any, formData: FormData) => {
+    const addComment = (_prevState: unknown, formData: FormData) => {
         return addCommentFn(postId, _prevState, formData, parentId)
     }
 

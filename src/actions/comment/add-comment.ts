@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 
 export async function addComment(
     postId: number,
-    _prevState: any,
+    _prevState: unknown,
     formData: FormData,
     parentId?: number
 ) {

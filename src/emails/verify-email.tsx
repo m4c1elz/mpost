@@ -6,7 +6,6 @@ import {
     Container,
     Text,
     Body,
-    Heading,
     Font,
     Link,
     Hr,

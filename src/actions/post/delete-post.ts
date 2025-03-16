@@ -3,7 +3,7 @@
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function deletePost(id: number, _prevState: any) {
+export async function deletePost(id: number, _prevState: unknown) {
     const session = await auth()
 
     await prisma.post.delete({

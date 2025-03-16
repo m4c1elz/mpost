@@ -11,7 +11,7 @@ const createPostSchema = z
     .nonempty('Postagem não pode estar vazia.')
     .trim()
 
-export async function createPost(_prevState: any, formData: FormData) {
+export async function createPost(_prevState: unknown, formData: FormData) {
     const session = await auth()
     const user = session!.user!
     const post = formData.get('post')

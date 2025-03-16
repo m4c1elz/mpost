@@ -21,7 +21,7 @@ type LoginResponse = {
 }
 
 export async function login(
-    _prevState: any,
+    _prevState: unknown,
     formData: FormData
 ): Promise<LoginResponse | undefined> {
     const email = formData.get('email')

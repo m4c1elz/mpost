@@ -14,7 +14,7 @@ const editUserSchema = z.object({
         .trim(),
 })
 
-export async function editUser(_prevState: any, formData: FormData) {
+export async function editUser(_prevState: unknown, formData: FormData) {
     const session = await auth()
 
     const name = formData.get('name')

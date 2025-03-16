@@ -1,7 +1,7 @@
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useNavbar } from './navbar/provider'
 import { useRouter } from 'next-nprogress-bar'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { formatRelativeDate } from '@/helpers/format-relative-date'
 import { getQueryClient } from '@/lib/react-query'

@@ -29,7 +29,7 @@ type Response =
     | undefined
 
 export async function register(
-    _prevState: any,
+    _prevState: unknown,
     formData: FormData
 ): Promise<Response> {
     const email = formData.get('email')
