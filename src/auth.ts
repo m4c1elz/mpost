@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
-import { prisma } from './lib/prisma'
 import { compare } from 'bcrypt-ts'
 import { env } from '@/env'
+import { getUserByEmail } from './features/users/services/get-user-by-email'
 
 export const { auth, signOut, signIn, handlers } = NextAuth({
     secret: env.AUTH_SECRET,
@@ -25,11 +25,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     return null
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: {
-                        email: result.data.email,
-                    },
-                })
+                const user = await getUserByEmail(result.data.email)
 
                 if (!user || !user.isVerified) {
                     return null
