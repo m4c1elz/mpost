@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { hash } from 'bcrypt-ts'
 import { z } from 'zod'
 import { sendVerificationEmail } from './send-verification-email'
+import { getUserByEmail } from '@/features/users/services/get-user-by-email'
+import { createUser } from '@/features/users/services/create-user'
+import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 
 const registerSchema = z.object({
     email: z.string().email('E-mail inválido.').trim(),
@@ -48,34 +51,30 @@ export async function register(
 
     const data = parsed.data
 
-    const user = await prisma.user.findUnique({
-        where: {
-            email: data.email,
-        },
-    })
+    const [userWithEmail, userWithAtsign] = await Promise.all([
+        getUserByEmail(data.email),
+        getUserByAtsign(data.atsign),
+    ])
 
-    if (user) {
-        const atsignExists = user.atsign == atsign
-
+    if (userWithEmail) {
         return {
             error: {
                 email: ['E-mail inválido.'],
-                ...(atsignExists && {
-                    atsign: ['Apelido inválido.'],
-                }),
             },
             success: false,
         }
     }
 
-    const newUser = await prisma.user.create({
-        data: {
-            email: data.email,
-            name: data.name,
-            atsign: data.atsign,
-            password: await hash(data.password, 10),
-        },
-    })
+    if (userWithAtsign) {
+        return {
+            error: {
+                atsign: ['Apelido já em uso.'],
+            },
+            success: false,
+        }
+    }
+
+    const newUser = await createUser(data)
 
     return sendVerificationEmail(newUser.id, newUser.email)
 }

@@ -1,8 +1,9 @@
 'use server'
 
 import { auth } from '@/auth'
-import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { createComment } from '../services/create-comment'
+import { createNotification } from '@/features/notifications/services/create-notification'
 
 export async function addComment(
     postId: number,
@@ -10,31 +11,15 @@ export async function addComment(
     formData: FormData,
     parentId?: number
 ) {
-    const comment = formData.get('content') as string
+    const content = formData.get('content') as string
     const session = await auth()
 
-    const createdComment = await prisma.comment.create({
-        data: {
-            content: comment,
-            parentId,
-            userId: session?.user.id as string,
-            postId,
-        },
-        select: {
-            id: true,
-            post: {
-                select: {
-                    id: true,
-                    userId: true,
-                },
-            },
-            parent: {
-                select: {
-                    userId: true,
-                },
-            },
-        },
-    })
+    const createdComment = await createComment(
+        content,
+        postId,
+        session?.user.id!,
+        parentId
+    )
 
     const isPostComment = createdComment.parent === null
 
@@ -52,25 +37,17 @@ export async function addComment(
 
     // is commenting on post
     if (isPostComment && !isPostFromCurrentUser) {
-        await prisma.notification.create({
-            data: {
-                type: 'CommentedOnPost',
-                redirectTo: baseRedirectUrl,
-                userId: session?.user.id!,
-                targetUserId,
-            },
+        await createNotification(session?.user.id!, targetUserId, {
+            type: 'CommentedOnPost',
+            redirectTo: baseRedirectUrl,
         })
     }
 
     // is replying a comment
     if (!isPostComment && !isParentFromCurrentUser) {
-        await prisma.notification.create({
-            data: {
-                type: 'RepliedComment',
-                redirectTo: `${baseRedirectUrl}?showReplies=true`,
-                userId: session?.user.id!,
-                targetUserId,
-            },
+        await createNotification(session?.user.id!, targetUserId, {
+            type: 'RepliedComment',
+            redirectTo: `${baseRedirectUrl}?showReplies=true`,
         })
     }
 

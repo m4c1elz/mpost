@@ -1,9 +1,9 @@
 'use server'
 
 import { auth } from '@/auth'
-import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
+import { createPost as createPostFromDb } from '../services/create-post'
 
 const createPostSchema = z
     .string()
@@ -24,16 +24,7 @@ export async function createPost(_prevState: unknown, formData: FormData) {
         }
     }
 
-    await prisma.post.create({
-        data: {
-            content: data,
-            user: {
-                connect: {
-                    email: user.email as string,
-                },
-            },
-        },
-    })
+    await createPostFromDb(data, user.email!)
 
     redirect('/')
 }
