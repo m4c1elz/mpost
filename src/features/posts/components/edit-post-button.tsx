@@ -8,15 +8,17 @@ import {
     DialogTitle,
     DialogTrigger,
     DialogFooter,
-} from './ui/dialog'
+} from '@/components/ui/dialog'
 import Form from 'next/form'
-import { Label } from './ui/label'
-import { Textarea } from './ui/textarea'
-import { Button } from './ui/button'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
 import { Edit, Loader2 } from 'lucide-react'
-import { editPost } from '@/actions/post/edit-post'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+
+// action
+import { editPost } from '../actions/edit-post'
 
 interface EditPostButtonProps {
     id: number

@@ -1,9 +1,9 @@
-import { Post } from '@/components/post'
 import { notFound } from 'next/navigation'
-import { Comment } from '@/components/comment'
-import { getComment } from './get-comment'
 import { Button } from '@/components/ui/button'
+import { Post } from '@/features/posts/components/post'
+import { Comment } from '@/features/posts/components/comment'
 import Link from 'next/link'
+import { getCommentById } from '@/features/posts/services/get-comment-by-id'
 
 interface CommentPageProps {
     params: Promise<{ commentId: string }>
@@ -15,7 +15,7 @@ export default async function CommentPage({ params }: CommentPageProps) {
         return notFound()
     }
 
-    const comment = await getComment(Number(commentId))
+    const comment = await getCommentById(Number(commentId))
     if (!comment) return notFound()
 
     if (comment.parent) {

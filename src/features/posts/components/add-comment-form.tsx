@@ -1,6 +1,6 @@
 'use client'
 
-import { addComment as addCommentFn } from '@/actions/comment/add-comment'
+import { addComment as addCommentFn } from '@/features/posts/actions/add-comment'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader2, Plus } from 'lucide-react'

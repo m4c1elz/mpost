@@ -1,6 +1,7 @@
+import 'server-only'
 import { prisma } from '@/lib/prisma'
 
-export async function getComment(commentId: number) {
+export async function getCommentById(commentId: number) {
     const comment = await prisma.comment.findUnique({
         where: { id: commentId },
         include: {

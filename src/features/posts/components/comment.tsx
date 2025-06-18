@@ -5,7 +5,7 @@ import {
     type User as UserType,
 } from '@prisma/client'
 import { Post } from './post'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'

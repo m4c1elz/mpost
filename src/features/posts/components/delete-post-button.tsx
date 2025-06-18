@@ -10,8 +10,8 @@ import {
     DialogDescription,
     DialogFooter,
     DialogClose,
-} from './ui/dialog'
-import { Button } from './ui/button'
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 import { Loader2, Trash } from 'lucide-react'
 
 // hooks
@@ -20,7 +20,7 @@ import { useToast } from '@/hooks/use-toast'
 import { usePathname, useRouter } from 'next/navigation'
 
 // action
-import { deletePost } from '@/actions/post/delete-post'
+import { deletePost } from '../actions/delete-post'
 
 interface DeletePostButtonProps {
     id: number

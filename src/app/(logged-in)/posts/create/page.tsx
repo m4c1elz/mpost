@@ -5,7 +5,7 @@ import {
     CardDescription,
     CardContent,
 } from '@/components/ui/card'
-import { CreatePostForm } from '../../_components/create-post-form'
+import { CreatePostForm } from '@/features/posts/components/create-post-form'
 
 export default function CreatePost() {
     return (

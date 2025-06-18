@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/prisma'
 import 'server-only'
+import { prisma } from '@/lib/prisma'
 
-export async function getPost(id: number) {
+export async function getPostById(id: number) {
     const post = await prisma.post.findUnique({
         where: {
             id,

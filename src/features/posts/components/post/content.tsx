@@ -1,7 +1,7 @@
 import { Geist } from 'next/font/google'
 import Link from 'next/link'
-import { DeletePostButton } from '../delete-post-button'
-import { EditPostButton } from '../edit-post-button'
+import { DeletePostButton } from '@/features/posts/components/delete-post-button'
+import { EditPostButton } from '@/features/posts/components/edit-post-button'
 
 const geist = Geist({
     subsets: ['latin'],

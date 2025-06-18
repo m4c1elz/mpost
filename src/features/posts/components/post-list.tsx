@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import { Post } from '@/components/post'
+import { Post } from './post'
 
 type PostType = {
     user: {

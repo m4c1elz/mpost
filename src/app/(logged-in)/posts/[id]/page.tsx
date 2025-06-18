@@ -1,10 +1,10 @@
-import { Post } from '@/components/post'
 import { notFound, redirect } from 'next/navigation'
-import { AddCommentForm } from '@/components/add-comment-form'
-import { getPost } from './get-post'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
-import { Comment } from '@/components/comment'
+import { Post } from '@/features/posts/components/post'
+import { AddCommentForm } from '@/features/posts/components/add-comment-form'
+import { Comment } from '@/features/posts/components/comment'
+import { getPostById } from '@/features/posts/services/get-post-by-id'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
@@ -13,7 +13,7 @@ interface PostPageProps {
 export async function generateMetadata({
     params,
 }: PostPageProps): Promise<Metadata> {
-    const post = await getPost(Number((await params).id))
+    const post = await getPostById(Number((await params).id))
 
     if (!post) return {}
 
@@ -30,7 +30,7 @@ export default async function PostPage({ params }: PostPageProps) {
         return redirect('/')
     }
 
-    const post = await getPost(Number(id))
+    const post = await getPostById(Number(id))
 
     if (!post) {
         return notFound()
