@@ -3,7 +3,7 @@
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import { render } from '@react-email/components'
-import VerifyEmail from '@/emails/verify-email'
+import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
 
 export async function sendVerificationEmail(userId: string, sendTo: string) {
