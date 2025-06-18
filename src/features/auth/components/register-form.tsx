@@ -8,14 +8,14 @@ import { Loader2 } from 'lucide-react'
 import Form from 'next/form'
 
 // actions
-import { register } from '@/actions/auth/register'
+import { register } from '../actions/register'
 
 // hooks
 import { useActionState, useEffect } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { ResendEmailButton } from '@/components/resend-email-button'
 
-export default function RegisterForm() {
+export function RegisterForm() {
     const [state, action, isPending] = useActionState(register, undefined)
     const { toast } = useToast()
 

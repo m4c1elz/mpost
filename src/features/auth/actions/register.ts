@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcrypt-ts'
 import { z } from 'zod'
-import { sendVerificationEmail } from '../email/send-verification-email'
+import { sendVerificationEmail } from './send-verification-email'
 
 const registerSchema = z.object({
     email: z.string().email('E-mail inválido.').trim(),

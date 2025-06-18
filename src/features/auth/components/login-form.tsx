@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { useActionState } from 'react'
 
 // actions
-import { login } from '@/actions/auth/login'
+import { login } from '../actions/login'
 import { Loader2 } from 'lucide-react'
 
 export function LoginForm() {
