@@ -2,19 +2,19 @@
 
 import { Button } from '@/components/ui/button'
 import { sendVerificationEmail } from '../actions/send-verification-email'
-import { useActionState, useEffect } from 'react'
+import { useActionState, useEffect, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
-interface ResendButtonProps {
-    id: string
+interface SendEmailButtonProps {
     email: string
 }
 
-export function ResendEmailButton({ id, email }: ResendButtonProps) {
+export function SendEmailButton({ email }: SendEmailButtonProps) {
     const [state, action, isLoading] = useActionState(
-        () => sendVerificationEmail(id, email),
+        () => sendVerificationEmail(email),
         undefined
     )
+    const [sendTimeout, setSendTimeout] = useState(0)
     const { toast } = useToast()
 
     useEffect(() => {
@@ -31,13 +31,34 @@ export function ResendEmailButton({ id, email }: ResendButtonProps) {
                 variant: 'destructive',
             })
         }
+
+        if (state) setSendTimeout(5)
     }, [state])
+
+    async function handleTimeout() {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        if (sendTimeout > 0) {
+            setSendTimeout(prev => prev - 1)
+        }
+    }
+
+    useEffect(() => {
+        handleTimeout()
+    }, [sendTimeout, handleTimeout])
 
     return (
         <div className="text-center">
             <form action={action}>
-                <Button type="submit" variant="secondary" disabled={isLoading}>
-                    {isLoading ? 'Enviando...' : 'Reenviar E-mail'}
+                <Button
+                    type="submit"
+                    variant="secondary"
+                    disabled={isLoading || sendTimeout > 0}
+                >
+                    {isLoading
+                        ? 'Enviando...'
+                        : `Enviar E-mail ${
+                              sendTimeout > 0 ? `(${sendTimeout})` : ''
+                          }`}
                 </Button>
             </form>
         </div>

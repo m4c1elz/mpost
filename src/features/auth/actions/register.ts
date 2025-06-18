@@ -1,12 +1,10 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
-import { hash } from 'bcrypt-ts'
 import { z } from 'zod'
-import { sendVerificationEmail } from './send-verification-email'
 import { getUserByEmail } from '@/features/users/services/get-user-by-email'
 import { createUser } from '@/features/users/services/create-user'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
+import { redirect } from 'next/navigation'
 
 const registerSchema = z.object({
     email: z.string().email('E-mail inválido.').trim(),
@@ -26,8 +24,6 @@ type Response =
     | {
           success: boolean
           error: z.inferFlattenedErrors<typeof registerSchema>['fieldErrors']
-          email?: string
-          id?: string
       }
     | undefined
 
@@ -74,7 +70,7 @@ export async function register(
         }
     }
 
-    const newUser = await createUser(data)
+    const { email: createdUserEmail } = await createUser(data)
 
-    return sendVerificationEmail(newUser.id, newUser.email)
+    redirect(`/verify?email=${createdUserEmail}`)
 }

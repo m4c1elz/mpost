@@ -11,22 +11,10 @@ import Form from 'next/form'
 import { register } from '../actions/register'
 
 // hooks
-import { useActionState, useEffect } from 'react'
-import { useToast } from '@/hooks/use-toast'
-import { ResendEmailButton } from '@/features/auth/components/resend-email-button'
+import { useActionState } from 'react'
 
 export function RegisterForm() {
     const [state, action, isPending] = useActionState(register, undefined)
-    const { toast } = useToast()
-
-    useEffect(() => {
-        if (state && state.success === true) {
-            toast({
-                title: 'E-mail de confirmação enviado',
-                description: 'Verifique sua caixa de entrada.',
-            })
-        }
-    }, [state])
 
     return (
         <div className="space-y-2">
@@ -89,9 +77,6 @@ export function RegisterForm() {
                     )}
                 </Button>
             </Form>
-            {state && state.success && (
-                <ResendEmailButton id={state.id!} email={state.email!} />
-            )}
         </div>
     )
 }

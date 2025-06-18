@@ -8,7 +8,7 @@ interface Params {
 }
 
 type EmailPayload = {
-    id: string
+    email: string
 }
 
 export async function GET(req: Request, { params }: Params) {
@@ -20,7 +20,7 @@ export async function GET(req: Request, { params }: Params) {
             data: {
                 isVerified: true,
             },
-            where: { id: payload.id, isVerified: false },
+            where: { email: payload.email, isVerified: false },
         })
 
         return NextResponse.redirect(new URL('/verify/success', req.url))

@@ -9,7 +9,7 @@ const PRIVATE = [
     '/api/comments',
     '/api/notifications',
 ]
-const PUBLIC = ['/login', '/signin']
+const PUBLIC = ['/login', '/signin', '/verify']
 
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl
