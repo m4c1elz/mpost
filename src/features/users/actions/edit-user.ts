@@ -1,9 +1,9 @@
 'use server'
 
 import { auth } from '@/auth'
-import { prisma } from '@/lib/prisma'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { z } from 'zod'
+import { editUser as editUserFromDb } from '../services/edit-user'
 
 const editUserSchema = z.object({
     name: z.string().min(3, 'Nome deve conter no mínimo 3 caracteres.').trim(),
@@ -30,16 +30,7 @@ export async function editUser(_prevState: unknown, formData: FormData) {
     }
 
     try {
-        const result = await prisma.user.update({
-            where: {
-                id: session?.user.id,
-            },
-            data,
-            select: {
-                name: true,
-                atsign: true,
-            },
-        })
+        const result = await editUserFromDb(session?.user.id!, data)
 
         return {
             success: true,
