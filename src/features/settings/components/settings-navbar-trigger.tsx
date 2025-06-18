@@ -1,7 +1,7 @@
 'use client'
 
 import { EllipsisVertical } from 'lucide-react'
-import { useSettingsNavbar } from './provider'
+import { useSettingsNavbar } from './settings-navbar-provider'
 
 export function SettingsNavbarTrigger() {
     const { open, setOpen } = useSettingsNavbar()

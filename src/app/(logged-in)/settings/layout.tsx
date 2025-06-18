@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/toaster'
-import { SettingsNavbar } from './_components/settings-navbar'
-import { SettingsNavbarProvider } from './_components/settings-navbar/provider'
-import { SettingsNavbarTrigger } from './_components/settings-navbar/trigger'
+import { SettingsNavbar } from '@/features/settings/components/settings-navbar'
+import { SettingsNavbarProvider } from '@/features/settings/components/settings-navbar-provider'
+import { SettingsNavbarTrigger } from '@/features/settings/components/settings-navbar-trigger'
 
 interface SettingsLayoutProps {
     children: React.ReactNode

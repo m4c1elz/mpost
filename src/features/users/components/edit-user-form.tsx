@@ -1,6 +1,6 @@
 'use client'
 
-import { editUser } from '@/actions/user/edit-user'
+import { editUser } from '../actions/edit-user'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'

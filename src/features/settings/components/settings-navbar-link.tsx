@@ -1,7 +1,7 @@
 'use client'
 
 import Link, { LinkProps } from 'next/link'
-import { useSettingsNavbar } from './provider'
+import { useSettingsNavbar } from './settings-navbar-provider'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 

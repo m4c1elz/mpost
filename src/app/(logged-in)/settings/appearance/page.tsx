@@ -5,7 +5,7 @@ import {
     CardDescription,
     CardContent,
 } from '@/components/ui/card'
-import { ThemeButtons } from './theme-buttons'
+import { ThemeButtons } from '@/features/settings/components/theme-buttons'
 
 export default function AppearanceSettings() {
     return (

@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
-import { SettingsNavbarLink } from './link'
-import { useSettingsNavbar } from './provider'
+import { SettingsNavbarLink } from './settings-navbar-link'
+import { useSettingsNavbar } from './settings-navbar-provider'
 import { cn } from '@/lib/utils'
 
 export function SettingsNavbar() {

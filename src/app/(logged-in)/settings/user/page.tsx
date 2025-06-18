@@ -6,7 +6,7 @@ import {
     CardDescription,
     CardTitle,
 } from '@/components/ui/card'
-import { EditUserForm } from './edit-user-form'
+import { EditUserForm } from '@/features/users/components/edit-user-form'
 
 export default async function UserSettings() {
     const session = await auth()
