@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 
 // other
 import { cn } from '@/lib/utils'
-import { NotificationsButton } from '../notifications-button'
+import { NotificationsButton } from '../../features/notifications/components/notifications-button'
 import { useNavbar } from './provider'
 import { UserDropdown } from './user-dropdown'
 
