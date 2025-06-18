@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/card'
 import jwt from 'jsonwebtoken'
 import { prisma } from '@/lib/prisma'
-import { ResendEmailButton } from '@/components/resend-email-button'
+import { ResendEmailButton } from '@/features/auth/components/resend-email-button'
 import { Toaster } from '@/components/ui/toaster'
 
 interface SearchParams {

@@ -13,7 +13,7 @@ import { register } from '../actions/register'
 // hooks
 import { useActionState, useEffect } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { ResendEmailButton } from '@/components/resend-email-button'
+import { ResendEmailButton } from '@/features/auth/components/resend-email-button'
 
 export function RegisterForm() {
     const [state, action, isPending] = useActionState(register, undefined)

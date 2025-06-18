@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
+import { sendVerificationEmail } from '../actions/send-verification-email'
 import { useActionState, useEffect } from 'react'
 import { useToast } from '@/hooks/use-toast'
 

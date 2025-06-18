@@ -1,7 +1,7 @@
 import { getInitials } from '@/helpers/get-initials'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Loader2, ChevronDown } from 'lucide-react'
-import { LogoutButton } from '../logout-button'
+import { LogoutButton } from '@/features/auth/components/logout-button'
 import { ThemeSwitch } from '../theme-switch'
 import Link from 'next/link'
 import {
