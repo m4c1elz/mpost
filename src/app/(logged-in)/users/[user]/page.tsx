@@ -1,11 +1,11 @@
-import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getInitials } from '@/helpers/get-initials'
 import { CalendarDays, Mail } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
-import { PostList } from '../../_components/post-list'
+import { PostList } from '@/features/posts/components/post-list'
+import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 
 type UserProps = {
     params: Promise<{ user: string }>
@@ -14,32 +14,7 @@ type UserProps = {
 export default async function User({ params }: UserProps) {
     const { user: atsign } = await params
 
-    const user = await prisma.user.findUnique({
-        where: {
-            atsign,
-        },
-        select: {
-            name: true,
-            atsign: true,
-            image: true,
-            email: true,
-            createdAt: true,
-            posts: {
-                select: {
-                    id: true,
-                    content: true,
-                    createdAt: true,
-                    updatedAt: true,
-                    user: {
-                        select: {
-                            atsign: true,
-                            name: true,
-                        },
-                    },
-                },
-            },
-        },
-    })
+    const user = await getUserByAtsign(atsign)
 
     if (!user) {
         return notFound()
