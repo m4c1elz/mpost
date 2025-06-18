@@ -1,8 +1,8 @@
 'use server'
 
 import { auth } from '@/auth'
-import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
+import { updatePost } from '../services/update-post'
 
 const editPostSchema = z
     .string()
@@ -27,15 +27,7 @@ export async function editPost(
         }
     }
 
-    await prisma.post.update({
-        data: {
-            content: data,
-        },
-        where: {
-            id,
-            userId: session?.user.id,
-        },
-    })
+    await updatePost(id, data, session?.user.id!)
 
     return { success: true, error: '' }
 }

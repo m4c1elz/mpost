@@ -1,17 +1,12 @@
 'use server'
 
 import { auth } from '@/auth'
-import { prisma } from '@/lib/prisma'
+import { deletePost as deletePostFromDb } from '../services/delete-post'
 
 export async function deletePost(id: number, _prevState: unknown) {
     const session = await auth()
 
-    await prisma.post.delete({
-        where: {
-            id,
-            userId: session?.user.id,
-        },
-    })
+    await deletePostFromDb(id, session?.user.id!)
 
     return { success: true, error: '' }
 }
