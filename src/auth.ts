@@ -27,8 +27,12 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
 
                 const user = await getUserByEmail(result.data.email)
 
-                if (!user || !user.isVerified) {
+                if (!user) {
                     return null
+                }
+
+                if (!user.isVerified) {
+                    throw new Error('EMAIL_NOT_VERIFIED')
                 }
 
                 const isPassCorrect = await compare(

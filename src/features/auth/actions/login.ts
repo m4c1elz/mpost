@@ -3,6 +3,7 @@
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 const loginSchema = z.object({
@@ -43,6 +44,10 @@ export async function login(
         }
 
         if (error instanceof AuthError) {
+            if (error.cause?.err?.message === 'EMAIL_NOT_VERIFIED') {
+                redirect(`/verify?email=${data.email}`)
+            }
+
             if ((error.type = 'CredentialsSignin')) {
                 return {
                     errors: {

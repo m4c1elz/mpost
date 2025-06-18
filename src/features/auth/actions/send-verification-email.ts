@@ -6,8 +6,8 @@ import { render } from '@react-email/components'
 import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
 
-export async function sendVerificationEmail(userId: string, sendTo: string) {
-    const redirectJwt = jwt.sign({ id: userId }, env.EMAIL_JWT_SECRET, {
+export async function sendVerificationEmail(sendTo: string) {
+    const redirectJwt = jwt.sign({ email: sendTo }, env.EMAIL_JWT_SECRET, {
         expiresIn: '24h',
     })
 
@@ -42,5 +42,5 @@ export async function sendVerificationEmail(userId: string, sendTo: string) {
         }
     }
 
-    return { success: true, error: {}, id: userId, email: sendTo }
+    return { success: true, error: {}, email: sendTo }
 }

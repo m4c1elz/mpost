@@ -6,8 +6,7 @@ import {
     CardContent,
 } from '@/components/ui/card'
 import jwt from 'jsonwebtoken'
-import { prisma } from '@/lib/prisma'
-import { ResendEmailButton } from '@/features/auth/components/resend-email-button'
+import { SendEmailButton } from '@/features/auth/components/send-email-button'
 import { Toaster } from '@/components/ui/toaster'
 
 interface SearchParams {
@@ -21,12 +20,7 @@ export default async function VerificationFailed({
 }) {
     const { token } = await searchParams
 
-    const { id } = jwt.decode(token) as { id: string }
-
-    const { email } = await prisma.user.findUniqueOrThrow({
-        where: { id },
-        select: { email: true },
-    })
+    const { email } = jwt.decode(token) as { email: string }
 
     return (
         <>
@@ -42,7 +36,7 @@ export default async function VerificationFailed({
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <ResendEmailButton {...{ id, email }} />
+                        <SendEmailButton email={email} />
                     </CardContent>
                 </Card>
             </div>
