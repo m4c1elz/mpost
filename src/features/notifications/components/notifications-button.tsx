@@ -1,30 +1,15 @@
 import { Bell, Loader2 } from 'lucide-react'
-import { Button } from './ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import { Button } from '@/components/ui/button'
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from '@/components/ui/popover'
 import { Notification } from './notification'
 import { useQuery } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-
-type NotificationList = {
-    id: string
-    user: string
-    message: string
-    href: string
-    createdAt: string
-    isRead: boolean
-}[]
-
-async function getNotifications() {
-    const response = await fetch('/api/notifications')
-
-    if (!response.ok) {
-        throw new Error('Error finding notifications')
-    }
-
-    const result: NotificationList = await response.json()
-    return result
-}
+import { getNotifications } from '../services/get-notifications'
 
 export function NotificationsButton() {
     const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)

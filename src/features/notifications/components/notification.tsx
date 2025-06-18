@@ -1,17 +1,12 @@
 import { PopoverClose } from '@radix-ui/react-popover'
-import { useNavbar } from './navbar/provider'
+import { useNavbar } from '@/components/navbar/provider'
 import { useRouter } from 'next-nprogress-bar'
 import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { formatRelativeDate } from '@/helpers/format-relative-date'
 import { getQueryClient } from '@/lib/react-query'
 import { sleep } from '@/helpers/sleep'
-
-async function markNotificationAsRead(id: string) {
-    await fetch(`/api/notifications/${id}/read`, {
-        method: 'PATCH',
-    })
-}
+import { markNotificationAsRead } from '../services/mark-notification-as-read'
 
 interface NotificationProps {
     id: string
