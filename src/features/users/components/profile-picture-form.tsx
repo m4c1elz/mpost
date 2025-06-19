@@ -9,6 +9,7 @@ import { uploadProfilePicture } from '../services/upload-profile-picture'
 import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
 import { Loader2 } from 'lucide-react'
+import { uploadProfilePictureSchema } from '../schemas/upload-profile-picture-schema'
 
 type ProfilePictureFormProps = {
     imageUrl?: string | null
@@ -45,7 +46,19 @@ export function ProfilePictureForm({
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
         if (!image) return
-        await mutateAsync(image)
+
+        const { data: validatedImage, error } =
+            uploadProfilePictureSchema.safeParse(image)
+
+        if (error) {
+            toast({
+                title: 'Erro ao atualizar imagem!',
+                description: error.flatten().formErrors,
+            })
+            return
+        }
+
+        await mutateAsync(validatedImage)
     }
 
     return (
