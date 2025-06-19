@@ -1,16 +1,17 @@
-export async function getUploadPresignedUrl(data: {
-    name: string
-    type: string
-}) {
+export async function getUploadPresignedUrl(data: File) {
+    const formData = new FormData()
+
+    formData.set('image', data)
+
     const res = await fetch('/api/user/profile/update-image', {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        body: formData,
     })
 
-    if (!res.ok) throw new Error()
+    if (!res.ok) {
+        const { error } = (await res.json()) as { error: string }
+        throw new Error(error)
+    }
 
     const { url } = (await res.json()) as { url: string }
     return url

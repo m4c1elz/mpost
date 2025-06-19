@@ -35,10 +35,7 @@ export function ProfilePictureForm({
 
     const { mutateAsync } = useMutation({
         mutationFn: async (image: File) => {
-            const url = await getUploadPresignedUrl({
-                name: image.name,
-                type: image.type,
-            })
+            const url = await getUploadPresignedUrl(image)
             await postImageToBucket(url, image)
         },
         onSuccess: async () => {

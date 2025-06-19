@@ -6,23 +6,42 @@ import { randomUUID } from 'node:crypto'
 import { env } from '@/env'
 import { auth } from '@/auth'
 
+const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp']
+const MAX_FILE_SIZE = 500 * 1024
+
 export async function POST(req: Request) {
     const session = await auth()
     if (!session) {
-        return Response.json({ error: 'Dados inválidos.' })
+        return Response.json({ error: 'Dados inválidos.' }, { status: 400 })
     }
 
-    const { name, type } = (await req.json()) as { name: string; type: string }
+    const image = (await req.formData()).get('image')
 
-    if (!name && !type) {
-        return Response.json({ error: 'Dados inválidos.' })
+    if (!image || !(image instanceof File)) {
+        return Response.json({ error: 'Dados inválidos.' }, { status: 400 })
     }
 
-    const imageKey = randomUUID().concat('-').concat(name)
+    if (!ALLOWED_IMAGE_TYPES.includes(image.type)) {
+        return Response.json(
+            {
+                error: 'Tipo de arquivo inválido. Envie uma imagem.',
+            },
+            { status: 400 }
+        )
+    }
+
+    if (image.size > MAX_FILE_SIZE) {
+        return Response.json(
+            { error: 'Envie uma imagem menor.' },
+            { status: 400 }
+        )
+    }
+
+    const imageKey = randomUUID().concat('-').concat(image.name)
 
     const command = new PutObjectCommand({
         Bucket: env.CLOUDFLARE_BUCKET_NAME,
-        ContentType: type,
+        ContentType: image.type,
         Key: imageKey,
     })
 
