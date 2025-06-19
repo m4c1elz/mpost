@@ -34,7 +34,7 @@ export default async function UserSettings() {
                 <CardHeader>
                     <CardTitle>Foto de perfil</CardTitle>
                     <CardDescription>
-                        Altere sua foto de perfil.
+                        Altere sua foto de perfil. (Tamanho máx. de 500KB)
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
