@@ -6,9 +6,11 @@ import {
 } from '@prisma/client'
 import { Post } from './post'
 import { Button } from '@/components/ui/button'
-import { Loader2, MessageSquareText } from 'lucide-react'
+import { Loader2, MessageSquareText, Trash } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
+import { useSession } from 'next-auth/react'
+import { DeleteCommentButton } from './delete-comment-button'
 
 export interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign'>
@@ -27,6 +29,9 @@ export function Comment({
     createdAt,
     updatedAt,
 }: CommentProps) {
+    const { data } = useSession()
+    const isCommentFromCurrentUser = user.atsign === data?.user.atsign
+
     const {
         hasReplies,
         setHasReplies,
@@ -67,14 +72,15 @@ export function Comment({
                 <Post.Content id={id} asLink={false}>
                     {content}
                 </Post.Content>
-                <div className="flex gap-2 items-center text-foreground/50">
+                <div className="flex justify-between items-center">
                     <Button
                         onClick={() => setFormOpen(!formOpen)}
                         size="icon"
                         variant="ghost"
                     >
-                        <MessageSquareText />
+                        <MessageSquareText className="text-foreground/50" />
                     </Button>
+                    <DeleteCommentButton />
                 </div>
                 {formOpen && (
                     <AddCommentForm
