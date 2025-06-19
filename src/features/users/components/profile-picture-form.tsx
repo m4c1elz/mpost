@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
 import { Loader2 } from 'lucide-react'
 import { uploadProfilePictureSchema } from '../schemas/upload-profile-picture-schema'
+import { RemoveImageButton } from './remove-image-button'
 
 type ProfilePictureFormProps = {
     imageUrl?: string | null
@@ -78,15 +79,18 @@ export function ProfilePictureForm({
                     }
                 }}
             />
-            <Button type="submit" className="w-min" disabled={isPending}>
-                {isPending ? (
-                    <>
-                        <Loader2 className="animate-spin" /> Enviando...
-                    </>
-                ) : (
-                    'Enviar'
-                )}
-            </Button>
+            <div className="flex gap-2 items-center">
+                <Button type="submit" className="w-min" disabled={isPending}>
+                    {isPending ? (
+                        <>
+                            <Loader2 className="animate-spin" /> Enviando...
+                        </>
+                    ) : (
+                        'Enviar'
+                    )}
+                </Button>
+                <RemoveImageButton />
+            </div>
         </form>
     )
 }
