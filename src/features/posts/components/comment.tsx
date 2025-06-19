@@ -80,7 +80,9 @@ export function Comment({
                     >
                         <MessageSquareText className="text-foreground/50" />
                     </Button>
-                    <DeleteCommentButton />
+                    {isCommentFromCurrentUser && (
+                        <DeleteCommentButton id={id} />
+                    )}
                 </div>
                 {formOpen && (
                     <AddCommentForm
