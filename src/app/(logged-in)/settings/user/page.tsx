@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/card'
 import { EditUserForm } from '@/features/users/components/edit-user-form'
 import { ProfilePictureForm } from '@/features/users/components/profile-picture-form'
-import { getInitials } from '@/helpers/get-initials'
 
 export default async function UserSettings() {
     const session = await auth()
@@ -38,12 +37,7 @@ export default async function UserSettings() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <ProfilePictureForm
-                        imageUrl={session?.user.image}
-                        userInitialsFallback={getInitials(
-                            session?.user.name ?? ''
-                        )}
-                    />
+                    <ProfilePictureForm />
                 </CardContent>
             </Card>
         </div>

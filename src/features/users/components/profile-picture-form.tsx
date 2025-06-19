@@ -11,19 +11,12 @@ import { useSession } from 'next-auth/react'
 import { Loader2 } from 'lucide-react'
 import { uploadProfilePictureSchema } from '../schemas/upload-profile-picture-schema'
 import { RemoveImageButton } from './remove-image-button'
+import { getInitials } from '@/helpers/get-initials'
 
-type ProfilePictureFormProps = {
-    imageUrl?: string | null
-    userInitialsFallback: string
-}
-
-export function ProfilePictureForm({
-    imageUrl,
-    userInitialsFallback,
-}: ProfilePictureFormProps) {
+export function ProfilePictureForm() {
     const [image, setImage] = useState<File | null>(null)
     const { toast } = useToast()
-    const { update } = useSession()
+    const { update, data: session, status: sessionStatus } = useSession()
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: uploadProfilePicture,
@@ -65,9 +58,16 @@ export function ProfilePictureForm({
     return (
         <form className="space-y-2" onSubmit={handleSubmit}>
             <Avatar className="m-auto my-2 size-32">
-                <AvatarImage src={imageUrl ?? ''} alt="Foto de perfil" />
+                <AvatarImage
+                    src={session?.user.image ?? ''}
+                    alt="Foto de perfil"
+                />
                 <AvatarFallback className="text-2xl">
-                    {userInitialsFallback}
+                    {sessionStatus === 'loading' ? (
+                        <Loader2 className="animate-spin" />
+                    ) : (
+                        getInitials(session?.user.name ?? '')
+                    )}
                 </AvatarFallback>
             </Avatar>
             <Input

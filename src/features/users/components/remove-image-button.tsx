@@ -5,6 +5,7 @@ import { useActionState, useEffect, useTransition } from 'react'
 import { removeProfilePicture } from '../actions/remove-profile-picture'
 import { Loader2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { useSession } from 'next-auth/react'
 
 export function RemoveImageButton() {
     const [state, action, isPending] = useActionState(
@@ -14,6 +15,7 @@ export function RemoveImageButton() {
 
     const [_, startTransition] = useTransition()
     const { toast } = useToast()
+    const { update } = useSession()
 
     useEffect(() => {
         if (!state) return
@@ -29,6 +31,7 @@ export function RemoveImageButton() {
                 title: 'Erro ao remover imagem.',
                 description: state.error,
             })
+            update({ dummyData: true })
         }
     }, [state])
 
