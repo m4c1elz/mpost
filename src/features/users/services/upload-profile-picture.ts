@@ -1,4 +1,4 @@
-export async function getUploadPresignedUrl(data: File) {
+export async function uploadProfilePicture(data: File) {
     const formData = new FormData()
 
     formData.set('image', data)

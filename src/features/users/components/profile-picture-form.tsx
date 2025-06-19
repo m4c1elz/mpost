@@ -5,24 +5,14 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FormEvent, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { getUploadPresignedUrl } from '../services/get-upload-presigned-url'
+import { uploadProfilePicture } from '../services/upload-profile-picture'
 import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
+import { Loader2 } from 'lucide-react'
 
 type ProfilePictureFormProps = {
     imageUrl?: string | null
     userInitialsFallback: string
-}
-
-async function postImageToBucket(url: string, image: File) {
-    const response = await fetch(url, {
-        method: 'PUT',
-        body: image,
-    })
-
-    if (!response.ok) {
-        throw new Error('Erro ao enviar imagem.')
-    }
 }
 
 export function ProfilePictureForm({
@@ -33,11 +23,8 @@ export function ProfilePictureForm({
     const { toast } = useToast()
     const { update } = useSession()
 
-    const { mutateAsync } = useMutation({
-        mutationFn: async (image: File) => {
-            const url = await getUploadPresignedUrl(image)
-            await postImageToBucket(url, image)
-        },
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: uploadProfilePicture,
         onSuccess: async () => {
             toast({
                 title: 'Imagem atualizada com sucesso.',
@@ -78,8 +65,14 @@ export function ProfilePictureForm({
                     }
                 }}
             />
-            <Button type="submit" className="w-min">
-                Enviar
+            <Button type="submit" className="w-min" disabled={isPending}>
+                {isPending ? (
+                    <>
+                        <Loader2 className="animate-spin" /> Enviando...
+                    </>
+                ) : (
+                    'Enviar'
+                )}
             </Button>
         </form>
     )
