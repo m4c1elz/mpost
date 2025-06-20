@@ -1,17 +1,20 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { sendVerificationEmail } from '../actions/send-verification-email'
 import { useActionState, useEffect, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
 interface SendEmailButtonProps {
-    email: string
+    sendEmailAction: () => Promise<any>
+    timeoutAfterDispatch?: number
 }
 
-export function SendEmailButton({ email }: SendEmailButtonProps) {
+export function SendEmailButton({
+    sendEmailAction,
+    timeoutAfterDispatch = 5,
+}: SendEmailButtonProps) {
     const [state, action, isLoading] = useActionState(
-        () => sendVerificationEmail(email),
+        sendEmailAction,
         undefined
     )
     const [sendTimeout, setSendTimeout] = useState(0)
@@ -32,7 +35,7 @@ export function SendEmailButton({ email }: SendEmailButtonProps) {
             })
         }
 
-        if (state) setSendTimeout(5)
+        if (state) setSendTimeout(timeoutAfterDispatch)
     }, [state])
 
     async function handleTimeout() {

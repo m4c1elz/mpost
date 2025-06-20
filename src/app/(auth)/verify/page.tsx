@@ -5,6 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
+import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
 import { SendEmailButton } from '@/features/auth/components/send-email-button'
 
 type VerifyUserPageProps = {
@@ -17,6 +18,7 @@ export default async function VerifyUserPage({
     searchParams,
 }: VerifyUserPageProps) {
     const { email } = await searchParams
+    const sendEmailAction = sendVerificationEmail.bind(null, email)
 
     return (
         <Card>
@@ -29,7 +31,7 @@ export default async function VerifyUserPage({
                 </CardDescription>
             </CardHeader>
             <CardFooter>
-                <SendEmailButton email={email} />
+                <SendEmailButton sendEmailAction={sendEmailAction} />
             </CardFooter>
         </Card>
     )
