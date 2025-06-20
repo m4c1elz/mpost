@@ -25,8 +25,8 @@ export function MobileSettingsNavbarTrigger() {
                 </SheetHeader>
                 <div className="w-full flex flex-col gap-4 px-4">
                     {availableSettings.map(({ href, name }) => (
-                        <SheetClose asChild>
-                            <SettingsNavbarLink key={href} href={href}>
+                        <SheetClose key={href} asChild>
+                            <SettingsNavbarLink href={href}>
                                 {name}
                             </SettingsNavbarLink>
                         </SheetClose>

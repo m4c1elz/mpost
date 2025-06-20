@@ -7,7 +7,7 @@ import { env } from '@/env'
 import { r2 } from '@/lib/cloudflare'
 import { changeUserProfilePicture } from '../services/change-user-profile-picture'
 
-export async function removeProfilePicture(_prevState: any) {
+export async function removeProfilePicture(_prevState: unknown) {
     const session = await auth()
 
     const user = await getUserByEmail(session?.user.email!)
@@ -46,6 +46,7 @@ export async function removeProfilePicture(_prevState: any) {
             error: null,
         }
     } catch (error) {
+        console.log(error)
         return {
             success: false,
             error: 'Erro ao enviar a imagem.',

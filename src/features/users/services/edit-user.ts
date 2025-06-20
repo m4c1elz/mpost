@@ -14,4 +14,6 @@ export async function editUser(
             atsign: true,
         },
     })
+
+    return result
 }
