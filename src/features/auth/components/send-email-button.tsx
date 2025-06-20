@@ -1,10 +1,16 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useActionState, useEffect, useState } from 'react'
+import {
+    useActionState,
+    useEffect,
+    useState,
+    ComponentProps,
+    useTransition,
+} from 'react'
 import { useToast } from '@/hooks/use-toast'
 
-interface SendEmailButtonProps {
+interface SendEmailButtonProps extends ComponentProps<'button'> {
     sendEmailAction: () => Promise<any>
     timeoutAfterDispatch?: number
 }
@@ -12,6 +18,7 @@ interface SendEmailButtonProps {
 export function SendEmailButton({
     sendEmailAction,
     timeoutAfterDispatch = 5,
+    ...props
 }: SendEmailButtonProps) {
     const [state, action, isLoading] = useActionState(
         sendEmailAction,
@@ -19,6 +26,7 @@ export function SendEmailButton({
     )
     const [sendTimeout, setSendTimeout] = useState(0)
     const { toast } = useToast()
+    const [_, startTransition] = useTransition()
 
     useEffect(() => {
         if (state && state.success) {
@@ -50,20 +58,16 @@ export function SendEmailButton({
     }, [sendTimeout, handleTimeout])
 
     return (
-        <div className="text-center">
-            <form action={action}>
-                <Button
-                    type="submit"
-                    variant="secondary"
-                    disabled={isLoading || sendTimeout > 0}
-                >
-                    {isLoading
-                        ? 'Enviando...'
-                        : `Enviar E-mail ${
-                              sendTimeout > 0 ? `(${sendTimeout})` : ''
-                          }`}
-                </Button>
-            </form>
-        </div>
+        <Button
+            type="submit"
+            variant="secondary"
+            disabled={isLoading || sendTimeout > 0}
+            onClick={() => startTransition(action)}
+            {...props}
+        >
+            {isLoading
+                ? 'Enviando...'
+                : `Enviar E-mail ${sendTimeout > 0 ? `(${sendTimeout})` : ''}`}
+        </Button>
     )
 }
