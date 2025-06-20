@@ -12,10 +12,10 @@ import {
 import Link from 'next/link'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
 import { UserDropdown } from './user-dropdown'
-import { useState } from 'react'
+import { useNavbar } from './provider'
 
 export function MobileNavbar() {
-    const [open, setOpen] = useState(false)
+    const { open, setOpen } = useNavbar()
 
     return (
         <nav className="flex justify-between items-center gap-4">

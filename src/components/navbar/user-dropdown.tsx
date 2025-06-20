@@ -40,7 +40,7 @@ export function UserDropdown() {
                             <Loader2 className="animate-spin" />
                         )}
                     </AvatarFallback>
-                    <AvatarImage src={profilePic ?? ''} alt="You!" />
+                    <AvatarImage src={profilePic ?? ''} alt="Você!" />
                 </Avatar>
                 <ChevronDown />
             </DropdownMenuTrigger>
