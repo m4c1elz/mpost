@@ -6,14 +6,15 @@ import {
 } from '@prisma/client'
 import { Post } from './post'
 import { Button } from '@/components/ui/button'
-import { Loader2, MessageSquareText, Trash } from 'lucide-react'
+import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
 import { useComment } from './comment.hooks'
 import { useSession } from 'next-auth/react'
 import { DeleteCommentButton } from './delete-comment-button'
+import { getInitials } from '@/helpers/get-initials'
 
 export interface CommentProps extends Omit<CommentType, 'userId'> {
-    user: Pick<UserType, 'name' | 'atsign'>
+    user: Pick<UserType, 'name' | 'atsign' | 'image'>
     children: {
         id: number
     }[]
@@ -62,7 +63,12 @@ export function Comment({
                     </small>
                 )}
                 <Post.Header>
-                    <Post.UserInfo atsign={user.atsign} username={user.name} />
+                    <Post.UserInfo
+                        atsign={user.atsign}
+                        username={user.name}
+                        imageUrl={user.image}
+                        imageFallback={getInitials(user.name)}
+                    />
 
                     <Post.DateTime
                         createdAt={createdAt}

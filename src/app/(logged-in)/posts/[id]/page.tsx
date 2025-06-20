@@ -5,6 +5,7 @@ import { Post } from '@/features/posts/components/post'
 import { AddCommentForm } from '@/features/posts/components/add-comment-form'
 import { Comment } from '@/features/posts/components/comment'
 import { getPostById } from '@/features/posts/services/get-post-by-id'
+import { getInitials } from '@/helpers/get-initials'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
@@ -46,6 +47,8 @@ export default async function PostPage({ params }: PostPageProps) {
                     <Post.UserInfo
                         atsign={post.user.atsign}
                         username={post.user.name}
+                        imageFallback={getInitials(post.user.name)}
+                        imageUrl={post.user.image}
                     />
                     <Post.DateTime
                         createdAt={post.createdAt}

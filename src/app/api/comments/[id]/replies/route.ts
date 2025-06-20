@@ -21,6 +21,7 @@ export async function GET(_request: Request, { params }: { params: Params }) {
                     id: true,
                     atsign: true,
                     name: true,
+                    image: true,
                 },
             },
             content: true,
