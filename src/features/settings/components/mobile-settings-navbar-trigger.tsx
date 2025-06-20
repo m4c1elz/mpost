@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/sheet'
 import { EllipsisVertical } from 'lucide-react'
 import { SettingsNavbarLink } from './settings-navbar-link'
+import { availableSettings } from '../available-settings'
 
 export function MobileSettingsNavbarTrigger() {
     return (
@@ -23,16 +24,13 @@ export function MobileSettingsNavbarTrigger() {
                     <SheetTitle>Mais opções</SheetTitle>
                 </SheetHeader>
                 <div className="w-full flex flex-col gap-4 px-4">
-                    <SheetClose asChild>
-                        <SettingsNavbarLink href="/settings/user">
-                            <SheetClose>Usuário</SheetClose>
-                        </SettingsNavbarLink>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <SettingsNavbarLink href="/settings/appearance">
-                            Aparência
-                        </SettingsNavbarLink>
-                    </SheetClose>
+                    {availableSettings.map(({ href, name }) => (
+                        <SheetClose asChild>
+                            <SettingsNavbarLink key={href} href={href}>
+                                {name}
+                            </SettingsNavbarLink>
+                        </SheetClose>
+                    ))}
                 </div>
             </SheetContent>
         </Sheet>

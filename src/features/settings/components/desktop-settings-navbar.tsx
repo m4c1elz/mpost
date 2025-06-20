@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { SettingsNavbarLink } from './settings-navbar-link'
+import { availableSettings } from '../available-settings'
 
 export function DesktopSettingsNavbar() {
     return (
@@ -11,12 +12,11 @@ export function DesktopSettingsNavbar() {
                 <X />
             </Button>
 
-            <SettingsNavbarLink href="/settings/user">
-                Usuário
-            </SettingsNavbarLink>
-            <SettingsNavbarLink href="/settings/appearance">
-                Aparência
-            </SettingsNavbarLink>
+            {availableSettings.map(({ href, name }) => (
+                <SettingsNavbarLink key={href} href={href}>
+                    {name}
+                </SettingsNavbarLink>
+            ))}
         </nav>
     )
 }
