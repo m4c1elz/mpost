@@ -1,10 +1,12 @@
 import { auth } from '@/auth'
 import { Post } from './post'
+import { getInitials } from '@/helpers/get-initials'
 
 type PostType = {
     user: {
         name: string
         atsign: string
+        image: string | null
     }
     id: number
     content: string
@@ -32,6 +34,8 @@ export async function PostList({ posts }: PostListProps) {
                     <Post.UserInfo
                         atsign={post.user.atsign}
                         username={post.user.name}
+                        imageUrl={post.user.image}
+                        imageFallback={getInitials(post.user.name)}
                     />
                     <Post.DateTime
                         createdAt={post.createdAt}

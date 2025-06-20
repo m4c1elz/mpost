@@ -26,6 +26,7 @@ export async function getPostById(id: number) {
                             id: true,
                             atsign: true,
                             name: true,
+                            image: true,
                         },
                     },
                     content: true,

@@ -18,6 +18,7 @@ export async function getCommentById(commentId: number) {
                 select: {
                     atsign: true,
                     name: true,
+                    image: true,
                 },
             },
             children: {

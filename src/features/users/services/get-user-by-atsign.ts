@@ -22,6 +22,7 @@ export async function getUserByAtsign(atsign: string) {
                         select: {
                             atsign: true,
                             name: true,
+                            image: true,
                         },
                     },
                 },

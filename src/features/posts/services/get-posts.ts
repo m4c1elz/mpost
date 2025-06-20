@@ -15,6 +15,7 @@ export async function getPosts() {
                 select: {
                     name: true,
                     atsign: true,
+                    image: true,
                 },
             },
         },

@@ -4,6 +4,7 @@ import { Post } from '@/features/posts/components/post'
 import { Comment } from '@/features/posts/components/comment'
 import Link from 'next/link'
 import { getCommentById } from '@/features/posts/services/get-comment-by-id'
+import { getInitials } from '@/helpers/get-initials'
 
 interface CommentPageProps {
     params: Promise<{ commentId: string }>
@@ -27,6 +28,8 @@ export default async function CommentPage({ params }: CommentPageProps) {
                         <Post.UserInfo
                             atsign={comment.post.user.atsign}
                             username={comment.post.user.name}
+                            imageUrl={comment.post.user.image}
+                            imageFallback={getInitials(comment.post.user.name)}
                         />
                         <Post.DateTime
                             createdAt={comment.post.createdAt}
@@ -55,6 +58,8 @@ export default async function CommentPage({ params }: CommentPageProps) {
                     <Post.UserInfo
                         atsign={comment.post.user.atsign}
                         username={comment.post.user.name}
+                        imageUrl={comment.post.user.image}
+                        imageFallback={getInitials(comment.post.user.name)}
                     />
                     <Post.DateTime
                         createdAt={comment.post.createdAt}
