@@ -45,7 +45,7 @@ export async function sendResetPasswordEmail(
     })
 
     const resetPasswordUrl = new URL(
-        `/resetpassword/${resetPasswordJWT}`,
+        `/forgotpassword/${resetPasswordJWT}`,
         env.EMAIL_REDIRECT_URL
     ).toString()
 

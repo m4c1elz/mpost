@@ -3,7 +3,7 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useActionState, useEffect, useState } from 'react'
-import { sendResetPasswordEmail } from '../actions/send-reset-password.email'
+import { sendResetPasswordEmail } from '../actions/send-reset-password-email'
 import { ButtonWithDelay } from './button-with-delay'
 import { useToast } from '@/hooks/use-toast'
 
