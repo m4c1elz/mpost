@@ -28,7 +28,7 @@ export function NotificationsButton() {
     }, [notifications])
 
     return (
-        <Popover>
+        <Popover modal>
             <PopoverTrigger asChild>
                 <Button
                     variant="ghost"
