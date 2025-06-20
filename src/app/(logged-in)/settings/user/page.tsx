@@ -7,6 +7,7 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 import { EditUserForm } from '@/features/users/components/edit-user-form'
+import { ProfilePictureForm } from '@/features/users/components/profile-picture-form'
 
 export default async function UserSettings() {
     const session = await auth()
@@ -26,6 +27,17 @@ export default async function UserSettings() {
                         defaultAtsign={session?.user.atsign ?? ''}
                         defaultName={session?.user.name ?? ''}
                     />
+                </CardContent>
+            </Card>
+            <Card className="w-full md:w-[450px]">
+                <CardHeader>
+                    <CardTitle>Foto de perfil</CardTitle>
+                    <CardDescription>
+                        Altere sua foto de perfil. (Tamanho máx. de 500KB)
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <ProfilePictureForm />
                 </CardContent>
             </Card>
         </div>
