@@ -6,8 +6,26 @@ import { transport } from '@/lib/nodemailer'
 import { render } from '@react-email/components'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import PasswordResetEmail from '../components/password-reset-email'
+import { z } from 'zod'
 
-export async function sendResetPasswordEmail(email: string) {
+const sendResetPasswordEmailSchema = z.string().email()
+
+export async function sendResetPasswordEmail(
+    _prevState: unknown,
+    formData: FormData
+) {
+    const sentEmail = formData.get('email')
+
+    const { error, data: email } =
+        sendResetPasswordEmailSchema.safeParse(sentEmail)
+
+    if (error && !email) {
+        return {
+            success: false,
+            error: 'E-mail inválido enviado.',
+        }
+    }
+
     const user = await getUserByEmail(email)
 
     if (!user) {
