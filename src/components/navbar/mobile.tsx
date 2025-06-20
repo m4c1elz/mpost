@@ -24,7 +24,7 @@ export function MobileNavbar() {
             </Link>
             <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
-                    <Button variant="ghost">
+                    <Button variant="ghost" size="icon">
                         <Menu />
                     </Button>
                 </SheetTrigger>

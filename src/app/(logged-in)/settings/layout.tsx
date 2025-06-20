@@ -1,4 +1,5 @@
 import { Toaster } from '@/components/ui/toaster'
+import { MobileSettingsNavbarTrigger } from '@/features/settings/components/mobile-settings-navbar-trigger'
 import { SettingsNavbar } from '@/features/settings/components/settings-navbar'
 import { SettingsNavbarProvider } from '@/features/settings/components/settings-navbar-provider'
 import { SettingsNavbarTrigger } from '@/features/settings/components/settings-navbar-trigger'
@@ -12,11 +13,15 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         <SettingsNavbarProvider>
             <div className="space-y-6">
                 <div className="flex gap-2 items-center">
-                    <SettingsNavbarTrigger />
+                    <div className="block md:hidden">
+                        <MobileSettingsNavbarTrigger />
+                    </div>
                     <h1 className="text-2xl font-bold">Opções</h1>
                 </div>
                 <div className="flex gap-6">
-                    <SettingsNavbar />
+                    <div className="hidden md:block">
+                        <SettingsNavbar />
+                    </div>
                     <div className="w-full md:w-auto">{children}</div>
                 </div>
                 <Toaster />
