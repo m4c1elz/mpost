@@ -33,13 +33,17 @@ export function ProfilePictureForm() {
             toast({
                 title: 'Erro ao atualizar imagem!',
                 description: err.message,
+                variant: 'destructive',
             })
         },
     })
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
-        if (!image) return
+        if (!image) {
+            toast({ description: 'Imagem não foi alterada.' })
+            return
+        }
 
         const { data: validatedImage, error } =
             uploadProfilePictureSchema.safeParse(image)
@@ -48,6 +52,7 @@ export function ProfilePictureForm() {
             toast({
                 title: 'Erro ao atualizar imagem!',
                 description: error.flatten().formErrors,
+                variant: 'destructive',
             })
             return
         }
@@ -58,10 +63,7 @@ export function ProfilePictureForm() {
     return (
         <form className="space-y-2" onSubmit={handleSubmit}>
             <Avatar className="m-auto my-2 size-32">
-                <AvatarImage
-                    src={session?.user.image ?? ''}
-                    alt="Foto de perfil"
-                />
+                <AvatarImage src={session?.user.image!} alt="Foto de perfil" />
                 <AvatarFallback className="text-2xl">
                     {sessionStatus === 'loading' ? (
                         <Loader2 className="animate-spin" />

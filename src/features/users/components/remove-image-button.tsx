@@ -17,7 +17,7 @@ export function RemoveImageButton() {
     const { toast } = useToast()
     const { update } = useSession()
 
-    useEffect(() => {
+    async function handleStateChange() {
         if (!state) return
 
         if (state.success) {
@@ -30,9 +30,14 @@ export function RemoveImageButton() {
             toast({
                 title: 'Erro ao remover imagem.',
                 description: state.error,
+                variant: 'destructive',
             })
-            update({ dummyData: true })
+            await update({ dummyData: true })
         }
+    }
+
+    useEffect(() => {
+        handleStateChange()
     }, [state])
 
     return (
