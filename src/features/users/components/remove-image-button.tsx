@@ -26,13 +26,13 @@ export function RemoveImageButton() {
                 description:
                     'Talvez demore um pouco até que as mudanças se apliquem.',
             })
+            await update({ dummyData: true })
         } else {
             toast({
                 title: 'Erro ao remover imagem.',
                 description: state.error,
                 variant: 'destructive',
             })
-            await update({ dummyData: true })
         }
     }
 
