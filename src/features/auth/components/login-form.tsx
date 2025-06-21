@@ -12,6 +12,7 @@ import { useActionState } from 'react'
 // actions
 import { login } from '../actions/login'
 import { Loader2 } from 'lucide-react'
+import { PasswordInput } from '@/components/password-input'
 
 export function LoginForm() {
     const [state, action, isPending] = useActionState(login, undefined)
@@ -34,8 +35,7 @@ export function LoginForm() {
             </div>
             <div className="space-y-2">
                 <Label>Senha</Label>
-                <Input
-                    type="password"
+                <PasswordInput
                     name="password"
                     placeholder="senha123"
                     required

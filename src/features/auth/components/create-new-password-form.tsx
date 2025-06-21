@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { useActionState, useEffect } from 'react'
 import { setNewPassword } from '../actions/set-new-password'
 import { Loader2 } from 'lucide-react'
+import { PasswordInput } from '@/components/password-input'
 
 type CreateNewPasswordFormProps = {
     userId: string
@@ -18,8 +19,6 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
         undefined
     )
 
-    useEffect(() => {}, [state])
-
     return (
         <Card className="w-[300px]">
             <CardHeader>
@@ -29,11 +28,7 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
                 <form action={action} className="space-y-6">
                     <div className="space-y-4">
                         <Label htmlFor="password">Nova senha</Label>
-                        <Input
-                            type="password"
-                            name="password"
-                            placeholder="senha123"
-                        />
+                        <PasswordInput name="password" placeholder="senha123" />
                         {state && (
                             <span className="text-sm text-destructive font-bold py-1">
                                 {state.errors.password}
@@ -44,8 +39,7 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
                         <Label htmlFor="confirm-password">
                             Confirmar senha
                         </Label>
-                        <Input
-                            type="password"
+                        <PasswordInput
                             name="confirm-password"
                             placeholder="senha123"
                         />
