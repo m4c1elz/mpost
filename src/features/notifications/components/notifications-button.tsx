@@ -6,46 +6,12 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover'
 import { Notification } from './notification'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import { getNotifications } from '../services/get-notifications'
-
-import { useInView } from 'react-intersection-observer'
+import { useNotificationsButton } from './notifications-button.hooks'
 
 export function NotificationsButton() {
-    const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
-
-    const { data, isPending, fetchNextPage, isFetchingNextPage } =
-        useInfiniteQuery({
-            queryKey: ['notifications'],
-            queryFn: getNotifications,
-            initialPageParam: 1,
-            getNextPageParam: (lastPage, _, lastPageParam) => {
-                if (lastPageParam < lastPage.pagination.totalPages) {
-                    return lastPage.pagination.page + 1
-                } else {
-                    return null
-                }
-            },
-        })
-
-    const { ref, inView } = useInView()
-
-    useEffect(() => {
-        if (inView) {
-            fetchNextPage()
-        }
-    }, [inView, fetchNextPage])
-
-    useEffect(() => {
-        if (data) {
-            data.pages.map(({ data: notifications }) => {
-                const hasUnseen = notifications.some(n => !n.isRead)
-                setHasUnseenNotifications(hasUnseen)
-            })
-        }
-    }, [data])
+    const { data, isPending, hasUnseenNotifications, ref, isFetchingNextPage } =
+        useNotificationsButton()
 
     return (
         <Popover modal>
@@ -77,7 +43,7 @@ export function NotificationsButton() {
                                 {...notification}
                             />
                         ))}
-                        <div ref={ref}>
+                        <div id="fetch-next-page-el" ref={ref}>
                             {isFetchingNextPage && (
                                 <Loader2 className="animate-spin mx-auto my-2" />
                             )}
