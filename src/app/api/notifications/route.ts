@@ -1,13 +1,19 @@
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
 import { $Enums } from '@prisma/client'
+import { NextRequest } from 'next/server'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     const session = await auth()
 
     if (!session) {
         return new Response('Unauthorized', { status: 401 })
     }
+
+    const queryPage = req.nextUrl.searchParams.get('page')
+
+    const page = Number(queryPage ?? 1)
+    const limit = 15
 
     const notifications = await prisma.notification.findMany({
         where: {
@@ -28,7 +34,15 @@ export async function GET() {
             type: true,
             redirectTo: true,
         },
+        take: limit,
+        skip: (page - 1) * limit,
     })
+
+    const notificationCount = await prisma.notification.count({
+        where: { targetUserId: session.user.id },
+    })
+
+    const totalPages = Math.ceil(notificationCount / limit)
 
     const notificationsList = notifications.map(item => {
         const messages: Record<$Enums.NotificationType, string> = {
@@ -46,5 +60,13 @@ export async function GET() {
         }
     })
 
-    return Response.json(notificationsList)
+    return Response.json({
+        data: notificationsList,
+        pagination: {
+            page,
+            limit,
+            totalPages,
+            totalItems: notificationCount,
+        },
+    })
 }
