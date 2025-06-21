@@ -6,19 +6,31 @@ import { createUser } from '@/features/users/services/create-user'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 import { redirect } from 'next/navigation'
 
-const registerSchema = z.object({
-    email: z.string().email('E-mail inválido.').trim(),
-    password: z
-        .string()
-        .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-        .trim(),
-    name: z.string().min(3, 'Nome deve conter no mínimo 3 caracteres.').trim(),
-    atsign: z
-        .string()
-        .min(3, 'Apelido deve conter ao menos 3 caracteres.')
-        .max(12, 'Apelido não pode conter mais de 12 caracteres.')
-        .trim(),
-})
+const registerSchema = z
+    .object({
+        email: z.string().email('E-mail inválido.').trim(),
+        password: z
+            .string()
+            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
+            .trim(),
+        name: z
+            .string()
+            .min(3, 'Nome deve conter no mínimo 3 caracteres.')
+            .trim(),
+        atsign: z
+            .string()
+            .min(3, 'Apelido deve conter ao menos 3 caracteres.')
+            .max(12, 'Apelido não pode conter mais de 12 caracteres.')
+            .trim(),
+        confirmPassword: z
+            .string()
+            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
+            .trim(),
+    })
+    .refine(data => data.password === data.confirmPassword, {
+        message: 'Senhas não coincidem.',
+        path: ['confirmPassword'],
+    })
 
 type Response =
     | {
@@ -35,8 +47,15 @@ export async function register(
     const password = formData.get('password')
     const name = formData.get('name')
     const atsign = formData.get('atsign')
+    const confirmPassword = formData.get('confirm-password')
 
-    const parsed = registerSchema.safeParse({ email, password, name, atsign })
+    const parsed = registerSchema.safeParse({
+        email,
+        password,
+        name,
+        atsign,
+        confirmPassword,
+    })
 
     if (!parsed.success) {
         return {

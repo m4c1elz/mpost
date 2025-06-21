@@ -64,6 +64,18 @@ export function RegisterForm() {
                         </span>
                     )}
                 </div>
+                <div className="space-y-2">
+                    <Label>Confirmar senha</Label>
+                    <PasswordInput
+                        name="confirm-password"
+                        placeholder="senha123"
+                    />
+                    {state && (
+                        <span className="text-sm text-destructive font-bold py-1">
+                            {state.error.confirmPassword}
+                        </span>
+                    )}
+                </div>
                 <Button type="submit" className="w-full" disabled={isPending}>
                     {isPending ? (
                         <>
