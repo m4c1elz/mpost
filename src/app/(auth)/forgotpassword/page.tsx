@@ -5,11 +5,11 @@ import {
     CardDescription,
     CardContent,
 } from '@/components/ui/card'
-import { PasswordResetForm } from '@/features/auth/components/password-reset-form'
+import { RequestPasswordResetForm } from '@/features/auth/components/request-password-reset-form'
 
 export default async function ForgotPasswordPage() {
     return (
-        <Card>
+        <Card className="w-[90vw] sm:w-[400px]">
             <CardHeader>
                 <CardTitle>Redefinir senha</CardTitle>
                 <CardDescription className="max-w-96">
@@ -19,7 +19,7 @@ export default async function ForgotPasswordPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <PasswordResetForm />
+                <RequestPasswordResetForm />
             </CardContent>
         </Card>
     )

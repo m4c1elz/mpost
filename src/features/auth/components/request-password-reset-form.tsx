@@ -7,7 +7,7 @@ import { sendResetPasswordEmail } from '../actions/send-reset-password-email'
 import { ButtonWithDelay } from './button-with-delay'
 import { useToast } from '@/hooks/use-toast'
 
-export function PasswordResetForm() {
+export function RequestPasswordResetForm() {
     const [wasSubmitted, setWasSubmitted] = useState(false)
 
     const [state, action, isPending] = useActionState(
