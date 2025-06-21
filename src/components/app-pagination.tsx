@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next-nprogress-bar'
 import {
     Pagination,
     PaginationContent,
@@ -9,7 +10,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from './ui/pagination'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 interface AppPaginationProps {
     page: number
