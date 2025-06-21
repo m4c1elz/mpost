@@ -12,6 +12,7 @@ import { register } from '../actions/register'
 
 // hooks
 import { useActionState } from 'react'
+import { PasswordInput } from '@/components/password-input'
 
 export function RegisterForm() {
     const [state, action, isPending] = useActionState(register, undefined)
@@ -56,14 +57,22 @@ export function RegisterForm() {
                 </div>
                 <div className="space-y-2">
                     <Label>Senha</Label>
-                    <Input
-                        type="password"
-                        name="password"
+                    <PasswordInput name="password" placeholder="senha123" />
+                    {state && (
+                        <span className="text-sm text-destructive font-bold py-1">
+                            {state.error.password}
+                        </span>
+                    )}
+                </div>
+                <div className="space-y-2">
+                    <Label>Confirmar senha</Label>
+                    <PasswordInput
+                        name="confirm-password"
                         placeholder="senha123"
                     />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
-                            {state.error.password}
+                            {state.error.confirmPassword}
                         </span>
                     )}
                 </div>
