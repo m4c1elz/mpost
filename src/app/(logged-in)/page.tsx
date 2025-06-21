@@ -26,10 +26,12 @@ export default async function Home({ searchParams }: HomeProps) {
             <h1 className="text-xl font-bold">Bem-vindo, {user?.name}!</h1>
             <div className="space-y-4 mx-auto md:w-[500px]">
                 <PostList posts={result.data} />
-                <AppPagination
-                    page={result.pagination.page}
-                    totalPages={result.pagination.totalPages}
-                />
+                {result.pagination.totalPages > 1 && (
+                    <AppPagination
+                        page={result.pagination.page}
+                        totalPages={result.pagination.totalPages}
+                    />
+                )}
             </div>
         </div>
     )

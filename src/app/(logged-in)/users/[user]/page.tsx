@@ -65,10 +65,12 @@ export default async function User({ params, searchParams }: UserProps) {
             <div className="space-y-6">
                 <p className="text-xl font-bold">Postagens</p>
                 <PostList posts={posts} />
-                <AppPagination
-                    page={postsPagination.page}
-                    totalPages={postsPagination.totalPages}
-                />
+                {postsPagination.totalPages > 1 && (
+                    <AppPagination
+                        page={postsPagination.page}
+                        totalPages={postsPagination.totalPages}
+                    />
+                )}
             </div>
         </div>
     )
