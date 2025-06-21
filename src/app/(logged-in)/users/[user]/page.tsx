@@ -6,15 +6,25 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 import { PostList } from '@/features/posts/components/post-list'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
+import { getUserPostsByAtsign } from '@/features/users/services/get-user-posts'
+import { AppPagination } from '@/components/app-pagination'
 
 type UserProps = {
     params: Promise<{ user: string }>
+    searchParams: Promise<{ page: string }>
 }
 
-export default async function User({ params }: UserProps) {
+export default async function User({ params, searchParams }: UserProps) {
     const { user: atsign } = await params
+    const { page } = await searchParams
 
-    const user = await getUserByAtsign(atsign)
+    const parsedPage = isNaN(Number(page)) ? 1 : Number(page)
+
+    const [user, { data: posts, pagination: postsPagination }] =
+        await Promise.all([
+            getUserByAtsign(atsign),
+            getUserPostsByAtsign(atsign, parsedPage),
+        ])
 
     if (!user) {
         return notFound()
@@ -54,7 +64,13 @@ export default async function User({ params }: UserProps) {
             </div>
             <div className="space-y-6">
                 <p className="text-xl font-bold">Postagens</p>
-                <PostList posts={user.posts} />
+                <PostList posts={posts} />
+                {postsPagination.totalPages > 1 && (
+                    <AppPagination
+                        page={postsPagination.page}
+                        totalPages={postsPagination.totalPages}
+                    />
+                )}
             </div>
         </div>
     )

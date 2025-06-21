@@ -1,7 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { CommentProps } from './comment'
+import { useInView } from 'react-intersection-observer'
 
 interface UseCommentProps {
     initialHasReplies: boolean
@@ -9,14 +10,31 @@ interface UseCommentProps {
     parentId: number | null
 }
 
-async function getReplies(commentId: number) {
-    const response = await fetch(`/api/comments/${commentId}/replies`)
+export interface GetRepliesResponse {
+    data: CommentProps[]
+    pagination: {
+        page: number
+        limit: number
+        totalPages: number
+        totalItems: number
+    }
+}
+
+async function getReplies(commentId: number, page = 1) {
+    const params = new URLSearchParams()
+    params.set('page', page.toString())
+
+    const endpoint = `/api/comments/${commentId}/replies`
+
+    const url = [endpoint, params.toString()].join('?')
+
+    const response = await fetch(url)
 
     if (!response.ok) {
         throw new Error('Error finding comment replies')
     }
 
-    const result: CommentProps[] = await response.json()
+    const result: GetRepliesResponse = await response.json()
     return result
 }
 
@@ -49,10 +67,18 @@ export function useComment({
         }
     }, [])
 
-    const repliesQuery = useQuery({
+    const repliesQuery = useInfiniteQuery({
         enabled: false,
         queryKey: ['comment-replies', { commentId, parentId }],
-        queryFn: () => getReplies(commentId),
+        initialPageParam: 1,
+        queryFn: ({ pageParam }) => getReplies(commentId, pageParam),
+        getNextPageParam: (lastPage, _, lastPageParam) => {
+            if (lastPageParam < lastPage.pagination.totalPages) {
+                return lastPage.pagination.page + 1
+            } else {
+                return null
+            }
+        },
     })
 
     useEffect(() => {

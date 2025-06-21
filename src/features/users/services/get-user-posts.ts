@@ -1,11 +1,12 @@
 import 'server-only'
 import { prisma } from '@/lib/prisma'
 
-export async function getPosts(page = 1, limit = 15) {
+export async function getUserPostsByAtsign(
+    atsign: string,
+    page = 1,
+    limit = 15
+) {
     const posts = await prisma.post.findMany({
-        orderBy: {
-            createdAt: 'desc',
-        },
         select: {
             id: true,
             content: true,
@@ -13,10 +14,15 @@ export async function getPosts(page = 1, limit = 15) {
             updatedAt: true,
             user: {
                 select: {
-                    name: true,
                     atsign: true,
+                    name: true,
                     image: true,
                 },
+            },
+        },
+        where: {
+            user: {
+                atsign,
             },
         },
         take: limit,
@@ -28,6 +34,9 @@ export async function getPosts(page = 1, limit = 15) {
     } = await prisma.post.aggregate({
         _count: {
             id: true,
+        },
+        where: {
+            user: { atsign },
         },
     })
 

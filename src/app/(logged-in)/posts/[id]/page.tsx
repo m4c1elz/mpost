@@ -6,9 +6,12 @@ import { AddCommentForm } from '@/features/posts/components/add-comment-form'
 import { Comment } from '@/features/posts/components/comment'
 import { getPostById } from '@/features/posts/services/get-post-by-id'
 import { getInitials } from '@/helpers/get-initials'
+import { getPostComments } from '@/features/posts/services/get-post-comments'
+import { AppPagination } from '@/components/app-pagination'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
+    searchParams: Promise<{ page: string }>
 }
 
 export async function generateMetadata({
@@ -24,14 +27,23 @@ export async function generateMetadata({
     }
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({
+    params,
+    searchParams,
+}: PostPageProps) {
     const { id } = await params
+    const { page } = await searchParams
+
+    const parsedPage = isNaN(Number(page)) ? 1 : Number(page)
 
     if (isNaN(Number(id))) {
         return redirect('/')
     }
 
-    const post = await getPostById(Number(id))
+    const [post, comments] = await Promise.all([
+        getPostById(Number(id)),
+        getPostComments(Number(id), parsedPage),
+    ])
 
     if (!post) {
         return notFound()
@@ -63,9 +75,16 @@ export default async function PostPage({ params }: PostPageProps) {
                 </Post.Content>
             </Post.Root>
             <AddCommentForm postId={post.id} />
-            {post.comments.map(comment => (
+            {comments.data.map(comment => (
                 <Comment {...comment} postId={post.id} key={comment.id} />
             ))}
+            `
+            {comments.pagination.totalPages > 1 && (
+                <AppPagination
+                    page={comments.pagination.page}
+                    totalPages={comments.pagination.totalPages}
+                />
+            )}
         </div>
     )
 }

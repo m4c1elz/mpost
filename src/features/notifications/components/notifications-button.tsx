@@ -6,26 +6,12 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover'
 import { Notification } from './notification'
-import { useQuery } from '@tanstack/react-query'
-import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import { getNotifications } from '../services/get-notifications'
+import { useNotificationsButton } from './notifications-button.hooks'
 
 export function NotificationsButton() {
-    const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
-
-    const { data: notifications, isPending } = useQuery({
-        queryKey: ['notifications'],
-        queryFn: getNotifications,
-        refetchInterval: 2 * 60 * 1000,
-    })
-
-    useEffect(() => {
-        if (notifications) {
-            const hasUnseen = notifications.some(n => !n.isRead)
-            setHasUnseenNotifications(hasUnseen)
-        }
-    }, [notifications])
+    const { data, isPending, hasUnseenNotifications, ref, isFetchingNextPage } =
+        useNotificationsButton()
 
     return (
         <Popover modal>
@@ -44,14 +30,26 @@ export function NotificationsButton() {
             </PopoverTrigger>
             <PopoverContent className="p-0 w-64 max-h-70 overflow-auto">
                 {isPending && <Loader2 className="animate-spin mx-auto my-2" />}
-                {notifications?.length == 0 && (
-                    <p className="text-sm p-4 font-bold">
-                        Não há notificações.
-                    </p>
-                )}
-                {notifications?.map(notification => (
-                    <Notification key={notification.id} {...notification} />
+                {data?.pages.map(page => (
+                    <div key={page.pagination.page}>
+                        {page.data.length === 0 && (
+                            <small className="font-bold block text-center p-2">
+                                Não há notificações {':('}
+                            </small>
+                        )}
+                        {page.data.map(notification => (
+                            <Notification
+                                key={notification.id}
+                                {...notification}
+                            />
+                        ))}
+                    </div>
                 ))}
+                <div id="fetch-next-page-el" ref={ref}>
+                    {isFetchingNextPage && (
+                        <Loader2 className="animate-spin mx-auto my-2" />
+                    )}
+                </div>
             </PopoverContent>
         </Popover>
     )

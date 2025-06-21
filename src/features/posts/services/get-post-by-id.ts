@@ -18,36 +18,6 @@ export async function getPostById(id: number) {
                     atsign: true,
                 },
             },
-            comments: {
-                select: {
-                    id: true,
-                    user: {
-                        select: {
-                            id: true,
-                            atsign: true,
-                            name: true,
-                            image: true,
-                        },
-                    },
-                    content: true,
-                    createdAt: true,
-                    updatedAt: true,
-                    parentId: true,
-                    children: {
-                        // only to verify if there's any children
-                        select: {
-                            id: true,
-                        },
-                    },
-                },
-                where: {
-                    // only get root comments server-side
-                    parentId: null,
-                },
-                orderBy: {
-                    createdAt: 'desc',
-                },
-            },
         },
     })
 
