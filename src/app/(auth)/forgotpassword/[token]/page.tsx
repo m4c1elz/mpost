@@ -30,7 +30,7 @@ export default async function ForgotPasswordTokenPage({
 
         if (!user) throw new Error()
 
-        return <CreateNewPasswordForm />
+        return <CreateNewPasswordForm userId={user.id} />
     } catch (error) {
         console.log(error)
         return <h1>Token inválido!</h1>
