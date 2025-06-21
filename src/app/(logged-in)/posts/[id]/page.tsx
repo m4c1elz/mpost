@@ -78,7 +78,7 @@ export default async function PostPage({
             {comments.data.map(comment => (
                 <Comment {...comment} postId={post.id} key={comment.id} />
             ))}
-            `
+
             {comments.pagination.totalPages > 1 && (
                 <AppPagination
                     page={comments.pagination.page}
