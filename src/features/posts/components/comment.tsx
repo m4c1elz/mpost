@@ -8,10 +8,11 @@ import { Post } from './post'
 import { Button } from '@/components/ui/button'
 import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
-import { useComment } from './comment.hooks'
+import { GetRepliesResponse, useComment } from './comment.hooks'
 import { useSession } from 'next-auth/react'
 import { DeleteCommentButton } from './delete-comment-button'
 import { getInitials } from '@/helpers/get-initials'
+import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
 
 export interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign' | 'image'>
@@ -119,12 +120,39 @@ export function Comment({
                         className="transition-all cursor-pointer w-1 rounded bg-foreground/20 h-auto hover:w-2"
                         onClick={() => setRepliesHidden(true)}
                     />
-                    <div className="space-y-1 flex-1">
-                        {repliesQuery.data.map(reply => (
-                            <Comment key={reply.id} {...reply} />
-                        ))}
-                    </div>
+                    <CommentReplies repliesQuery={repliesQuery} />
                 </div>
+            )}
+        </div>
+    )
+}
+
+function CommentReplies({
+    repliesQuery,
+}: {
+    repliesQuery: UseInfiniteQueryResult<InfiniteData<GetRepliesResponse>>
+}) {
+    return (
+        <div className="space-y-1 flex-1">
+            {repliesQuery.data?.pages.map(page => (
+                <div key={page.pagination.page} className="space-y-2">
+                    {page.data.map(comment => (
+                        <Comment key={comment.id} {...comment} />
+                    ))}
+                </div>
+            ))}
+            {repliesQuery.hasNextPage && (
+                <Button
+                    onClick={() => repliesQuery.fetchNextPage()}
+                    disabled={repliesQuery.isFetchingNextPage}
+                    variant="outline"
+                >
+                    {repliesQuery.isFetchingNextPage ? (
+                        <Loader2 className="animate-spin" />
+                    ) : (
+                        'Carregar mais comentários'
+                    )}
+                </Button>
             )}
         </div>
     )

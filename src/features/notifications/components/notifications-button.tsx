@@ -43,13 +43,13 @@ export function NotificationsButton() {
                                 {...notification}
                             />
                         ))}
-                        <div id="fetch-next-page-el" ref={ref}>
-                            {isFetchingNextPage && (
-                                <Loader2 className="animate-spin mx-auto my-2" />
-                            )}
-                        </div>
                     </div>
                 ))}
+                <div id="fetch-next-page-el" ref={ref}>
+                    {isFetchingNextPage && (
+                        <Loader2 className="animate-spin mx-auto my-2" />
+                    )}
+                </div>
             </PopoverContent>
         </Popover>
     )
