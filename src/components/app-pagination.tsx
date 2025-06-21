@@ -29,18 +29,14 @@ export function AppPagination({ page, totalPages }: AppPaginationProps) {
     function goToNextPage() {
         const params = new URLSearchParams(searchParams.toString())
         params.set('page', String(page + 1))
-        router.push(`${pathname}/?${params.toString()}`, {
-            scroll: false,
-        })
+        router.push(`${pathname}/?${params.toString()}`)
     }
 
     function goToPreviousPage() {
         const params = new URLSearchParams(searchParams.toString())
         if (page - 1 == 1) params.delete('page')
         else params.set('page', String(page - 1))
-        router.push(`${pathname}/?${params.toString()}`, {
-            scroll: false,
-        })
+        router.push(`${pathname}/?${params.toString()}`)
     }
 
     return (
