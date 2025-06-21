@@ -1,21 +1,32 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { sendVerificationEmail } from '../actions/send-verification-email'
-import { useActionState, useEffect, useState } from 'react'
+import {
+    useActionState,
+    useEffect,
+    useState,
+    ComponentProps,
+    useTransition,
+} from 'react'
 import { useToast } from '@/hooks/use-toast'
 
-interface SendEmailButtonProps {
-    email: string
+interface SendEmailButtonProps extends ComponentProps<'button'> {
+    sendEmailAction: () => Promise<any> // eslint-disable-line
+    timeoutAfterDispatch?: number
 }
 
-export function SendEmailButton({ email }: SendEmailButtonProps) {
+export function SendEmailButton({
+    sendEmailAction,
+    timeoutAfterDispatch = 5,
+    ...props
+}: SendEmailButtonProps) {
     const [state, action, isLoading] = useActionState(
-        () => sendVerificationEmail(email),
+        sendEmailAction,
         undefined
     )
     const [sendTimeout, setSendTimeout] = useState(0)
     const { toast } = useToast()
+    const [_, startTransition] = useTransition()
 
     useEffect(() => {
         if (state && state.success) {
@@ -32,7 +43,7 @@ export function SendEmailButton({ email }: SendEmailButtonProps) {
             })
         }
 
-        if (state) setSendTimeout(5)
+        if (state) setSendTimeout(timeoutAfterDispatch)
     }, [state])
 
     async function handleTimeout() {
@@ -47,20 +58,16 @@ export function SendEmailButton({ email }: SendEmailButtonProps) {
     }, [sendTimeout, handleTimeout])
 
     return (
-        <div className="text-center">
-            <form action={action}>
-                <Button
-                    type="submit"
-                    variant="secondary"
-                    disabled={isLoading || sendTimeout > 0}
-                >
-                    {isLoading
-                        ? 'Enviando...'
-                        : `Enviar E-mail ${
-                              sendTimeout > 0 ? `(${sendTimeout})` : ''
-                          }`}
-                </Button>
-            </form>
-        </div>
+        <Button
+            type="submit"
+            variant="secondary"
+            disabled={isLoading || sendTimeout > 0}
+            onClick={() => startTransition(action)}
+            {...props}
+        >
+            {isLoading
+                ? 'Enviando...'
+                : `Enviar E-mail ${sendTimeout > 0 ? `(${sendTimeout})` : ''}`}
+        </Button>
     )
 }

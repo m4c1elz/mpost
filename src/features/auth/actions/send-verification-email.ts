@@ -1,22 +1,14 @@
 'use server'
 
 import jwt from 'jsonwebtoken'
-import nodemailer from 'nodemailer'
 import { render } from '@react-email/components'
 import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
+import { transport } from '@/lib/nodemailer'
 
 export async function sendVerificationEmail(sendTo: string) {
     const redirectJwt = jwt.sign({ email: sendTo }, env.EMAIL_JWT_SECRET, {
         expiresIn: '24h',
-    })
-
-    const transport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: env.EMAIL_SENDER_ADDRESS,
-            pass: env.EMAIL_SENDER_PASSWORD,
-        },
     })
 
     try {

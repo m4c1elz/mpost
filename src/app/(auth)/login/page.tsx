@@ -19,7 +19,13 @@ export default async function Login() {
             <CardContent>
                 <LoginForm />
             </CardContent>
-            <CardFooter className="flex justify-center items-center">
+            <CardFooter className="flex flex-col gap-4 justify-center items-center">
+                <Link
+                    href="/forgotpassword"
+                    className="font-medium text-sm text-sky-500"
+                >
+                    Esqueci minha senha
+                </Link>
                 <span className="font-medium text-sm">
                     Não possui conta?{' '}
                     <Link href="/signin" className="text-sky-500">
