@@ -64,6 +64,7 @@ export async function sendResetPasswordEmail(
             error: null,
         }
     } catch (error) {
+        console.log(error)
         return {
             success: false,
             error: 'Não foi possível enviar o e-mail. Tente novamente mais tarde.',

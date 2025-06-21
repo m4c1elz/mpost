@@ -24,7 +24,7 @@ const setNewPasswordSchema = z
 
 export async function setNewPassword(
     userId: string,
-    _prevState: any,
+    _prevState: unknown,
     formData: FormData
 ) {
     const password = formData.get('password')

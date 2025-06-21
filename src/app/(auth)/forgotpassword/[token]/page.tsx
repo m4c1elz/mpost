@@ -1,5 +1,6 @@
 import { env } from '@/env'
 import { CreateNewPasswordForm } from '@/features/auth/components/create-new-password-form'
+import { PasswordResetValidationFailedCard } from '@/features/auth/components/password-reset-validation-failed'
 import { getUserById } from '@/features/users/services/get-user-by-id'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
@@ -33,6 +34,6 @@ export default async function ForgotPasswordTokenPage({
         return <CreateNewPasswordForm userId={user.id} />
     } catch (error) {
         console.log(error)
-        return <h1>Token inválido!</h1>
+        return <PasswordResetValidationFailedCard />
     }
 }

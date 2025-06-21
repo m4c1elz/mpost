@@ -8,6 +8,7 @@ import {
 import jwt from 'jsonwebtoken'
 import { SendEmailButton } from '@/features/auth/components/send-email-button'
 import { Toaster } from '@/components/ui/toaster'
+import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
 
 interface SearchParams {
     token: string
@@ -36,7 +37,12 @@ export default async function VerificationFailed({
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <SendEmailButton email={email} />
+                        <SendEmailButton
+                            sendEmailAction={sendVerificationEmail.bind(
+                                null,
+                                email
+                            )}
+                        />
                     </CardContent>
                 </Card>
             </div>

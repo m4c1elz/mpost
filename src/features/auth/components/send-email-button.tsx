@@ -11,7 +11,7 @@ import {
 import { useToast } from '@/hooks/use-toast'
 
 interface SendEmailButtonProps extends ComponentProps<'button'> {
-    sendEmailAction: () => Promise<any>
+    sendEmailAction: () => Promise<any> // eslint-disable-line
     timeoutAfterDispatch?: number
 }
 
