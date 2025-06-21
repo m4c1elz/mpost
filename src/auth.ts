@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
-import { prisma } from './lib/prisma'
 import { compare } from 'bcrypt-ts'
 import { env } from '@/env'
+import { getUserByEmail } from './features/users/services/get-user-by-email'
 
 export const { auth, signOut, signIn, handlers } = NextAuth({
     secret: env.AUTH_SECRET,
@@ -25,14 +25,14 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     return null
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: {
-                        email: result.data.email,
-                    },
-                })
+                const user = await getUserByEmail(result.data.email)
 
-                if (!user || !user.isVerified) {
+                if (!user) {
                     return null
+                }
+
+                if (!user.isVerified) {
+                    throw new Error('EMAIL_NOT_VERIFIED')
                 }
 
                 const isPassCorrect = await compare(
@@ -55,16 +55,24 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
         }),
     ],
     callbacks: {
-        jwt({ token, user, trigger, session }) {
-            if (trigger === 'update' && session?.name && session?.name) {
-                token.atsign = session.atsign
-                token.name = session.name
-            }
-
-            if (user && user.atsign && user.id) {
+        async jwt({ token, user, trigger }) {
+            if (user) {
                 token.atsign = user.atsign
                 token.id = user.id
+                token.email = user.email
+                token.picture = user.image
             }
+
+            if (trigger === 'update' && token.email) {
+                const dbUser = await getUserByEmail(token.email)
+
+                if (dbUser) {
+                    token.atsign = dbUser.atsign
+                    token.name = dbUser.name
+                    token.picture = dbUser.image
+                }
+            }
+
             return token
         },
         session({ session, token }) {
@@ -74,6 +82,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     ...session.user,
                     atsign: token.atsign,
                     id: token.id as string,
+                    image: token.picture as string,
                 },
             }
         },

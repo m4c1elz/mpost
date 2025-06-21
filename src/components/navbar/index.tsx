@@ -1,13 +1,17 @@
-import Link from 'next/link'
-import { NavbarOptions } from './options'
+'use client'
+
+import { MobileNavbar } from './mobile'
+import { DesktopNavbar } from './desktop'
 
 export function Navbar() {
     return (
-        <nav className="flex justify-between items-center gap-4">
-            <Link href="/" className="text-2xl font-bold">
-                MPost
-            </Link>
-            <NavbarOptions />
-        </nav>
+        <>
+            <div className="block md:hidden">
+                <MobileNavbar />
+            </div>
+            <div className="hidden md:block">
+                <DesktopNavbar />
+            </div>
+        </>
     )
 }
