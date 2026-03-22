@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getInitials } from '@/helpers/get-initials'
-import { CalendarDays, Mail } from 'lucide-react'
+import { CalendarDays } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
 import { PostList } from '@/features/posts/components/post-list'
@@ -47,9 +47,6 @@ export default async function User({ params, searchParams }: UserProps) {
                         </h2>
                     </div>
                     <div className="space-y-2">
-                        <div className="flex gap-2 items-center">
-                            <Mail /> {user.email}
-                        </div>
                         <div className="flex gap-2 items-center">
                             <CalendarDays />{' '}
                             <span>
