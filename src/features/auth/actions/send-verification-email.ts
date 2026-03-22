@@ -2,27 +2,22 @@
 
 import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
-import { SignJWT } from 'jose'
-import { resend } from '@/lib/resend'
+import { signJWT } from '../lib/jwt'
+import { sendMail } from '../lib/email'
 
-export async function sendVerificationEmail(sendTo: string) {
-    const redirectJwt = await new SignJWT({ email: sendTo })
-        .setProtectedHeader({ alg: 'HS256' })
-        .setExpirationTime('24h')
-        .sign(new TextEncoder().encode(env.EMAIL_JWT_SECRET))
+export async function sendVerificationEmail(email: string) {
+    const redirectJwt = await signJWT({ email }, '24h', env.EMAIL_JWT_SECRET)
+
+    const redirectUrl = env.EMAIL_REDIRECT_URL.concat(
+        `/verify/${redirectJwt}?email=${email}`,
+    )
 
     try {
-        const info = await resend.emails.send({
-            from: env.EMAIL_SENDER_ADDRESS,
-            to: sendTo,
-            subject: 'Verificação de E-mail',
-            react: VerifyEmail({
-                redirectUrl: new URL(
-                    `/verify/${redirectJwt}?email=${sendTo}`,
-                    env.EMAIL_REDIRECT_URL,
-                ).toString(),
-            }),
-        })
+        const info = sendMail(
+            email,
+            'Verificação de E-mail',
+            VerifyEmail({ redirectUrl }),
+        )
 
         console.log(info)
     } catch (error) {
@@ -33,5 +28,5 @@ export async function sendVerificationEmail(sendTo: string) {
         }
     }
 
-    return { success: true, error: {}, email: sendTo }
+    return { success: true, error: {}, email }
 }

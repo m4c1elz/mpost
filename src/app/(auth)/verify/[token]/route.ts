@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 import { env } from '@/env'
-import { jwtVerify } from 'jose'
+import { validateJWT } from '@/features/auth/lib/jwt'
 
 interface Params {
     params: Promise<{ token: string; email: string }>
@@ -15,10 +15,11 @@ export async function GET(req: Request, { params }: Params) {
     const { token, email } = await params
 
     try {
-        const { payload } = await jwtVerify<EmailPayload>(
+        const { payload } = await validateJWT<EmailPayload>(
             token,
-            new TextEncoder().encode(env.EMAIL_JWT_SECRET),
+            env.EMAIL_JWT_SECRET,
         )
+
         await prisma.user.update({
             data: {
                 isVerified: true,
@@ -33,12 +34,9 @@ export async function GET(req: Request, { params }: Params) {
                 error: error.message,
                 stack: error.stack,
             })
-            return NextResponse.redirect(
-                new URL(
-                    '/verify/failed?token=' + token + '&email=' + email,
-                    req.url,
-                ),
-            )
+
+            const endpoint = `/verify/failed?token=${token}&email=${email}`
+            return NextResponse.redirect(new URL(endpoint, req.url))
         }
     }
 }

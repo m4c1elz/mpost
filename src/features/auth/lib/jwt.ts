@@ -1,4 +1,4 @@
-import { JWTPayload, SignJWT, jwtVerify } from 'jose'
+import { JWTPayload, JWTVerifyResult, SignJWT, jwtVerify } from 'jose'
 
 export function signJWT(
     payload: JWTPayload,
@@ -13,7 +13,10 @@ export function signJWT(
         .sign(encodedSecret)
 }
 
-export function validateJWT(jwt: string, secret: string) {
+export function validateJWT<T extends any>(
+    jwt: string,
+    secret: string,
+): Promise<JWTVerifyResult<T>> {
     const encodedSecret = new TextEncoder().encode(secret)
 
     return jwtVerify(jwt, encodedSecret)
