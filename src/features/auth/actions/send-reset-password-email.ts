@@ -2,17 +2,16 @@
 
 import { env } from '@/env'
 import { getUserByEmail } from '@/features/users/services/get-user-by-email'
-import { transport } from '@/lib/nodemailer'
-import { render } from '@react-email/components'
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import PasswordResetEmail from '../components/password-reset-email'
 import { z } from 'zod'
+import { resend } from '@/lib/resend'
+import { SignJWT } from 'jose'
 
 const sendResetPasswordEmailSchema = z.string().email()
 
 export async function sendResetPasswordEmail(
     _prevState: unknown,
-    formData: FormData
+    formData: FormData,
 ) {
     const sentEmail = formData.get('email')
 
@@ -35,28 +34,27 @@ export async function sendResetPasswordEmail(
         }
     }
 
-    const payload: JwtPayload = {
+    const payload = {
         sub: user.id,
         purpose: 'reset-password',
     }
 
-    const resetPasswordJWT = jwt.sign(payload, env.RESET_PASSWORD_JWT_SECRET, {
-        expiresIn: '30m',
-    })
+    const resetPasswordJWT = await new SignJWT(payload)
+        .setProtectedHeader({ alg: 'HS256' })
+        .setExpirationTime('24h')
+        .sign(new TextEncoder().encode(env.RESET_PASSWORD_JWT_SECRET))
 
     const resetPasswordUrl = new URL(
         `/forgotpassword/${resetPasswordJWT}`,
-        env.EMAIL_REDIRECT_URL
+        env.EMAIL_REDIRECT_URL,
     ).toString()
 
     try {
-        await transport.sendMail({
+        await resend.emails.send({
             from: env.EMAIL_SENDER_ADDRESS,
-            to: [email],
+            to: email,
             subject: 'Reinicialização de senha',
-            html: await render(
-                PasswordResetEmail({ redirectUrl: resetPasswordUrl })
-            ),
+            react: PasswordResetEmail({ redirectUrl: resetPasswordUrl }),
         })
 
         return {

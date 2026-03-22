@@ -1,10 +1,9 @@
 'use server'
 
-import { render } from '@react-email/components'
 import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
-import { transport } from '@/lib/nodemailer'
 import { SignJWT } from 'jose'
+import { resend } from '@/lib/resend'
 
 export async function sendVerificationEmail(sendTo: string) {
     const redirectJwt = await new SignJWT({ email: sendTo })
@@ -13,19 +12,18 @@ export async function sendVerificationEmail(sendTo: string) {
         .sign(new TextEncoder().encode(env.EMAIL_JWT_SECRET))
 
     try {
-        const info = await transport.sendMail({
+        const info = await resend.emails.send({
             from: env.EMAIL_SENDER_ADDRESS,
             to: sendTo,
-            subject: 'Confirmação de E-mail',
-            html: await render(
-                VerifyEmail({
-                    redirectUrl: new URL(
-                        `/verify/${redirectJwt}?email=${sendTo}`,
-                        env.EMAIL_REDIRECT_URL,
-                    ).toString(),
-                }),
-            ),
+            subject: 'Verificação de E-mail',
+            react: VerifyEmail({
+                redirectUrl: new URL(
+                    `/verify/${redirectJwt}?email=${sendTo}`,
+                    env.EMAIL_REDIRECT_URL,
+                ).toString(),
+            }),
         })
+
         console.log(info)
     } catch (error) {
         console.log(error)

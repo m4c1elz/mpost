@@ -15,6 +15,7 @@ const envSchema = z.object({
     CLOUDFLARE_SECRET_ACCESS_KEY: z.string(),
     CLOUDFLARE_BUCKET_NAME: z.string(),
     RESET_PASSWORD_JWT_SECRET: z.string(),
+    RESEND_API_KEY: z.string(),
 })
 
 export const env = envSchema.parse(process.env)

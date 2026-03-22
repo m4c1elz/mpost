@@ -2,6 +2,7 @@ import { env } from '@/env'
 import { CreateNewPasswordForm } from '@/features/auth/components/create-new-password-form'
 import { PasswordResetValidationFailedCard } from '@/features/auth/components/password-reset-validation-failed'
 import { getUserById } from '@/features/users/services/get-user-by-id'
+import { jwtVerify } from 'jose'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 type ForgotPasswordTokenPageProps = {
@@ -18,10 +19,15 @@ export default async function ForgotPasswordTokenPage({
     const { token } = await params
 
     try {
-        const decoded = jwt.verify(
+        // const decoded = jwt.verify(
+        //     token,
+        //     env.RESET_PASSWORD_JWT_SECRET
+        // ) as Payload
+
+        const { payload: decoded } = await jwtVerify(
             token,
-            env.RESET_PASSWORD_JWT_SECRET
-        ) as Payload
+            new TextEncoder().encode(env.RESET_PASSWORD_JWT_SECRET),
+        )
 
         if (decoded.purpose !== 'reset-password' || !decoded.sub) {
             throw new Error()
