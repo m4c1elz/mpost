@@ -5,13 +5,12 @@ import {
     CardTitle,
     CardContent,
 } from '@/components/ui/card'
-import jwt from 'jsonwebtoken'
 import { SendEmailButton } from '@/features/auth/components/send-email-button'
 import { Toaster } from '@/components/ui/toaster'
 import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
 
 interface SearchParams {
-    token: string
+    email: string
 }
 
 export default async function VerificationFailed({
@@ -19,9 +18,7 @@ export default async function VerificationFailed({
 }: {
     searchParams: Promise<SearchParams>
 }) {
-    const { token } = await searchParams
-
-    const { email } = jwt.decode(token) as { email: string }
+    const { email } = await searchParams
 
     return (
         <>
@@ -40,7 +37,7 @@ export default async function VerificationFailed({
                         <SendEmailButton
                             sendEmailAction={sendVerificationEmail.bind(
                                 null,
-                                email
+                                email,
                             )}
                         />
                     </CardContent>

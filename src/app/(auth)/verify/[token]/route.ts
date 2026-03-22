@@ -2,9 +2,10 @@ import jwt from 'jsonwebtoken'
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 import { env } from '@/env'
+import { jwtVerify } from 'jose'
 
 interface Params {
-    params: Promise<{ token: string }>
+    params: Promise<{ token: string; email: string }>
 }
 
 type EmailPayload = {
@@ -12,10 +13,13 @@ type EmailPayload = {
 }
 
 export async function GET(req: Request, { params }: Params) {
-    const { token } = await params
+    const { token, email } = await params
 
     try {
-        const payload = jwt.verify(token, env.EMAIL_JWT_SECRET) as EmailPayload
+        const { payload } = await jwtVerify<EmailPayload>(
+            token,
+            new TextEncoder().encode(env.EMAIL_JWT_SECRET),
+        )
         await prisma.user.update({
             data: {
                 isVerified: true,
@@ -31,7 +35,10 @@ export async function GET(req: Request, { params }: Params) {
                 stack: error.stack,
             })
             return NextResponse.redirect(
-                new URL('/verify/failed?token=' + token, req.url)
+                new URL(
+                    '/verify/failed?token=' + token + '&email=' + email,
+                    req.url,
+                ),
             )
         }
     }

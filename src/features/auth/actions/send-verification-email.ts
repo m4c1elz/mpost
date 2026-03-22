@@ -1,15 +1,16 @@
 'use server'
 
-import jwt from 'jsonwebtoken'
 import { render } from '@react-email/components'
 import VerifyEmail from '../components/verify-email'
 import { env } from '@/env'
 import { transport } from '@/lib/nodemailer'
+import { SignJWT } from 'jose'
 
 export async function sendVerificationEmail(sendTo: string) {
-    const redirectJwt = jwt.sign({ email: sendTo }, env.EMAIL_JWT_SECRET, {
-        expiresIn: '24h',
-    })
+    const redirectJwt = await new SignJWT({ email: sendTo })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setExpirationTime('24h')
+        .sign(new TextEncoder().encode(env.EMAIL_JWT_SECRET))
 
     try {
         const info = await transport.sendMail({
@@ -19,10 +20,10 @@ export async function sendVerificationEmail(sendTo: string) {
             html: await render(
                 VerifyEmail({
                     redirectUrl: new URL(
-                        `/verify/${redirectJwt}`,
-                        env.EMAIL_REDIRECT_URL
+                        `/verify/${redirectJwt}?email=${sendTo}`,
+                        env.EMAIL_REDIRECT_URL,
                     ).toString(),
-                })
+                }),
             ),
         })
         console.log(info)
