@@ -1,7 +1,9 @@
 import { prisma } from '@/lib/prisma'
 import { User } from '@prisma/client'
 
-type EditableUserProps = Partial<Pick<User, 'atsign' | 'name' | 'password'>>
+type EditableUserProps = Partial<
+    Pick<User, 'atsign' | 'name' | 'password' | 'status'>
+>
 
 export async function editUser(userId: string, data: EditableUserProps) {
     const result = await prisma.user.update({
@@ -12,6 +14,7 @@ export async function editUser(userId: string, data: EditableUserProps) {
         select: {
             name: true,
             atsign: true,
+            status: true
         },
     })
 

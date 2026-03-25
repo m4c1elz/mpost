@@ -13,11 +13,13 @@ import { useToast } from '@/hooks/use-toast'
 interface EditUserFormProps {
     defaultName: string
     defaultAtsign: string
+    defaultStatus?: string
 }
 
 export function EditUserForm({
     defaultAtsign,
     defaultName,
+    defaultStatus,
 }: EditUserFormProps) {
     const [state, action, isPending] = useActionState(editUser, undefined)
     const { update } = useSession()
@@ -63,6 +65,20 @@ export function EditUserForm({
                 {state && (
                     <span className="text-sm text-destructive">
                         {state.error?.atsign}
+                    </span>
+                )}
+            </div>
+            <div className="space-y-2">
+                <Label>Status</Label>
+                <Input
+                    type="text"
+                    placeholder="Me sentindo bem!"
+                    defaultValue={defaultStatus ?? ''}
+                    name="atsign"
+                />
+                {state && (
+                    <span className="text-sm text-destructive">
+                        {state.error?.status}
                     </span>
                 )}
             </div>

@@ -26,6 +26,7 @@ export default async function UserSettings() {
                     <EditUserForm
                         defaultAtsign={session?.user.atsign ?? ''}
                         defaultName={session?.user.name ?? ''}
+                        defaultStatus={session?.user.status ?? ''}
                     />
                 </CardContent>
             </Card>
