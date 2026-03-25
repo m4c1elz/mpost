@@ -13,7 +13,7 @@ export async function sendVerificationEmail(email: string) {
     )
 
     try {
-        const info = sendMail(
+        const info = await sendMail(
             email,
             'Verificação de E-mail',
             VerifyEmail({ redirectUrl }),
