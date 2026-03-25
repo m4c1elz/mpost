@@ -41,6 +41,7 @@ model User {
   email             String         @unique(map: "user_email_key")
   password          String
   image             String?
+  status            String?        @db.VarChar(50)
   atsign            String         @unique(map: "user_atsign_key") @db.VarChar(12)
   isVerified        Boolean        @default(false) @map("is_verified")
   createdAt         DateTime       @default(now()) @map("created_at")
