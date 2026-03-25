@@ -74,7 +74,7 @@ export function EditUserForm({
                     type="text"
                     placeholder="Me sentindo bem!"
                     defaultValue={defaultStatus ?? ''}
-                    name="atsign"
+                    name="status"
                 />
                 {state && (
                     <span className="text-sm text-destructive">

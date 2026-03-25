@@ -46,6 +46,7 @@ export default async function User({ params, searchParams }: UserProps) {
                             @{user.atsign}
                         </h2>
                     </div>
+                    <div className="space-y-2">"{user.status}"</div>
                     <div className="space-y-2">
                         <div className="flex gap-2 items-center">
                             <CalendarDays />{' '}
