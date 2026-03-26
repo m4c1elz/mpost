@@ -23,7 +23,7 @@ export function DeleteCommentButton({ id }: DeleteCommentButtonProps) {
 
     const [state, action, isPending] = useActionState(
         boundDeleteCommentAction,
-        undefined
+        undefined,
     )
     const [_, startTransition] = useTransition()
     const [open, setOpen] = useState(false)

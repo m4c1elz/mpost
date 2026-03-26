@@ -16,7 +16,7 @@ type CreateNewPasswordFormProps = {
 export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
     const [state, action, isPending] = useActionState(
         setNewPassword.bind(null, userId),
-        undefined
+        undefined,
     )
 
     return (

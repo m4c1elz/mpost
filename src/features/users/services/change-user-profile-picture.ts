@@ -4,7 +4,7 @@ import { env } from '@/env'
 
 export async function changeUserProfilePicture(
     userId: string,
-    imageKey?: string
+    imageKey?: string,
 ) {
     if (!imageKey) {
         await prisma.user.update({

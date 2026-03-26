@@ -22,7 +22,7 @@ export function SendEmailButton({
 }: SendEmailButtonProps) {
     const [state, action, isLoading] = useActionState(
         sendEmailAction,
-        undefined
+        undefined,
     )
     const [sendTimeout, setSendTimeout] = useState(0)
     const { toast } = useToast()

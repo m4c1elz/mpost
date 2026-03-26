@@ -24,7 +24,7 @@ export function useNavbar() {
     const context = useContext(NavbarContext)
     if (!context) {
         throw new Error(
-            'useNavbar can only be used inside of a </NavbarProvider>'
+            'useNavbar can only be used inside of a </NavbarProvider>',
         )
     }
 

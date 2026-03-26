@@ -22,7 +22,7 @@ export function NotificationsButton() {
                     className={cn(
                         'relative',
                         hasUnseenNotifications &&
-                            'after:size-2 after:absolute after:bg-amber-600 after:rounded-full after:top-1 after:right-1'
+                            'after:size-2 after:absolute after:bg-amber-600 after:rounded-full after:top-1 after:right-1',
                     )}
                 >
                     <Bell />

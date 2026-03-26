@@ -5,7 +5,7 @@ export async function createComment(
     content: string,
     postId: number,
     userId: string,
-    parentId?: number
+    parentId?: number,
 ) {
     const createdComment = await prisma.comment.create({
         data: {

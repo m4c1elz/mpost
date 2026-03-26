@@ -9,7 +9,7 @@ type CreateNotificationOptions = {
 export async function createNotification(
     userId: string,
     targetUserId: string,
-    opts: CreateNotificationOptions
+    opts: CreateNotificationOptions,
 ) {
     await prisma.notification.create({
         data: {

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 export async function getUserPostsByAtsign(
     atsign: string,
     page = 1,
-    limit = 15
+    limit = 15,
 ) {
     const posts = await prisma.post.findMany({
         select: {
