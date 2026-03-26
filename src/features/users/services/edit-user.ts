@@ -14,7 +14,7 @@ export async function editUser(userId: string, data: EditableUserProps) {
         select: {
             name: true,
             atsign: true,
-            status: true
+            status: true,
         },
     })
 

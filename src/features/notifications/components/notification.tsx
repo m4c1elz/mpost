@@ -51,7 +51,7 @@ export function Notification({
                 onClick={handleClick}
                 className={cn(
                     'cursor-pointer p-4 text-start transition-colors text-sm w-full hover:bg-foreground/10',
-                    !isRead && 'bg-foreground/5'
+                    !isRead && 'bg-foreground/5',
                 )}
             >
                 <span>

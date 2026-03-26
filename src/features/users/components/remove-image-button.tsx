@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 export function RemoveImageButton() {
     const [state, action, isPending] = useActionState(
         removeProfilePicture,
-        undefined
+        undefined,
     )
 
     const [_, startTransition] = useTransition()

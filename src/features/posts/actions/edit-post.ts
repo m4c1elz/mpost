@@ -13,7 +13,7 @@ const editPostSchema = z
 export async function editPost(
     id: number,
     _prevState: unknown,
-    formData: FormData
+    formData: FormData,
 ) {
     const session = await auth()
     const content = formData.get('content')

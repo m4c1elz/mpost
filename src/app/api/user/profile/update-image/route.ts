@@ -46,7 +46,7 @@ export async function POST(req: Request) {
             { error: 'Erro ao enviar imagem.' },
             {
                 status: 500,
-            }
+            },
         )
     }
 }

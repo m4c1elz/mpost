@@ -36,7 +36,7 @@ export function DeletePostButton({ id }: DeletePostButtonProps) {
 
     const [state, action, isPending] = useActionState(
         deletePostAction,
-        undefined
+        undefined,
     )
 
     useEffect(() => {
