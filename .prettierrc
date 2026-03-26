@@ -5,9 +5,9 @@
   "tabWidth": 4,
   "overrides": [
     {
-      "files": "*.json",
+      "files": ["*.json", "**rc"],
       "options": {
-        "tabWidth": 4
+        "tabWidth": 2
       }
     }
   ]
