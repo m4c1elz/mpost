@@ -1,3 +1,4 @@
+import { Footer } from '@/components/footer'
 import { Navbar } from '@/components/navbar'
 import { Toaster } from '@/components/ui/toaster'
 
@@ -10,7 +11,8 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
         <>
             <div className="px-6 py-4 md:px-16 md:py-6">
                 <Navbar />
-                <main className="mt-6">{children}</main>
+                <main className="my-6">{children}</main>
+                <Footer />
             </div>
             <Toaster />
         </>
