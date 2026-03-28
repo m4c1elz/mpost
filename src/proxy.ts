@@ -11,7 +11,7 @@ const PRIVATE = [
 ]
 const PUBLIC = ['/login', '/signin', '/verify', '/forgotpassword']
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl
     const session = await auth()
 
