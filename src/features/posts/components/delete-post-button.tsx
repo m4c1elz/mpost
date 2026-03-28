@@ -21,12 +21,11 @@ import { usePathname, useRouter } from 'next/navigation'
 
 // action
 import { deletePost } from '../actions/delete-post'
+import { PostAction, usePost } from './post'
 
-interface DeletePostButtonProps {
-    id: number
-}
+export function DeletePostButton() {
+    const { id } = usePost()
 
-export function DeletePostButton({ id }: DeletePostButtonProps) {
     const [open, setOpen] = useState(false)
     const { toast } = useToast()
     const router = useRouter()
@@ -64,9 +63,9 @@ export function DeletePostButton({ id }: DeletePostButtonProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button size="icon" variant="ghost">
+                <PostAction>
                     <Trash className="text-destructive" />
-                </Button>
+                </PostAction>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

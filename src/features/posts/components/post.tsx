@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from '@/components/ui/button'
 import { formatRelativeDate } from '@/helpers/format-relative-date'
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Geist } from 'next/font/google'
 import Link from 'next/link'
 import { PropsWithChildren, useState } from 'react'
@@ -55,6 +55,10 @@ export function PostHeader({ children }: PropsWithChildren) {
     return <div className="flex justify-between items-center">{children}</div>
 }
 
+export function PostHeaderGroup({ children }: PropsWithChildren) {
+    return <div className="flex gap-2 items-center">{children}</div>
+}
+
 export function PostProfilePicture({
     src,
     alt,
@@ -67,7 +71,7 @@ export function PostProfilePicture({
     return (
         <Avatar className="size-8">
             <AvatarFallback className="text-sm">{fallback}</AvatarFallback>
-            <AvatarImage src={src ?? ''} alt={alt} />
+            <AvatarImage src={src ?? undefined} alt={alt} />
         </Avatar>
     )
 }
@@ -86,6 +90,14 @@ export function PostUsername({
             </Link>
             <span className="text-foreground/50">@{atsign}</span>
         </>
+    )
+}
+
+export function PostBadge({ children }: PropsWithChildren) {
+    return (
+        <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
+            {children}
+        </small>
     )
 }
 
@@ -113,12 +125,15 @@ export function PostDate({
     date,
     isEdited = false,
 }: {
-    date: Date
+    date: Date | string
     isEdited?: boolean
 }) {
     return (
-        <time dateTime={date.toISOString()}>
-            {formatRelativeDate(date)} {isEdited && '(editado)'}
+        <time
+            dateTime={new Date(date).toISOString()}
+            className="text-foreground/50 text-xs sm:text-sm"
+        >
+            {formatRelativeDate(new Date(date))} {isEdited && '(editado)'}
         </time>
     )
 }

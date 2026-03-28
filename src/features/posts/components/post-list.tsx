@@ -1,11 +1,22 @@
 'use client'
 
-import { Post } from './post'
 import { getInitials } from '@/helpers/get-initials'
 import { DeletePostButton } from './delete-post-button'
 import { EditPostButton } from './edit-post-button'
 import { PinPostButton } from './pin-post-button'
 import { useSession } from 'next-auth/react'
+import {
+    Post,
+    PostActionGroup,
+    PostBadge,
+    PostContent,
+    PostDate,
+    PostFooter,
+    PostHeader,
+    PostHeaderGroup,
+    PostProfilePicture,
+    PostUsername,
+} from './post'
 
 type PostType = {
     user: {
@@ -22,58 +33,51 @@ type PostType = {
 
 type PostListProps = {
     posts: PostType[]
-    showIsPinnedHighlight?: boolean
+    showPinnedHighlight?: boolean
 }
 
-export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
+export function PostList({ posts, showPinnedHighlight }: PostListProps) {
     const { data } = useSession()
 
     if (posts.length === 0) {
         return <p className="text-center">Não há postagens. Ainda!</p>
     }
 
-    return posts.map(post => {
-        const isPostFromCurrentUser = post.user.atsign === data?.user.atsign
+    return posts.map(({ id, content, user, isPinned, createdAt }) => {
+        const isPostFromCurrentUser = user.atsign === data?.user.atsign
+        const contextValue = { id, content, isPinned }
 
         return (
-            <Post.Root key={post.id}>
-                {showIsPinnedHighlight && post.isPinned && (
-                    <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
-                        Postagem fixada
-                    </small>
+            <Post key={id} {...contextValue}>
+                {isPinned && showPinnedHighlight && (
+                    <PostHeaderGroup>
+                        <PostBadge>Postagem fixada</PostBadge>
+                    </PostHeaderGroup>
                 )}
-                <Post.Header>
-                    <Post.UserInfo
-                        atsign={post.user.atsign}
-                        username={post.user.name}
-                        imageUrl={post.user.image}
-                        imageFallback={getInitials(post.user.name)}
-                    />
-                </Post.Header>
-                <Post.Content
-                    id={post.id}
-                    isPostFromCurrentUser={isPostFromCurrentUser}
-                    isPinned={post.isPinned}
-                >
-                    {post.content}
-                </Post.Content>
-                <Post.DateTime {...post} />
-                {isPostFromCurrentUser && (
-                    <Post.Footer>
-                        <div className="flex gap-2 items-center">
-                            <EditPostButton
-                                id={post.id}
-                                originalPostContent={post.content}
-                            />
-                            <DeletePostButton id={post.id} />
-                        </div>
-                        <PinPostButton
-                            id={post.id}
-                            isPinned={post.isPinned ?? false}
+                <PostHeader>
+                    <PostHeaderGroup>
+                        <PostProfilePicture
+                            src={user.image}
+                            alt={`${user.name}'s Profile Picture`}
+                            fallback={getInitials(user.name)}
                         />
-                    </Post.Footer>
-                )}
-            </Post.Root>
+                        <PostUsername atsign={user.atsign}>
+                            {user.name}
+                        </PostUsername>
+                    </PostHeaderGroup>
+                </PostHeader>
+                <PostContent>{content}</PostContent>
+                <PostDate date={createdAt} />
+                <PostFooter>
+                    {isPostFromCurrentUser && (
+                        <PostActionGroup>
+                            <EditPostButton />
+                            <DeletePostButton />
+                            <PinPostButton />
+                        </PostActionGroup>
+                    )}
+                </PostFooter>
+            </Post>
         )
     })
 }
