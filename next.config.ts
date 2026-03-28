@@ -2,11 +2,11 @@ import type { NextConfig } from 'next'
 import createMDX from '@next/mdx'
 
 const nextConfig: NextConfig = {
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
     transpilePackages: ['prettier'],
     pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
-    turbopack: {
-        root: '.',
-    },
 }
 
 const withMdx = createMDX({

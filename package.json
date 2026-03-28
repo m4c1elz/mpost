@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
@@ -37,7 +37,7 @@
     "date-fns": "^4.1.0",
     "jose": "^6.2.2",
     "lucide-react": "^0.474.0",
-    "next": "16.2.1",
+    "next": "15.1.11",
     "next-auth": "^5.0.0-beta.25",
     "next-nprogress-bar": "^2.4.5",
     "next-themes": "^0.4.4",
