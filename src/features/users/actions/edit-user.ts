@@ -17,7 +17,7 @@ const editUserSchema = z.object({
         .max(50, 'Status não deve conter mais que 50 caracteres.')
         .trim()
         .optional(),
-    url: z.string().url('Url inválido!').optional(),
+    url: z.string().url('URL inválido!').trim().optional().or(z.literal('')),
 })
 
 export async function editUser(_prevState: unknown, formData: FormData) {
@@ -50,6 +50,7 @@ export async function editUser(_prevState: unknown, formData: FormData) {
             user: result,
         }
     } catch (error) {
+        console.log(error)
         if (
             error instanceof PrismaClientKnownRequestError &&
             error.code == 'P2002'
