@@ -27,6 +27,7 @@ export default async function UserSettings() {
                         defaultAtsign={session?.user.atsign ?? ''}
                         defaultName={session?.user.name ?? ''}
                         defaultStatus={session?.user.status ?? ''}
+                        defaultUrl={session?.user.url ?? ''}
                     />
                 </CardContent>
             </Card>
