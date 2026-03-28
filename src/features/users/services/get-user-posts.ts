@@ -26,9 +26,7 @@ export async function getUserPostsByAtsign(
                 atsign,
             },
         },
-        orderBy: {
-            isPinned: 'desc',
-        },
+        orderBy: [{ isPinned: 'desc' }, { createdAt: 'desc' }],
         take: limit,
         skip: (page - 1) * limit,
     })
