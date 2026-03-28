@@ -17,9 +17,13 @@ type PostType = {
 
 type PostListProps = {
     posts: PostType[]
+    showIsPinnedHighlight?: boolean
 }
 
-export async function PostList({ posts }: PostListProps) {
+export async function PostList({
+    posts,
+    showIsPinnedHighlight,
+}: PostListProps) {
     const session = await auth()
 
     if (posts.length === 0) {
@@ -31,7 +35,7 @@ export async function PostList({ posts }: PostListProps) {
 
         return (
             <Post.Root key={post.id}>
-                {post.isPinned && (
+                {showIsPinnedHighlight && post.isPinned && (
                     <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
                         Postagem fixada
                     </small>

@@ -47,7 +47,9 @@ export default async function User({ params, searchParams }: UserProps) {
                         </h2>
                     </div>
                     {user.status && (
-                        <div className="space-y-2">"{user.status}"</div>
+                        <div className="space-y-2">
+                            &quot;{user.status}&quot;
+                        </div>
                     )}
                     <div className="space-y-2">
                         <div className="flex gap-2 items-center">
@@ -64,7 +66,7 @@ export default async function User({ params, searchParams }: UserProps) {
             </div>
             <div className="space-y-6">
                 <p className="text-xl font-bold">Postagens</p>
-                <PostList posts={posts} />
+                <PostList posts={posts} showIsPinnedHighlight />
                 {postsPagination.totalPages > 1 && (
                     <AppPagination
                         page={postsPagination.page}
