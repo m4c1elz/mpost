@@ -109,54 +109,6 @@ export function Comment({
                     />
                 )}
             </Post>
-            {/* <Post.Root>
-                {isHighlighted && (
-                    <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
-                        Comentário em destaque
-                    </small>
-                )}
-                <Post.Header>
-                    <Post.UserInfo
-                        atsign={user.atsign}
-                        username={user.name}
-                        imageUrl={user.image}
-                        imageFallback={getInitials(user.name)}
-                    />
-
-                    <Post.DateTime
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                    />
-                </Post.Header>
-                <Post.Content id={id} asLink={false}>
-                    {content}
-                </Post.Content>
-                <div className="flex justify-between items-center">
-                    <Button
-                        onClick={() => setFormOpen(!formOpen)}
-                        size="icon"
-                        variant="ghost"
-                    >
-                        <MessageSquareText className="text-foreground/50" />
-                    </Button>
-                    {isCommentFromCurrentUser && (
-                        <DeleteCommentButton id={id} />
-                    )}
-                </div>
-                {formOpen && (
-                    <AddCommentForm
-                        ref={formElementRef}
-                        postId={postId}
-                        parentId={id}
-                        onSuccess={() => {
-                            repliesQuery.refetch()
-                            if (!hasReplies) setHasReplies(true)
-                            setFormOpen(false)
-                            setRepliesHidden(false)
-                        }}
-                    />
-                )}
-            </Post.Root> */}
             {hasReplies && (repliesHidden || repliesQuery.isLoading) && (
                 <Button onClick={handleFetchReplies} variant="outline">
                     {repliesQuery.isLoading ? (
