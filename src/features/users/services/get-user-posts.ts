@@ -10,6 +10,7 @@ export async function getUserPostsByAtsign(
         select: {
             id: true,
             content: true,
+            isPinned: true,
             createdAt: true,
             updatedAt: true,
             user: {
@@ -24,6 +25,9 @@ export async function getUserPostsByAtsign(
             user: {
                 atsign,
             },
+        },
+        orderBy: {
+            isPinned: 'desc',
         },
         take: limit,
         skip: (page - 1) * limit,
