@@ -1,18 +1,23 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Loader2, Pin } from 'lucide-react'
-import { pinPost } from '../actions/pin-post'
-import { useActionState, useEffect, useTransition } from 'react'
+import { Loader2, Pin, PinOff } from 'lucide-react'
+import { togglePin } from '../actions/toggle-pin'
+import { useActionState, useEffect, useState, useTransition } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
 type PinPostButtonProps = {
     id: number
+    isPinned: boolean
 }
 
-export function PinPostButton({ id }: PinPostButtonProps) {
+export function PinPostButton({ id, isPinned }: PinPostButtonProps) {
+    const [desiredAction, setDesiredAction] = useState(
+        isPinned ? 'unpin' : 'pin',
+    )
+
     const [state, action, isPending] = useActionState(
-        pinPost.bind(null, id),
+        togglePin.bind(null, id, desiredAction === 'unpin' ? false : true),
         undefined,
     )
 
@@ -21,8 +26,13 @@ export function PinPostButton({ id }: PinPostButtonProps) {
 
     useEffect(() => {
         if (state?.success) {
+            setDesiredAction(desiredAction === 'unpin' ? 'pin' : 'unpin')
+
             toast({
-                description: 'Postagem fixada com sucesso.',
+                description:
+                    desiredAction === 'pin'
+                        ? 'Postagem fixada com sucesso.'
+                        : 'Postagem desafixada com sucesso.',
             })
         }
     }, [state])
@@ -34,7 +44,13 @@ export function PinPostButton({ id }: PinPostButtonProps) {
             onClick={() => startTransition(action)}
             disabled={isPending}
         >
-            {isPending ? <Loader2 className="animate-spin" /> : <Pin />}
+            {isPending ? (
+                <Loader2 className="animate-spin" />
+            ) : isPinned ? (
+                <PinOff />
+            ) : (
+                <Pin />
+            )}
         </Button>
     )
 }

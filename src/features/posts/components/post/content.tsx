@@ -13,6 +13,7 @@ interface ContentProps {
     id: number
     isPostFromCurrentUser?: boolean
     asLink?: boolean
+    isPinned?: boolean
 }
 
 export function Content({
@@ -20,6 +21,7 @@ export function Content({
     id,
     isPostFromCurrentUser,
     asLink = true,
+    isPinned,
 }: ContentProps) {
     return (
         <>
@@ -48,7 +50,7 @@ export function Content({
                         />
                         <DeletePostButton id={id} />
                     </div>
-                    <PinPostButton id={id} />
+                    <PinPostButton id={id} isPinned={isPinned ?? false} />
                 </div>
             )}
         </>

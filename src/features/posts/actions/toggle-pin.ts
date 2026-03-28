@@ -3,8 +3,9 @@
 import { auth } from '@/auth'
 import { setPinnedPost } from '../services/set-pinned'
 import { getPinnedPost } from '../services/get-pinned-post'
+import { revalidatePath } from 'next/cache'
 
-export async function pinPost(id: number, _prevState: unknown) {
+export async function togglePin(id: number, pin: boolean, _prevState: unknown) {
     try {
         const session = await auth()
 
@@ -12,13 +13,14 @@ export async function pinPost(id: number, _prevState: unknown) {
 
         const alreadyPinnedPost = await getPinnedPost(userId)
 
-        if (alreadyPinnedPost) {
+        if (alreadyPinnedPost && pin) {
             await setPinnedPost(alreadyPinnedPost.id, false)
         }
 
-        const result = await setPinnedPost(id, true)
+        const result = await setPinnedPost(id, pin)
 
         if (result) {
+            revalidatePath('/users/[user]')
             return {
                 success: true,
                 error: '',

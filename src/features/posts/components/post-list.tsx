@@ -12,6 +12,7 @@ type PostType = {
     content: string
     createdAt: Date
     updatedAt: Date | null
+    isPinned?: boolean
 }
 
 type PostListProps = {
@@ -30,6 +31,11 @@ export async function PostList({ posts }: PostListProps) {
 
         return (
             <Post.Root key={post.id}>
+                {post.isPinned && (
+                    <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
+                        Postagem fixada
+                    </small>
+                )}
                 <Post.Header>
                     <Post.UserInfo
                         atsign={post.user.atsign}
@@ -45,6 +51,7 @@ export async function PostList({ posts }: PostListProps) {
                 <Post.Content
                     id={post.id}
                     isPostFromCurrentUser={isPostFromCurrentUser}
+                    isPinned={post.isPinned}
                 >
                     {post.content}
                 </Post.Content>
