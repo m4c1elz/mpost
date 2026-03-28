@@ -19,16 +19,11 @@ import { useRouter } from 'next/navigation'
 
 // action
 import { editPost } from '../actions/edit-post'
+import { usePost } from './post'
 
-interface EditPostButtonProps {
-    id: number
-    originalPostContent?: string
-}
+export function EditPostButton() {
+    const { id, content } = usePost()
 
-export function EditPostButton({
-    id,
-    originalPostContent,
-}: EditPostButtonProps) {
     const editPostAction = editPost.bind(null, id)
 
     const [open, setOpen] = useState(false)
@@ -62,7 +57,7 @@ export function EditPostButton({
                     <Textarea
                         placeholder="hello world (editado!)"
                         name="content"
-                        defaultValue={originalPostContent}
+                        defaultValue={content}
                     />
                     {state && (
                         <span className="text-sm text-destructive block">

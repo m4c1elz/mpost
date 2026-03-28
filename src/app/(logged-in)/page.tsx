@@ -24,7 +24,7 @@ export default async function Home({ searchParams }: HomeProps) {
     return (
         <div className="space-y-6">
             <h1 className="text-xl font-bold">Bem-vindo, {user?.name}!</h1>
-            <div className="space-y-4 mx-auto md:w-[500px]">
+            <div className="space-y-4 mx-auto md:w-[550px]">
                 <PostList posts={result.data} />
                 {result.pagination.totalPages > 1 && (
                     <AppPagination

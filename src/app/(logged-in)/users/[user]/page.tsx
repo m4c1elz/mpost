@@ -82,7 +82,7 @@ export default async function User({ params, searchParams }: UserProps) {
             </div>
             <div className="space-y-6">
                 <p className="text-xl font-bold">Postagens</p>
-                <PostList posts={posts} showIsPinnedHighlight />
+                <PostList posts={posts} showPinnedHighlight />
                 {postsPagination.totalPages > 1 && (
                     <AppPagination
                         page={postsPagination.page}

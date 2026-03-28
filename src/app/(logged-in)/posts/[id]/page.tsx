@@ -1,13 +1,26 @@
 import { notFound, redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
-import { Post } from '@/features/posts/components/post'
+import {
+    Post,
+    PostActionGroup,
+    PostContent,
+    PostDate,
+    PostFooter,
+    PostHeader,
+    PostHeaderGroup,
+    PostProfilePicture,
+    PostUsername,
+} from '@/features/posts/components/post'
 import { AddCommentForm } from '@/features/posts/components/add-comment-form'
 import { Comment } from '@/features/posts/components/comment'
 import { getPostById } from '@/features/posts/services/get-post-by-id'
 import { getInitials } from '@/helpers/get-initials'
 import { getPostComments } from '@/features/posts/services/get-post-comments'
 import { AppPagination } from '@/components/app-pagination'
+import { DeletePostButton } from '@/features/posts/components/delete-post-button'
+import { EditPostButton } from '@/features/posts/components/edit-post-button'
+import { PinPostButton } from '@/features/posts/components/pin-post-button'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
@@ -54,26 +67,31 @@ export default async function PostPage({
     return (
         <div className="space-y-4">
             <p className="text-xl font-bold">Postagem</p>
-            <Post.Root>
-                <Post.Header>
-                    <Post.UserInfo
-                        atsign={post.user.atsign}
-                        username={post.user.name}
-                        imageFallback={getInitials(post.user.name)}
-                        imageUrl={post.user.image}
-                    />
-                    <Post.DateTime
-                        createdAt={post.createdAt}
-                        updatedAt={post.updatedAt}
-                    />
-                </Post.Header>
-                <Post.Content
-                    id={post.id}
-                    isPostFromCurrentUser={isPostFromCurrentUser}
-                >
-                    {post.content}
-                </Post.Content>
-            </Post.Root>
+            <Post key={post.id} {...post}>
+                <PostHeader>
+                    <PostHeaderGroup>
+                        <PostProfilePicture
+                            src={post.user.image}
+                            alt={`${post.user.name}'s Profile Picture`}
+                            fallback={getInitials(post.user.name)}
+                        />
+                        <PostUsername atsign={post.user.atsign}>
+                            {post.user.name}
+                        </PostUsername>
+                    </PostHeaderGroup>
+                </PostHeader>
+                <PostContent>{post.content}</PostContent>
+                <PostDate date={post.createdAt} />
+                <PostFooter>
+                    {isPostFromCurrentUser && (
+                        <PostActionGroup>
+                            <EditPostButton />
+                            <DeletePostButton />
+                            <PinPostButton />
+                        </PostActionGroup>
+                    )}
+                </PostFooter>
+            </Post>
             <AddCommentForm postId={post.id} />
             {comments.data.map(comment => (
                 <Comment {...comment} postId={post.id} key={comment.id} />

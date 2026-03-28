@@ -1,17 +1,14 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Loader2, Pin, PinOff } from 'lucide-react'
 import { togglePin } from '../actions/toggle-pin'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { useToast } from '@/hooks/use-toast'
+import { PostAction, usePost } from './post'
 
-type PinPostButtonProps = {
-    id: number
-    isPinned: boolean
-}
+export function PinPostButton() {
+    const { id, isPinned } = usePost()
 
-export function PinPostButton({ id, isPinned }: PinPostButtonProps) {
     const [desiredAction, setDesiredAction] = useState(
         isPinned ? 'unpin' : 'pin',
     )
@@ -38,9 +35,7 @@ export function PinPostButton({ id, isPinned }: PinPostButtonProps) {
     }, [state])
 
     return (
-        <Button
-            size="icon"
-            variant="ghost"
+        <PostAction
             onClick={() => startTransition(action)}
             disabled={isPending}
         >
@@ -51,6 +46,6 @@ export function PinPostButton({ id, isPinned }: PinPostButtonProps) {
             ) : (
                 <Pin />
             )}
-        </Button>
+        </PostAction>
     )
 }
