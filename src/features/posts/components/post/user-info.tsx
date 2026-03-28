@@ -24,7 +24,7 @@ export function UserInfo({
             </Avatar>
             <Link
                 href={`/users/${atsign}`}
-                className="font-bold hover:underline"
+                className="font-bold line-clamp-1 hover:underline"
             >
                 {username}
             </Link>

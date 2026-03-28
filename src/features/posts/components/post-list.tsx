@@ -6,7 +6,6 @@ import { DeletePostButton } from './delete-post-button'
 import { EditPostButton } from './edit-post-button'
 import { PinPostButton } from './pin-post-button'
 import { useSession } from 'next-auth/react'
-import { useIsMobile } from '@/hooks/use-is-mobile'
 
 type PostType = {
     user: {
@@ -28,13 +27,10 @@ type PostListProps = {
 
 export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
     const { data } = useSession({ required: true })
-    const isMobile = useIsMobile()
 
     if (posts.length === 0) {
         return <p className="text-center">Não há postagens. Ainda!</p>
     }
-
-    console.log({ isMobile })
 
     return posts.map(post => {
         const isPostFromCurrentUser = post.user.atsign === data?.user.atsign
@@ -53,7 +49,6 @@ export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
                         imageUrl={post.user.image}
                         imageFallback={getInitials(post.user.name)}
                     />
-                    {!isMobile && <Post.DateTime {...post} />}
                 </Post.Header>
                 <Post.Content
                     id={post.id}
@@ -62,7 +57,7 @@ export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
                 >
                     {post.content}
                 </Post.Content>
-                {isMobile && <Post.DateTime {...post} />}
+                <Post.DateTime {...post} />
                 {isPostFromCurrentUser && (
                     <Post.Footer>
                         <div className="flex gap-2 items-center">
