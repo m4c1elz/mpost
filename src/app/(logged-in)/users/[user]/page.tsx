@@ -8,6 +8,8 @@ import { PostList } from '@/features/posts/components/post-list'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 import { getUserPostsByAtsign } from '@/features/users/services/get-user-posts'
 import { AppPagination } from '@/components/app-pagination'
+import { Link as LinkIcon } from 'lucide-react'
+import Link from 'next/link'
 
 type UserProps = {
     params: Promise<{ user: string }>
@@ -39,7 +41,7 @@ export default async function User({ params, searchParams }: UserProps) {
                     </AvatarFallback>
                     <AvatarImage src={user.image ?? ''} alt={user.name} />
                 </Avatar>
-                <div className="flex h-auto flex-col gap-4 md:gap-4 md:justify-around">
+                <div className="flex h-auto flex-col items-center md:items-start gap-4 md:gap-4 md:justify-around">
                     <div className="flex gap-2 items-end">
                         <h1 className="text-2xl font-bold">{user.name}</h1>
                         <h2 className="text-lg font-medium text-foreground/50">
@@ -51,6 +53,7 @@ export default async function User({ params, searchParams }: UserProps) {
                             &quot;{user.status}&quot;
                         </div>
                     )}
+
                     <div className="space-y-2">
                         <div className="flex gap-2 items-center">
                             <CalendarDays />{' '}
@@ -62,6 +65,19 @@ export default async function User({ params, searchParams }: UserProps) {
                             </span>
                         </div>
                     </div>
+                    {user.url && (
+                        <div className="flex gap-2 justify-center items-center">
+                            <LinkIcon size={15} />
+                            <Link
+                                href={user.url}
+                                className="font-medium underline line-clamp-1 text-sm md:text-base"
+                                target="_blank"
+                                referrerPolicy="no-referrer"
+                            >
+                                {user.url}
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="space-y-6">

@@ -51,6 +51,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     image: user.image,
                     atsign: user.atsign,
                     status: user.status,
+                    url: user.url,
                 }
             },
         }),
@@ -63,6 +64,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                 token.email = user.email
                 token.picture = user.image
                 token.status = user.status
+                token.url = user.url
             }
 
             if (trigger === 'update' && token.email) {
@@ -73,6 +75,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     token.name = dbUser.name
                     token.picture = dbUser.image
                     token.status = dbUser.status
+                    token.url = dbUser.url
                 }
             }
 
@@ -87,6 +90,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     id: token.id as string,
                     image: token.picture as string,
                     status: token.status as string,
+                    url: token.url as string,
                 },
             }
         },

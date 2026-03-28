@@ -17,6 +17,7 @@ const editUserSchema = z.object({
         .max(50, 'Status não deve conter mais que 50 caracteres.')
         .trim()
         .optional(),
+    url: z.string().url('Url inválido!').optional(),
 })
 
 export async function editUser(_prevState: unknown, formData: FormData) {
@@ -25,11 +26,13 @@ export async function editUser(_prevState: unknown, formData: FormData) {
     const name = formData.get('name')
     const atsign = formData.get('atsign')
     const status = formData.get('status')
+    const url = formData.get('url')
 
     const { success, data, error } = editUserSchema.safeParse({
         name,
         atsign,
         status,
+        url,
     })
 
     if (!success) {
@@ -57,6 +60,7 @@ export async function editUser(_prevState: unknown, formData: FormData) {
                     atsign: ['Já existe alguém com este apelido!'],
                     name: '',
                     status: '',
+                    url: '',
                 },
             }
         }
