@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, Plus, Settings } from 'lucide-react'
+import { Menu, Settings } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
     Sheet,
@@ -36,16 +36,6 @@ export function MobileNavbar() {
                         <SheetTitle>Menu</SheetTitle>
                     </SheetHeader>
                     <ul className="grid grid-cols-2 gap-4 place-items-center mx-auto">
-                        <li className="col-span-2">
-                            <Button asChild>
-                                <Link
-                                    onClick={() => setOpen(false)}
-                                    href="/posts/create"
-                                >
-                                    <Plus /> Postar
-                                </Link>
-                            </Button>
-                        </li>
                         <li className="col-span-2">
                             <Button variant="link" asChild>
                                 <Link
