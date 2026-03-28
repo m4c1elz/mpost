@@ -1,60 +1,29 @@
 'use client'
 
-import { Menu, Settings } from 'lucide-react'
+import { Settings } from 'lucide-react'
 import { Button } from '../ui/button'
-import {
-    Sheet,
-    SheetTrigger,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-} from '../ui/sheet'
 import Link from 'next/link'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
 import { UserDropdown } from './user-dropdown'
-import { useNavbar } from './provider'
 
 export function MobileNavbar() {
-    const { open, setOpen } = useNavbar()
-
     return (
         <nav
-            className="flex justify-between items-center gap-4"
+            className="sticky top-0 flex justify-between items-center gap-4"
             suppressHydrationWarning
         >
             <Link href="/" className="text-2xl font-bold">
                 MPost
             </Link>
-            <Sheet open={open} onOpenChange={setOpen}>
-                <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                        <Menu />
-                    </Button>
-                </SheetTrigger>
-                <SheetContent className="w-1/2">
-                    <SheetHeader>
-                        <SheetTitle>Menu</SheetTitle>
-                    </SheetHeader>
-                    <ul className="grid grid-cols-2 gap-4 place-items-center mx-auto">
-                        <li className="col-span-2">
-                            <Button variant="link" asChild>
-                                <Link
-                                    href="/settings/user"
-                                    onClick={() => setOpen(false)}
-                                >
-                                    <Settings /> Opções
-                                </Link>
-                            </Button>
-                        </li>
-                        <li>
-                            <NotificationsButton />
-                        </li>
-                        <li>
-                            <UserDropdown />
-                        </li>
-                    </ul>
-                </SheetContent>
-            </Sheet>
+            <div className="flex gap-2 items-center">
+                <NotificationsButton />
+                <Button variant="link" asChild>
+                    <Link href="/settings/user">
+                        <Settings />
+                    </Link>
+                </Button>
+                <UserDropdown />
+            </div>
         </nav>
     )
 }
