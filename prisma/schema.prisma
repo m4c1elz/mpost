@@ -44,6 +44,7 @@ model User {
   image             String?
   status            String?        @db.VarChar(50)
   atsign            String         @unique(map: "user_atsign_key") @db.VarChar(12)
+  url               String?
   isVerified        Boolean        @default(false) @map("is_verified")
   createdAt         DateTime       @default(now()) @map("created_at")
   updatedAt         DateTime?      @updatedAt @map("updated_at")
