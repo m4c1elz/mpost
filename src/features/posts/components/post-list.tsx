@@ -26,7 +26,7 @@ type PostListProps = {
 }
 
 export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
-    const { data } = useSession({ required: true })
+    const { data } = useSession()
 
     if (posts.length === 0) {
         return <p className="text-center">Não há postagens. Ainda!</p>
