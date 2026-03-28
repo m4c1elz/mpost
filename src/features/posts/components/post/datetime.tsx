@@ -17,7 +17,7 @@ export function DateTime({ createdAt, updatedAt }: DateTimeProps) {
     const formattedCreatedAt = formatRelativeDate(createdAt)
 
     return (
-        <p className="text-foreground/50 hidden sm:block">
+        <p className="text-foreground/50 text-xs sm:text-sm">
             {formattedCreatedAt}{' '}
             {zonedUpdatedAt?.getTime() !== zonedCreatedAt.getTime() &&
                 '(editado)'}

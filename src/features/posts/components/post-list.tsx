@@ -1,6 +1,12 @@
-import { auth } from '@/auth'
+'use client'
+
 import { Post } from './post'
 import { getInitials } from '@/helpers/get-initials'
+import { DeletePostButton } from './delete-post-button'
+import { EditPostButton } from './edit-post-button'
+import { PinPostButton } from './pin-post-button'
+import { useSession } from 'next-auth/react'
+import { useIsMobile } from '@/hooks/use-is-mobile'
 
 type PostType = {
     user: {
@@ -20,18 +26,18 @@ type PostListProps = {
     showIsPinnedHighlight?: boolean
 }
 
-export async function PostList({
-    posts,
-    showIsPinnedHighlight,
-}: PostListProps) {
-    const session = await auth()
+export function PostList({ posts, showIsPinnedHighlight }: PostListProps) {
+    const { data } = useSession({ required: true })
+    const isMobile = useIsMobile()
 
     if (posts.length === 0) {
         return <p className="text-center">Não há postagens. Ainda!</p>
     }
 
+    console.log({ isMobile })
+
     return posts.map(post => {
-        const isPostFromCurrentUser = post.user.atsign === session?.user.atsign
+        const isPostFromCurrentUser = post.user.atsign === data?.user.atsign
 
         return (
             <Post.Root key={post.id}>
@@ -47,10 +53,7 @@ export async function PostList({
                         imageUrl={post.user.image}
                         imageFallback={getInitials(post.user.name)}
                     />
-                    <Post.DateTime
-                        createdAt={post.createdAt}
-                        updatedAt={post.updatedAt}
-                    />
+                    {!isMobile && <Post.DateTime {...post} />}
                 </Post.Header>
                 <Post.Content
                     id={post.id}
@@ -59,6 +62,22 @@ export async function PostList({
                 >
                     {post.content}
                 </Post.Content>
+                {isMobile && <Post.DateTime {...post} />}
+                {isPostFromCurrentUser && (
+                    <Post.Footer>
+                        <div className="flex gap-2 items-center">
+                            <EditPostButton
+                                id={post.id}
+                                originalPostContent={post.content}
+                            />
+                            <DeletePostButton id={post.id} />
+                        </div>
+                        <PinPostButton
+                            id={post.id}
+                            isPinned={post.isPinned ?? false}
+                        />
+                    </Post.Footer>
+                )}
             </Post.Root>
         )
     })
