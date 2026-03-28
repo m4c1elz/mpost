@@ -89,7 +89,7 @@ export async function register(
         }
     }
 
-    const { email: createdUserEmail } = await createUser(data)
+    const { email: createdUserEmail } = await createUser({ ...data })
 
     redirect(`/verify?email=${createdUserEmail}`)
 }
