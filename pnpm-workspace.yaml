@@ -1,6 +1,10 @@
+packages:
+    # needed for vercel
+    - .
+
 onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - esbuild
-  - prisma
-  - sharp
+    - '@prisma/client'
+    - '@prisma/engines'
+    - esbuild
+    - prisma
+    - sharp
