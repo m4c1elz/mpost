@@ -8,13 +8,16 @@ import {
 } from '@/components/ui/card'
 import Link from 'next/link'
 import { LoginForm } from '@/features/auth/components/login-form'
+import { useTranslations } from 'next-intl'
 
-export default async function Login() {
+export default function Login() {
+    const t = useTranslations('auth.login.form')
+
     return (
         <Card className="w-[300px]">
             <CardHeader className="text-center">
-                <CardTitle>Login</CardTitle>
-                <CardDescription>Entre com seu usuário.</CardDescription>
+                <CardTitle>{t('title')}</CardTitle>
+                <CardDescription>{t('description')}</CardDescription>
             </CardHeader>
             <CardContent>
                 <LoginForm />
@@ -24,12 +27,12 @@ export default async function Login() {
                     href="/forgotpassword"
                     className="font-medium text-sm text-sky-500"
                 >
-                    Esqueci minha senha
+                    {t('forgotPassword')}
                 </Link>
                 <span className="font-medium text-sm">
-                    Não possui conta?{' '}
+                    {t('registerNoAccount')}{' '}
                     <Link href="/signin" className="text-sky-500">
-                        Registre-se aqui
+                        {t('registerHere')}
                     </Link>
                 </span>
             </CardFooter>

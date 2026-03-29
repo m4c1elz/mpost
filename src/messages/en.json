@@ -1,0 +1,13 @@
+{
+  "auth": {
+    "login": {
+      "form": {
+        "title": "Login",
+        "description": "Enter with your account.",
+        "forgotPassword": "I forgot my password",
+        "registerNoAccount": "Don't have an account yet?",
+        "registerHere": "Register here"
+      }
+    }
+  }
+}
