@@ -9,6 +9,7 @@ import {
     useTransition,
 } from 'react'
 import { useToast } from '@/hooks/use-toast'
+import { useTranslations } from 'next-intl'
 
 interface SendEmailButtonProps extends ComponentProps<'button'> {
     sendEmailAction: () => Promise<any> // eslint-disable-line
@@ -27,18 +28,18 @@ export function SendEmailButton({
     const [sendTimeout, setSendTimeout] = useState(0)
     const { toast } = useToast()
     const [_, startTransition] = useTransition()
+    const t = useTranslations('auth.sendMailButton')
 
     useEffect(() => {
         if (state && state.success) {
             toast({
-                title: 'E-mail enviado',
-                description: 'Verifique sua caixa de entrada.',
+                title: t('onSent.title'),
+                description: t('onSent.description'),
             })
         } else if (state && !state.success) {
             toast({
-                title: 'Erro ao enviar e-mail',
-                description:
-                    'Não foi possível reenviar o e-mail. Aguarde um instante e tente novamente.',
+                title: t('onFail.title'),
+                description: t('onFail.description'),
                 variant: 'destructive',
             })
         }
@@ -66,8 +67,8 @@ export function SendEmailButton({
             {...props}
         >
             {isLoading
-                ? 'Enviando...'
-                : `Enviar E-mail ${sendTimeout > 0 ? `(${sendTimeout})` : ''}`}
+                ? t('sending')
+                : `${t('sendMail')} ${sendTimeout > 0 ? `(${sendTimeout})` : ''}`}
         </Button>
     )
 }

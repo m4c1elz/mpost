@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card'
 import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
 import { SendEmailButton } from '@/features/auth/components/send-email-button'
+import { getTranslations } from 'next-intl/server'
 
 type VerifyUserPageProps = {
     searchParams: Promise<{
@@ -19,15 +20,14 @@ export default async function VerifyUserPage({
 }: VerifyUserPageProps) {
     const { email } = await searchParams
     const sendEmailAction = sendVerificationEmail.bind(null, email)
+    const t = await getTranslations('auth.register.accountVerify')
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Quase lá! Verifique sua conta</CardTitle>
+                <CardTitle>{t('title')}</CardTitle>
                 <CardDescription className="max-w-96">
-                    É necessário que você verifique sua conta antes de começar a
-                    usá-la. Um e-mail será enviado para você com o link de
-                    verificação.
+                    {t('description')}
                 </CardDescription>
             </CardHeader>
             <CardFooter>

@@ -1,12 +1,16 @@
 import { auth } from '@/auth'
 import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
-import { i18nRouting } from './i18n/routing'
+import { defaultLocale, locales } from './locales'
 
 const PRIVATE = ['/', '/posts', '/settings', '/users', '/updates']
 const PUBLIC = ['/login', '/signin', '/verify', '/forgotpassword']
 
-const handle18nRouting = createMiddleware(i18nRouting)
+const handle18nRouting = createMiddleware({
+    locales,
+    defaultLocale,
+    localeDetection: true,
+})
 
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl
@@ -37,6 +41,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+        '/((?!_next/static|_next/image|favicon.ico|assets|sitemap.xml|robots.txt).*)',
     ],
 }

@@ -29,7 +29,7 @@ export default function Login() {
                 >
                     {t('forgotPassword')}
                 </Link>
-                <span className="font-medium text-sm">
+                <span className="font-medium text-sm text-center">
                     {t('registerNoAccount')}{' '}
                     <Link href="/signin" className="text-sky-500">
                         {t('registerHere')}

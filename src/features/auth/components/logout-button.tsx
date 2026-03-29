@@ -7,20 +7,23 @@ import { useActionState } from 'react'
 
 import { logout } from '@/features/auth/actions/logout'
 import Form from 'next/form'
+import { useTranslations } from 'next-intl'
 
 export function LogoutButton() {
     const [, action, isPending] = useActionState(logout, undefined)
+    const t = useTranslations('auth.logoutButton')
 
     return (
         <Form action={action}>
             <Button type="submit" variant="destructive">
                 {isPending ? (
                     <>
-                        <Loader2 className="animate-spin" /> Saindo...
+                        <Loader2 className="animate-spin" />{' '}
+                        {t('loggingOutText')}
                     </>
                 ) : (
                     <>
-                        <LogOut /> Sair
+                        <LogOut /> {t('logoutText')}
                     </>
                 )}
             </Button>

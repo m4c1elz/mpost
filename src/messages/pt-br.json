@@ -4,10 +4,112 @@
       "form": {
         "title": "Login",
         "description": "Entre com o seu usuário.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "password": {
+          "label": "Senha",
+          "placeholder": "senha123"
+        },
         "forgotPassword": "Esqueci minha senha",
         "registerNoAccount": "Não possui conta?",
-        "registerHere": "Registre-se aqui"
+        "registerHere": "Registre-se aqui",
+        "sendButton": {
+          "send": "Enviar",
+          "sending": "Enviando..."
+        }
       }
+    },
+    "register": {
+      "form": {
+        "title": "Registrar",
+        "description": "Crie uma conta no MPost.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "name": {
+          "label": "Nome",
+          "placeholder": "Felipe Maciel"
+        },
+        "username": {
+          "label": "Apelido",
+          "placeholder": "maciel"
+        },
+        "password": {
+          "label": "Senha",
+          "placeholder": "password123"
+        },
+        "confirmPassword": {
+          "label": "Confirmar senha",
+          "placeholder": "password123"
+        },
+        "alreadyHasAccount": "Já possui uma conta?",
+        "loginHere": "Faça login aqui",
+        "sendButton": {
+          "send": "Send",
+          "sending": "Enviando..."
+        }
+      },
+      "accountVerify": {
+        "title": "Quase lá! Verifique sua conta",
+        "description": "É necessário que você verifique sua conta antes de começar a usá-la. Um e-mail será enviado para você com o link de verificação.",
+        "success": {
+          "title": "E-mail verificado!",
+          "description": "Você agora pode realizar login na plataforma.",
+          "loginLink": "Realizar login"
+        },
+        "failed": {
+          "title": "Houve um erro ao verificar o email.",
+          "description": "Tente solicitar um novo código de verificação e tentar de novo."
+        }
+      }
+    },
+    "sendMailButton": {
+      "sendMail": "Enviar E-mail",
+      "sending": "Enviando...",
+      "onSent": {
+        "title": "E-mail enviado",
+        "description": "Verifique sua caixa de entrada."
+      },
+      "onFail": {
+        "title": "Erro ao enviar e-mail.",
+        "description": "Houve um erro ao enviar o e-mail. Por favor aguarde alguns instantes e tente novamente."
+      }
+    },
+    "passwordReset": {
+      "title": "Redefinir senha",
+      "description": "Para redefinir sua senha, um email será enviado para você com um link de reinicialização de senha. Digite seu e-mail abaixo:",
+      "form": {
+        "title": "Criar nova senha",
+        "password": {
+          "label": "Nova senha",
+          "placeholder": "senha123"
+        },
+        "confirmPassword": {
+          "label": "Confirmar senha",
+          "placeholder": "senha123"
+        },
+        "submitButton": {
+          "send": "Enviar",
+          "sending": "Enviando..."
+        }
+      },
+      "onSuccess": {
+        "title": "Senha alterada!",
+        "description": "Você pode agora realizar login na plataforma com sua nova senha.",
+        "loginLink": "Realizar login"
+      },
+      "onFail": {
+        "title": "URL enviado é inválido.",
+        "description": "Você está acessando um link inválido de reinicialização de senha. É possível que o URL tenha expirado. Faça o processo de enviar o email novamente.",
+        "tryAgainLink": "Tentar novamente"
+      }
+    },
+    "logoutButton": {
+      "logoutText": "Sair",
+      "loggingOutText": "Saindo..."
     }
   }
 }

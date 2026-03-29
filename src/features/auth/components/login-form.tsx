@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 
 // hooks
 import { useActionState } from 'react'
+import { useTranslations } from 'next-intl'
 
 // actions
 import { login } from '../actions/login'
@@ -16,15 +17,16 @@ import { PasswordInput } from '@/components/password-input'
 
 export function LoginForm() {
     const [state, action, isPending] = useActionState(login, undefined)
+    const t = useTranslations('auth.login.form')
 
     return (
         <Form action={action} className="space-y-4">
             <div className="space-y-2">
-                <Label>E-mail</Label>
+                <Label>{t('email.label')}</Label>
                 <Input
                     type="text"
                     name="email"
-                    placeholder="felipemmaciel06@gmail.com"
+                    placeholder={t('email.placeholder')}
                     required
                 />
                 {state && (
@@ -34,10 +36,10 @@ export function LoginForm() {
                 )}
             </div>
             <div className="space-y-2">
-                <Label>Senha</Label>
+                <Label>{t('password.label')}</Label>
                 <PasswordInput
                     name="password"
-                    placeholder="senha123"
+                    placeholder={t('password.placeholder')}
                     required
                 />
                 {state && (
@@ -49,10 +51,11 @@ export function LoginForm() {
             <Button type="submit" className="w-full" disabled={isPending}>
                 {isPending ? (
                     <>
-                        <Loader2 className="animate-spin" /> Enviando...
+                        <Loader2 className="animate-spin" />{' '}
+                        {t('sendButton.sending')}
                     </>
                 ) : (
-                    'Enviar'
+                    t('sendButton.send')
                 )}
             </Button>
         </Form>

@@ -4,10 +4,112 @@
       "form": {
         "title": "Login",
         "description": "Enter with your account.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "password123"
+        },
         "forgotPassword": "I forgot my password",
         "registerNoAccount": "Don't have an account yet?",
-        "registerHere": "Register here"
+        "registerHere": "Register here",
+        "sendButton": {
+          "send": "Log in",
+          "sending": "Sending..."
+        }
       }
+    },
+    "register": {
+      "form": {
+        "title": "Register",
+        "description": "Create an account on MPost.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "name": {
+          "label": "Name",
+          "placeholder": "Felipe Maciel"
+        },
+        "username": {
+          "label": "Username",
+          "placeholder": "maciel"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "password123"
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": "password123"
+        },
+        "alreadyHasAccount": "Got an account already?",
+        "loginHere": "Log in here",
+        "sendButton": {
+          "send": "Create account",
+          "sending": "Sending..."
+        }
+      },
+      "accountVerify": {
+        "title": "Almost there! Verify your account",
+        "description": "It's necessary that you verify your account before you can start using it. An e-mail will be sent to you with the verification link.",
+        "success": {
+          "title": "E-mail verified!",
+          "description": "You can now log in on the platform.",
+          "loginLink": "Sign in"
+        },
+        "failed": {
+          "title": "An error occoured during verification.",
+          "description": "Try again requesting a new verification link."
+        }
+      }
+    },
+    "sendMailButton": {
+      "sendMail": "Send Email",
+      "sending": "Sending...",
+      "onSent": {
+        "title": "E-mail sent",
+        "description": "Check your inbox."
+      },
+      "onFail": {
+        "title": "Error while sending email",
+        "description": "An unknown error happened while sending the email. Please wait for a few moments then try again"
+      }
+    },
+    "passwordReset": {
+      "title": "Reset password",
+      "description": "To reset your password, an email containing a password reset link will be sent to you. Type your email below:",
+      "form": {
+        "title": "Create new password",
+        "password": {
+          "label": "New password",
+          "placeholder": "password123"
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": "password123"
+        },
+        "submitButton": {
+          "send": "Send",
+          "sending": "Sending..."
+        }
+      },
+      "onSuccess": {
+        "title": "Password reset!",
+        "description": "You can now log in with your new password.",
+        "loginLink": "Log in"
+      },
+      "onFail": {
+        "title": "Invalid URL",
+        "description": "You are using an invalid password reset link. It's likely that the URL has expired. Please try requesting the password reset email again.",
+        "tryAgainLink": "Try again"
+      }
+    },
+    "logoutButton": {
+      "logoutText": "Log out",
+      "loggingOutText": "Logging out..."
     }
   }
 }

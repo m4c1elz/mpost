@@ -13,19 +13,21 @@ import { register } from '../actions/register'
 // hooks
 import { useActionState } from 'react'
 import { PasswordInput } from '@/components/password-input'
+import { useTranslations } from 'next-intl'
 
 export function RegisterForm() {
     const [state, action, isPending] = useActionState(register, undefined)
+    const t = useTranslations('auth.register.form')
 
     return (
         <div className="space-y-2">
             <Form action={action} className="space-y-4">
                 <div className="space-y-2">
-                    <Label>E-mail</Label>
+                    <Label>{t('email.label')}</Label>
                     <Input
                         type="text"
                         name="email"
-                        placeholder="felipemmaciel06@gmail.com"
+                        placeholder={t('email.placeholder')}
                     />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
@@ -34,11 +36,11 @@ export function RegisterForm() {
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label>Nome</Label>
+                    <Label>{t('name.label')}</Label>
                     <Input
                         type="text"
                         name="name"
-                        placeholder="Felipe Maciel"
+                        placeholder={t('name.placeholder')}
                     />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
@@ -47,8 +49,12 @@ export function RegisterForm() {
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label>Apelido</Label>
-                    <Input type="text" name="atsign" placeholder="maciel" />
+                    <Label>{t('username.label')}</Label>
+                    <Input
+                        type="text"
+                        name="atsign"
+                        placeholder={t('username.placeholder')}
+                    />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
                             {state.error.atsign}
@@ -56,8 +62,11 @@ export function RegisterForm() {
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label>Senha</Label>
-                    <PasswordInput name="password" placeholder="senha123" />
+                    <Label>{t('password.label')}</Label>
+                    <PasswordInput
+                        name="password"
+                        placeholder={t('password.placeholder')}
+                    />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
                             {state.error.password}
@@ -65,10 +74,10 @@ export function RegisterForm() {
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label>Confirmar senha</Label>
+                    <Label>{t('confirmPassword.label')}</Label>
                     <PasswordInput
                         name="confirm-password"
-                        placeholder="senha123"
+                        placeholder={t('confirmPassword.placeholder')}
                     />
                     {state && (
                         <span className="text-sm text-destructive font-bold py-1">
@@ -79,10 +88,11 @@ export function RegisterForm() {
                 <Button type="submit" className="w-full" disabled={isPending}>
                     {isPending ? (
                         <>
-                            <Loader2 className="animate-spin" /> Enviando...
+                            <Loader2 className="animate-spin" />{' '}
+                            {t('sendButton.sending')}
                         </>
                     ) : (
-                        'Enviar'
+                        t('sendButton.send')
                     )}
                 </Button>
             </Form>

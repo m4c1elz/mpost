@@ -8,22 +8,25 @@ import {
 } from '@/components/ui/card'
 import Link from 'next/link'
 import { RegisterForm } from '@/features/auth/components/register-form'
+import { useTranslations } from 'next-intl'
 
 export default function SignIn() {
+    const t = useTranslations('auth.register.form')
+
     return (
         <Card className="w-[300px]">
             <CardHeader className="text-center">
-                <CardTitle>Cadastro</CardTitle>
-                <CardDescription>Cadastre-se na plataforma.</CardDescription>
+                <CardTitle>{t('title')}</CardTitle>
+                <CardDescription>{t('description')}</CardDescription>
             </CardHeader>
             <CardContent>
                 <RegisterForm />
             </CardContent>
             <CardFooter className="flex justify-center items-center">
                 <span className="font-medium text-sm">
-                    Já possui conta?{' '}
+                    {t('alreadyHasAccount')}{' '}
                     <Link href="/login" className="text-sky-500">
-                        Faça login aqui
+                        {t('loginHere')}
                     </Link>
                 </span>
             </CardFooter>

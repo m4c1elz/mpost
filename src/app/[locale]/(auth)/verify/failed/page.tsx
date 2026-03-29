@@ -8,6 +8,7 @@ import {
 import { SendEmailButton } from '@/features/auth/components/send-email-button'
 import { Toaster } from '@/components/ui/toaster'
 import { sendVerificationEmail } from '@/features/auth/actions/send-verification-email'
+import { getTranslations } from 'next-intl/server'
 
 interface SearchParams {
     email: string
@@ -19,6 +20,7 @@ export default async function VerificationFailed({
     searchParams: Promise<SearchParams>
 }) {
     const { email } = await searchParams
+    const t = await getTranslations('auth.register.accountVerify.failed')
 
     return (
         <>
@@ -26,12 +28,9 @@ export default async function VerificationFailed({
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-destructive">
-                            Houve um erro ao verificar o email.
+                            {t('title')}
                         </CardTitle>
-                        <CardDescription>
-                            Tente solicitar um novo código de verificação e
-                            tentar de novo.
-                        </CardDescription>
+                        <CardDescription>{t('description')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <SendEmailButton

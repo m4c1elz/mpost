@@ -5,17 +5,18 @@ import {
     CardTitle,
     CardContent,
 } from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 export default function VerificationSuccess() {
+    const t = useTranslations('auth.register.accountVerify.success')
+
     return (
         <div className="grid w-screen h-screen place-content-center">
             <Card>
                 <CardHeader>
-                    <CardTitle>E-mail verificado!</CardTitle>
-                    <CardDescription>
-                        Você pode agora realizar login na plataforma.
-                    </CardDescription>
+                    <CardTitle>{t('title')}</CardTitle>
+                    <CardDescription>{t('description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="text-center">
@@ -23,7 +24,7 @@ export default function VerificationSuccess() {
                             href="/login"
                             className="underline underline-offset-4 text-sky-500"
                         >
-                            Realizar login
+                            {t('loginLink')}
                         </Link>
                     </div>
                 </CardContent>

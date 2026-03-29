@@ -5,24 +5,21 @@ import {
     CardDescription,
     CardContent,
 } from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 export function PasswordResetValidationFailedCard() {
+    const t = useTranslations('auth.passwordReset.onFail')
+
     return (
         <Card className="w-[90vw] sm:w-[400px]">
             <CardHeader>
-                <CardTitle className="text-destructive">
-                    URL enviado é inválido.
-                </CardTitle>
-                <CardDescription>
-                    Você está acessando um link inválido de reinicialização de
-                    senha. É possível que o URL tenha expirado. Faça o processo
-                    de enviar o email novamente.
-                </CardDescription>
+                <CardTitle className="text-destructive">{t('title')}</CardTitle>
+                <CardDescription>{t('description')}</CardDescription>
             </CardHeader>
             <CardContent>
                 <Link href="/forgotpassword" className="underline text-sky-500">
-                    Tentar novamente
+                    {t('loginLink')}
                 </Link>
             </CardContent>
         </Card>
