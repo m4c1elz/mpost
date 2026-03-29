@@ -9,7 +9,8 @@ import { UserDropdown } from './user-dropdown'
 export function MobileNavbar() {
     return (
         <nav
-            className="sticky top-0 flex justify-between items-center gap-4"
+            id="mobile-nav"
+            className="sticky top-0 flex justify-between items-center gap-4 md:hidden"
             suppressHydrationWarning
         >
             <Link href="/" className="text-2xl font-bold">

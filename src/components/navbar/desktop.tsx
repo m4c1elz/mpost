@@ -7,7 +7,8 @@ import { UserDropdown } from './user-dropdown'
 export function DesktopNavbar() {
     return (
         <nav
-            className="flex justify-between items-center gap-4"
+            id="desktop-nav"
+            className="hidden justify-between items-center gap-4 md:flex"
             suppressHydrationWarning
         >
             <Link href="/" className="text-2xl font-bold">
