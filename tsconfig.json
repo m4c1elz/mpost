@@ -28,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "eslint.config.mjs",
-    ".lintstagedrc.ts"
+    ".lintstagedrc.mjs",
+    "src/app/(logged-in)/updates/layout.mdx",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

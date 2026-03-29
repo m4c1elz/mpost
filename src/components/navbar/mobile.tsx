@@ -1,6 +1,6 @@
 'use client'
 
-import { Settings } from 'lucide-react'
+import { Settings, History } from 'lucide-react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
@@ -20,6 +20,11 @@ export function MobileNavbar() {
                 <Button variant="link" asChild>
                     <Link href="/settings/user">
                         <Settings />
+                    </Link>
+                </Button>
+                <Button variant="link" asChild>
+                    <Link href="/updates">
+                        <History />
                     </Link>
                 </Button>
                 <UserDropdown />

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @plugin 'tailwindcss-animate';
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -140,5 +141,7 @@
 }
 
 #nprogress .peg {
-    box-shadow: 0 0 10px hsl(var(--foreground)), 0 0 5px hsl(var(--foreground));
+    box-shadow:
+        0 0 10px hsl(var(--foreground)),
+        0 0 5px hsl(var(--foreground));
 }
