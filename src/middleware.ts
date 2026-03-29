@@ -8,6 +8,7 @@ const PRIVATE = [
     '/users',
     '/api/comments',
     '/api/notifications',
+    '/updates',
 ]
 const PUBLIC = ['/login', '/signin', '/verify', '/forgotpassword']
 
