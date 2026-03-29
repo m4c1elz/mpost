@@ -6,7 +6,7 @@ export default async function UpdatePage({ params }: { params: Params }) {
     const { slug } = await params
 
     const { default: Markdown } = await import(
-        `@/app/(logged-in)/updates/_markdown/${slug}.md`
+        `@/app/[locale]/(logged-in)/updates/_markdown/${slug}.md`
     )
 
     return <Markdown />
