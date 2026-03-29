@@ -110,6 +110,25 @@
     "logoutButton": {
       "logoutText": "Log out",
       "loggingOutText": "Logging out..."
+    },
+    "emails": {
+      "verifyAccount": {
+        "subject": "Email Verification",
+        "preview": "Confirm your email",
+        "title": "Almost there!",
+        "description": "To verify your account on MPost, follow",
+        "link": "this link",
+        "footerText": "Made by Maciel."
+      },
+      "resetPassword": {
+        "subject": "Password Reset",
+        "preview": "Reset your password",
+        "title": "Reset your password",
+        "description": "To continue and reset your password, follow",
+        "link": "this link",
+        "ignoreEmail": "If you didn't request this email, please ignore it.",
+        "footerText": "Made by Maciel."
+      }
     }
   }
 }

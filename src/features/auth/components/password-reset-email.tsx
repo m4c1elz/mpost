@@ -10,46 +10,49 @@ import {
     Link,
     Hr,
 } from '@react-email/components'
+import { createTranslator } from 'next-intl'
 
 interface PasswordResetEmailProps {
     redirectUrl: string
+    locale: string
 }
 
-export default function PasswordResetEmail({
+export default async function PasswordResetEmail({
     redirectUrl,
+    locale,
 }: PasswordResetEmailProps) {
+    const t = createTranslator({
+        messages: await import(`../../../messages/${locale}.json`),
+        namespace: 'auth.emails.resetPassword',
+        locale,
+    })
+
     return (
         <Html lang="pt-br">
             <Head>
                 <Font fontFamily="Roboto" fallbackFontFamily="sans-serif" />
             </Head>
-            <Preview>Reinicie sua senha</Preview>
+            <Preview>{t('preview')}</Preview>
             <Tailwind>
                 <Body>
                     <Text className="text-center text-3xl font-bold">
                         MPost
                     </Text>
                     <Container>
-                        <Text className="text-2xl font-bold">
-                            Redefinir sua senha
-                        </Text>
+                        <Text className="text-2xl font-bold">{t('title')}</Text>
                         <Text>
-                            Para continuar o processo de reinicialização de
-                            senha, siga{' '}
+                            {t('description')}{' '}
                             <Link
                                 href={redirectUrl}
                                 className="text-sky-500 cursor-pointer"
                             >
-                                este link
+                                {t('link')}
                             </Link>
                             .
                         </Text>
-                        <Text>
-                            Se não foi você que solicitou por este e-mail,
-                            ignore-o.
-                        </Text>
+                        <Text>{t('ignoreEmail')}</Text>
                         <Hr />
-                        <Text className="text-center">Feito por Maciel.</Text>
+                        <Text className="text-center">{t('footerText')}</Text>
                     </Container>
                 </Body>
             </Tailwind>

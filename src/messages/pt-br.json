@@ -110,6 +110,25 @@
     "logoutButton": {
       "logoutText": "Sair",
       "loggingOutText": "Saindo..."
+    },
+    "emails": {
+      "verifyAccount": {
+        "subject": "Verificação de e-mail",
+        "preview": "Confirme seu email",
+        "title": "Falta pouco!",
+        "description": "Para se logar na sua conta no MPost, siga",
+        "link": "este link",
+        "footerText": "Feito por Maciel."
+      },
+      "resetPassword": {
+        "subject": "Redefinir senha",
+        "preview": "Reinicie sua senha",
+        "title": "Redefinir sua senha",
+        "description": "Para continuar o processo de reinicialização de senha, siga",
+        "link": "este link",
+        "ignoreEmail": "Se não foi você que solicitou por este e-mail, ignore-o.",
+        "footerText": "Feito por Maciel."
+      }
     }
   }
 }

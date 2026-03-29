@@ -6,6 +6,7 @@ import PasswordResetEmail from '../components/password-reset-email'
 import { z } from 'zod'
 import { sendMail } from '../lib/email'
 import { signJWT } from '../lib/jwt'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 const sendResetPasswordEmailSchema = z.string().email()
 
@@ -50,11 +51,14 @@ export async function sendResetPasswordEmail(
         env.EMAIL_REDIRECT_URL,
     ).toString()
 
+    const locale = await getLocale()
+    const t = await getTranslations('auth.emails.resetPassword')
+
     try {
         await sendMail(
             email,
-            'Reinicialização de senha',
-            PasswordResetEmail({ redirectUrl }),
+            t('subject'),
+            PasswordResetEmail({ redirectUrl, locale }),
         )
 
         return {
