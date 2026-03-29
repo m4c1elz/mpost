@@ -15,14 +15,14 @@ export function MobileNavbar() {
             <Link href="/" className="text-2xl font-bold">
                 MPost
             </Link>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-3.5 items-center">
                 <NotificationsButton />
-                <Button variant="link" asChild>
+                <Button variant="link" size="icon" asChild>
                     <Link href="/settings/user">
                         <Settings />
                     </Link>
                 </Button>
-                <Button variant="link" asChild>
+                <Button variant="link" size="icon" asChild>
                     <Link href="/updates">
                         <History />
                     </Link>
