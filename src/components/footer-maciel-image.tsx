@@ -4,17 +4,17 @@ import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 
 export function FooterMacielImage() {
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const [imagePath, setImagePath] = useState<string | undefined>(undefined)
 
     useEffect(() => {
         const imageUrl =
-            theme === 'dark'
+            resolvedTheme === 'dark'
                 ? '/assets/ciel-dark.png'
                 : '/assets/ciel-light.png'
 
         setImagePath(imageUrl)
-    }, [theme])
+    }, [resolvedTheme])
 
     return (
         <img
