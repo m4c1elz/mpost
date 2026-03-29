@@ -10,7 +10,7 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
         <div
             className={
                 geistSans.className +
-                ' prose prose-sm prose-headings:text-foreground prose-strong:text-foreground text-foreground m-auto md:prose-base md:w-[800px]'
+                ' prose prose-sm prose-headings:text-foreground prose-strong:text-foreground text-foreground prose-a:text-primary m-auto md:prose-base md:w-[800px]'
             }
         >
             <h1>Atualizações</h1>
