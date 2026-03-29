@@ -13,11 +13,15 @@ import { useToast } from '@/hooks/use-toast'
 interface EditUserFormProps {
     defaultName: string
     defaultAtsign: string
+    defaultStatus?: string
+    defaultUrl?: string
 }
 
 export function EditUserForm({
     defaultAtsign,
     defaultName,
+    defaultStatus,
+    defaultUrl,
 }: EditUserFormProps) {
     const [state, action, isPending] = useActionState(editUser, undefined)
     const { update } = useSession()
@@ -63,6 +67,34 @@ export function EditUserForm({
                 {state && (
                     <span className="text-sm text-destructive">
                         {state.error?.atsign}
+                    </span>
+                )}
+            </div>
+            <div className="space-y-2">
+                <Label>Status</Label>
+                <Input
+                    type="text"
+                    placeholder="Me sentindo bem!"
+                    defaultValue={defaultStatus}
+                    name="status"
+                />
+                {state && (
+                    <span className="text-sm text-destructive">
+                        {state.error?.status}
+                    </span>
+                )}
+            </div>
+            <div className="space-y-2">
+                <Label>Link externo</Label>
+                <Input
+                    type="text"
+                    placeholder="https://maciel.app"
+                    defaultValue={defaultUrl}
+                    name="url"
+                />
+                {state && (
+                    <span className="text-sm text-destructive">
+                        {state.error?.url}
                     </span>
                 )}
             </div>

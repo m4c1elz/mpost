@@ -41,7 +41,7 @@ type Response =
 
 export async function register(
     _prevState: unknown,
-    formData: FormData
+    formData: FormData,
 ): Promise<Response> {
     const email = formData.get('email')
     const password = formData.get('password')
@@ -89,7 +89,7 @@ export async function register(
         }
     }
 
-    const { email: createdUserEmail } = await createUser(data)
+    const { email: createdUserEmail } = await createUser({ ...data })
 
     redirect(`/verify?email=${createdUserEmail}`)
 }

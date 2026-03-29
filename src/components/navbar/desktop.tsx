@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
-import { Plus, Settings } from 'lucide-react'
+import { Plus, Settings, History } from 'lucide-react'
 import { UserDropdown } from './user-dropdown'
 
 export function DesktopNavbar() {
     return (
         <nav
-            className="flex justify-between items-center gap-4"
+            id="desktop-nav"
+            className="hidden justify-between items-center gap-4 md:flex"
             suppressHydrationWarning
         >
             <Link href="/" className="text-2xl font-bold">
@@ -25,6 +26,13 @@ export function DesktopNavbar() {
                     <Button variant="link" asChild>
                         <Link href="/settings/user">
                             <Settings /> Opções
+                        </Link>
+                    </Button>
+                </li>
+                <li>
+                    <Button variant="link" asChild>
+                        <Link href="/updates">
+                            <History /> Atualizações
                         </Link>
                     </Button>
                 </li>

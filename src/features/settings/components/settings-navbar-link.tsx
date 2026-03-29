@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 export function SettingsNavbarLink(
-    props: LinkProps & { children: React.ReactNode }
+    props: LinkProps & { children: React.ReactNode },
 ) {
     const pathname = usePathname()
 
@@ -16,7 +16,7 @@ export function SettingsNavbarLink(
             {...props}
             className={cn(
                 'px-4 py-2 w-[90%] hover:bg-foreground/10 rounded transition font-medium text-sm',
-                isActive && 'bg-foreground/10'
+                isActive && 'bg-foreground/10',
             )}
         >
             {props.children}

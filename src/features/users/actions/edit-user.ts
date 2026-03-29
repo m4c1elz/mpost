@@ -12,6 +12,12 @@ const editUserSchema = z.object({
         .min(3, 'Apelido deve conter ao menos 3 caracteres.')
         .max(12, 'Apelido não pode conter mais de 12 caracteres.')
         .trim(),
+    status: z
+        .string()
+        .max(50, 'Status não deve conter mais que 50 caracteres.')
+        .trim()
+        .optional(),
+    url: z.string().url('URL inválido!').trim().optional().or(z.literal('')),
 })
 
 export async function editUser(_prevState: unknown, formData: FormData) {
@@ -19,8 +25,15 @@ export async function editUser(_prevState: unknown, formData: FormData) {
 
     const name = formData.get('name')
     const atsign = formData.get('atsign')
+    const status = formData.get('status')
+    const url = formData.get('url')
 
-    const { success, data, error } = editUserSchema.safeParse({ name, atsign })
+    const { success, data, error } = editUserSchema.safeParse({
+        name,
+        atsign,
+        status,
+        url,
+    })
 
     if (!success) {
         return {
@@ -37,6 +50,7 @@ export async function editUser(_prevState: unknown, formData: FormData) {
             user: result,
         }
     } catch (error) {
+        console.log(error)
         if (
             error instanceof PrismaClientKnownRequestError &&
             error.code == 'P2002'
@@ -46,6 +60,8 @@ export async function editUser(_prevState: unknown, formData: FormData) {
                 error: {
                     atsign: ['Já existe alguém com este apelido!'],
                     name: '',
+                    status: '',
+                    url: '',
                 },
             }
         }

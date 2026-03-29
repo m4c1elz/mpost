@@ -13,11 +13,9 @@ import {
 } from '../ui/dropdown-menu'
 import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
-import { useNavbar } from './provider'
 
 export function UserDropdown() {
     const { data: session, update } = useSession()
-    const { setOpen } = useNavbar()
 
     useEffect(() => {
         if (!session) {
@@ -51,7 +49,6 @@ export function UserDropdown() {
                 <DropdownMenuItem className="font-bold">
                     {atsign ? (
                         <Link
-                            onClick={() => setOpen(false)}
                             href={`/users/${atsign}`}
                             className="text-sky-500 underline underline-offset-2"
                         >

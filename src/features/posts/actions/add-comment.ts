@@ -9,7 +9,7 @@ export async function addComment(
     postId: number,
     _prevState: unknown,
     formData: FormData,
-    parentId?: number
+    parentId?: number,
 ) {
     const content = formData.get('content') as string
     const session = await auth()
@@ -18,7 +18,7 @@ export async function addComment(
         content,
         postId,
         session?.user.id!,
-        parentId
+        parentId,
     )
 
     const isPostComment = createdComment.parent === null

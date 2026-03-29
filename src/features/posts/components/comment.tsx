@@ -4,7 +4,19 @@ import {
     type Comment as CommentType,
     type User as UserType,
 } from '@prisma/client'
-import { Post } from './post'
+import {
+    Post,
+    PostHeader,
+    PostHeaderGroup,
+    PostUsername,
+    PostProfilePicture,
+    PostContent,
+    PostDate,
+    PostFooter,
+    PostBadge,
+    PostAction,
+    PostActionGroup,
+} from './post'
 import { Button } from '@/components/ui/button'
 import { Loader2, MessageSquareText } from 'lucide-react'
 import { AddCommentForm } from './add-comment-form'
@@ -57,40 +69,32 @@ export function Comment({
 
     return (
         <div className="space-y-2">
-            <Post.Root>
-                {isHighlighted && (
-                    <small className="block bg-foreground/10 px-2 py-1 w-fit rounded-sm">
-                        Comentário em destaque
-                    </small>
-                )}
-                <Post.Header>
-                    <Post.UserInfo
-                        atsign={user.atsign}
-                        username={user.name}
-                        imageUrl={user.image}
-                        imageFallback={getInitials(user.name)}
-                    />
-
-                    <Post.DateTime
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                    />
-                </Post.Header>
-                <Post.Content id={id} asLink={false}>
-                    {content}
-                </Post.Content>
-                <div className="flex justify-between items-center">
-                    <Button
-                        onClick={() => setFormOpen(!formOpen)}
-                        size="icon"
-                        variant="ghost"
-                    >
-                        <MessageSquareText className="text-foreground/50" />
-                    </Button>
-                    {isCommentFromCurrentUser && (
-                        <DeleteCommentButton id={id} />
-                    )}
-                </div>
+            <Post {...{ id, content }}>
+                {isHighlighted && <PostBadge>Comentário em destaque</PostBadge>}
+                <PostHeader>
+                    <PostHeaderGroup>
+                        <PostProfilePicture
+                            src={user.image}
+                            alt={`${user.name}'s Profile Picture`}
+                            fallback={getInitials(user.name)}
+                        />
+                        <PostUsername atsign={user.atsign}>
+                            {user.name}
+                        </PostUsername>
+                    </PostHeaderGroup>
+                </PostHeader>
+                <PostContent asLink={false}>{content}</PostContent>
+                <PostDate date={createdAt} />
+                <PostFooter>
+                    <PostActionGroup>
+                        <PostAction onClick={() => setFormOpen(!formOpen)}>
+                            <MessageSquareText className="text-foreground/50" />
+                        </PostAction>
+                        {isCommentFromCurrentUser && (
+                            <DeleteCommentButton id={id} />
+                        )}
+                    </PostActionGroup>
+                </PostFooter>
                 {formOpen && (
                     <AddCommentForm
                         ref={formElementRef}
@@ -104,7 +108,7 @@ export function Comment({
                         }}
                     />
                 )}
-            </Post.Root>
+            </Post>
             {hasReplies && (repliesHidden || repliesQuery.isLoading) && (
                 <Button onClick={handleFetchReplies} variant="outline">
                     {repliesQuery.isLoading ? (

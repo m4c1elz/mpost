@@ -37,7 +37,7 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
 
                 const isPassCorrect = await compare(
                     result.data.password,
-                    user.password
+                    user.password,
                 )
 
                 if (!isPassCorrect) {
@@ -50,6 +50,8 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     name: user.name,
                     image: user.image,
                     atsign: user.atsign,
+                    status: user.status,
+                    url: user.url,
                 }
             },
         }),
@@ -61,6 +63,8 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                 token.id = user.id
                 token.email = user.email
                 token.picture = user.image
+                token.status = user.status
+                token.url = user.url
             }
 
             if (trigger === 'update' && token.email) {
@@ -70,6 +74,8 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     token.atsign = dbUser.atsign
                     token.name = dbUser.name
                     token.picture = dbUser.image
+                    token.status = dbUser.status
+                    token.url = dbUser.url
                 }
             }
 
@@ -83,6 +89,8 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
                     atsign: token.atsign,
                     id: token.id as string,
                     image: token.picture as string,
+                    status: token.status as string,
+                    url: token.url as string,
                 },
             }
         },

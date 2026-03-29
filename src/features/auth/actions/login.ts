@@ -23,7 +23,7 @@ type LoginResponse = {
 
 export async function login(
     _prevState: unknown,
-    formData: FormData
+    formData: FormData,
 ): Promise<LoginResponse | undefined> {
     const email = formData.get('email')
     const password = formData.get('password')

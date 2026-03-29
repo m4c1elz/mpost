@@ -12,7 +12,7 @@ export function RequestPasswordResetForm() {
 
     const [state, action, isPending] = useActionState(
         sendResetPasswordEmail,
-        undefined
+        undefined,
     )
 
     const { toast } = useToast()

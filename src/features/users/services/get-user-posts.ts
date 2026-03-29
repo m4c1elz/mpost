@@ -4,12 +4,13 @@ import { prisma } from '@/lib/prisma'
 export async function getUserPostsByAtsign(
     atsign: string,
     page = 1,
-    limit = 15
+    limit = 15,
 ) {
     const posts = await prisma.post.findMany({
         select: {
             id: true,
             content: true,
+            isPinned: true,
             createdAt: true,
             updatedAt: true,
             user: {
@@ -25,6 +26,7 @@ export async function getUserPostsByAtsign(
                 atsign,
             },
         },
+        orderBy: [{ isPinned: 'desc' }, { createdAt: 'desc' }],
         take: limit,
         skip: (page - 1) * limit,
     })

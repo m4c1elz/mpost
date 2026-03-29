@@ -1,5 +1,4 @@
 import { PopoverClose } from '@radix-ui/react-popover'
-import { useNavbar } from '@/components/navbar/provider'
 import { useRouter } from 'next-nprogress-bar'
 import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
@@ -25,7 +24,6 @@ export function Notification({
     createdAt,
     isRead,
 }: NotificationProps) {
-    const { setOpen: setNavbarOpen } = useNavbar()
     const router = useRouter()
     const queryClient = getQueryClient()
 
@@ -41,7 +39,6 @@ export function Notification({
             })
         }
         await sleep(200)
-        setNavbarOpen(false)
         router.push(href)
     }
 
@@ -51,7 +48,7 @@ export function Notification({
                 onClick={handleClick}
                 className={cn(
                     'cursor-pointer p-4 text-start transition-colors text-sm w-full hover:bg-foreground/10',
-                    !isRead && 'bg-foreground/5'
+                    !isRead && 'bg-foreground/5',
                 )}
             >
                 <span>

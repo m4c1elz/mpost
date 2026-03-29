@@ -6,7 +6,7 @@ type Params = Promise<{ id: string }>
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: Params }
+    { params }: { params: Params },
 ) {
     const { id } = await params
     const page = request.nextUrl.searchParams.get('page')

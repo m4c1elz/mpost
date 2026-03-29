@@ -1,0 +1,14 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "tabWidth": 4,
+  "overrides": [
+    {
+      "files": ["*.json", "**rc"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
+}
