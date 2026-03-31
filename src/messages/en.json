@@ -18,7 +18,10 @@
         "sendButton": {
           "send": "Log in",
           "sending": "Sending..."
-        }
+        },
+        "invalidEmail": "Invalid e-mail.",
+        "passwordMinChars": "Password should have at least 8 characters.",
+        "invalidCredentials": "Email or password is incorrect."
       }
     },
     "register": {
@@ -50,7 +53,14 @@
         "sendButton": {
           "send": "Create account",
           "sending": "Sending..."
-        }
+        },
+        "invalidEmail": "Invalid e-mail.",
+        "passwordMinChars": "Password should have at least 8 characters.",
+        "nameMinChars": "Name should have at least 3 characters.",
+        "usernameMinChars": "Username should have at least 3 characters.",
+        "usernameMaxChars": "Username should not have more than 12 characters.",
+        "usernameInUse": "Username already in use.",
+        "passwordsNotMatching": "Passwords do not match."
       },
       "accountVerify": {
         "title": "Almost there! Verify your account",
@@ -94,7 +104,12 @@
         "submitButton": {
           "send": "Send",
           "sending": "Sending..."
-        }
+        },
+        "validation": {
+          "passwordMinChars": "Password should have at least 8 characters.",
+          "passwordsNotMatching": "Passwords do not match."
+        },
+        "errorWhileUpdating": "Error while updating user."
       },
       "onSuccess": {
         "title": "Password reset!",
@@ -118,7 +133,8 @@
         "title": "Almost there!",
         "description": "To verify your account on MPost, follow",
         "link": "this link",
-        "footerText": "Made by Maciel."
+        "footerText": "Made by Maciel.",
+        "unknownError": "Unknown error while sending confirmation e-mail."
       },
       "resetPassword": {
         "subject": "Password Reset",
@@ -127,7 +143,10 @@
         "description": "To continue and reset your password, follow",
         "link": "this link",
         "ignoreEmail": "If you didn't request this email, please ignore it.",
-        "footerText": "Made by Maciel."
+        "footerText": "Made by Maciel.",
+        "invalidEmail": "Invalid e-mail.",
+        "userNotFound": "User not found.",
+        "couldntSendEmail": "Could not send verification e-mail. Please try again later."
       }
     }
   }

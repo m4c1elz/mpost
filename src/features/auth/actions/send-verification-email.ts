@@ -27,7 +27,7 @@ export async function sendVerificationEmail(email: string) {
     } catch (error) {
         console.log(error)
         return {
-            error: { email: ['Erro crítico ao enviar email de confirmação.'] },
+            error: { email: [t('unknownError')] },
             success: false,
         }
     }

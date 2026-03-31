@@ -5,37 +5,33 @@ import { getUserByEmail } from '@/features/users/services/get-user-by-email'
 import { createUser } from '@/features/users/services/create-user'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 import { redirect } from 'next/navigation'
+import { _Translator } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-const registerSchema = z
-    .object({
-        email: z.string().email('E-mail inválido.').trim(),
-        password: z
-            .string()
-            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-            .trim(),
-        name: z
-            .string()
-            .min(3, 'Nome deve conter no mínimo 3 caracteres.')
-            .trim(),
-        atsign: z
-            .string()
-            .min(3, 'Apelido deve conter ao menos 3 caracteres.')
-            .max(12, 'Apelido não pode conter mais de 12 caracteres.')
-            .trim(),
-        confirmPassword: z
-            .string()
-            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-            .trim(),
-    })
-    .refine(data => data.password === data.confirmPassword, {
-        message: 'Senhas não coincidem.',
-        path: ['confirmPassword'],
-    })
+const registerSchema = (t: _Translator) =>
+    z
+        .object({
+            email: z.string().email(t('invalidEmail')).trim(),
+            password: z.string().min(8, t('passwordMinChars')).trim(),
+            name: z.string().min(3, t('nameMinChars')).trim(),
+            atsign: z
+                .string()
+                .min(3, t('usernameMinChars'))
+                .max(12, t('usernameMaxChars'))
+                .trim(),
+            confirmPassword: z.string().min(8, t('passwordMinChars')).trim(),
+        })
+        .refine(data => data.password === data.confirmPassword, {
+            message: t('passwordsNotMatching'),
+            path: ['confirmPassword'],
+        })
 
 type Response =
     | {
           success: boolean
-          error: z.inferFlattenedErrors<typeof registerSchema>['fieldErrors']
+          error: z.inferFlattenedErrors<
+              ReturnType<typeof registerSchema>
+          >['fieldErrors']
       }
     | undefined
 
@@ -49,7 +45,9 @@ export async function register(
     const atsign = formData.get('atsign')
     const confirmPassword = formData.get('confirm-password')
 
-    const parsed = registerSchema.safeParse({
+    const t = await getTranslations('auth.register.form')
+
+    const parsed = registerSchema(t).safeParse({
         email,
         password,
         name,
@@ -74,7 +72,7 @@ export async function register(
     if (userWithEmail) {
         return {
             error: {
-                email: ['E-mail inválido.'],
+                email: [t('invalidEmail')],
             },
             success: false,
         }
@@ -83,13 +81,13 @@ export async function register(
     if (userWithAtsign) {
         return {
             error: {
-                atsign: ['Apelido já em uso.'],
+                atsign: [t('usernameInUse')],
             },
             success: false,
         }
     }
 
-    const { email: createdUserEmail } = await createUser({ ...data })
+    const { email: createdUserEmail } = await createUser(data)
 
     redirect(`/verify?email=${createdUserEmail}`)
 }

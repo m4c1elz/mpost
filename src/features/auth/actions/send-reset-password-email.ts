@@ -14,6 +14,7 @@ export async function sendResetPasswordEmail(
     _prevState: unknown,
     formData: FormData,
 ) {
+    const t = await getTranslations('auth.emails.resetPassword')
     const sentEmail = formData.get('email')
 
     const { error, data: email } =
@@ -22,7 +23,7 @@ export async function sendResetPasswordEmail(
     if (error && !email) {
         return {
             success: false,
-            error: 'E-mail inválido enviado.',
+            error: t('invalidEmail'),
         }
     }
 
@@ -31,7 +32,7 @@ export async function sendResetPasswordEmail(
     if (!user) {
         return {
             success: false,
-            error: 'Usuário não encontrado.',
+            error: t('userNotFound'),
         }
     }
 
@@ -52,7 +53,6 @@ export async function sendResetPasswordEmail(
     ).toString()
 
     const locale = await getLocale()
-    const t = await getTranslations('auth.emails.resetPassword')
 
     try {
         await sendMail(
@@ -69,7 +69,7 @@ export async function sendResetPasswordEmail(
         console.log(error)
         return {
             success: false,
-            error: 'Não foi possível enviar o e-mail. Tente novamente mais tarde.',
+            error: t('couldntSendEmail'),
         }
     }
 }

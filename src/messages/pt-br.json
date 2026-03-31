@@ -18,7 +18,10 @@
         "sendButton": {
           "send": "Enviar",
           "sending": "Enviando..."
-        }
+        },
+        "invalidEmail": "E-mail inválido.",
+        "passwordMinChars": "Senha deve ter pelo menos 8 caracteres.",
+        "invalidCredentials": "Email ou senha incorretos."
       }
     },
     "register": {
@@ -48,9 +51,16 @@
         "alreadyHasAccount": "Já possui uma conta?",
         "loginHere": "Faça login aqui",
         "sendButton": {
-          "send": "Send",
+          "send": "Enviar",
           "sending": "Enviando..."
-        }
+        },
+        "invalidEmail": "E-mail inválido.",
+        "passwordMinChars": "Senha deve ter pelo menos 8 caracteres.",
+        "nameMinChars": "Nome deve conter ao menos 3 caracteres.",
+        "usernameMinChars": "Apelido deve conter ao menos 3 caracteres.",
+        "usernameMaxChars": "Apelido não pode ter mais que 12 caracteres.",
+        "usernameInUse": "Apelido já em uso.",
+        "passwordsNotMatching": "As senhas não coincidem."
       },
       "accountVerify": {
         "title": "Quase lá! Verifique sua conta",
@@ -94,7 +104,12 @@
         "submitButton": {
           "send": "Enviar",
           "sending": "Enviando..."
-        }
+        },
+        "validation": {
+          "passwordMinChars": "Senha deve ter pelo menos 8 caracteres.",
+          "passwordsNotMatching": "As senhas não coincidem."
+        },
+        "errorWhileUpdating": "Erro ao atualizar o usuário."
       },
       "onSuccess": {
         "title": "Senha alterada!",
@@ -118,7 +133,8 @@
         "title": "Falta pouco!",
         "description": "Para se logar na sua conta no MPost, siga",
         "link": "este link",
-        "footerText": "Feito por Maciel."
+        "footerText": "Feito por Maciel.",
+        "unknownError": "Erro crítico ao enviar email de confirmação."
       },
       "resetPassword": {
         "subject": "Redefinir senha",
@@ -127,7 +143,10 @@
         "description": "Para continuar o processo de reinicialização de senha, siga",
         "link": "este link",
         "ignoreEmail": "Se não foi você que solicitou por este e-mail, ignore-o.",
-        "footerText": "Feito por Maciel."
+        "footerText": "Feito por Maciel.",
+        "invalidEmail": "E-mail inválido.",
+        "userNotFound": "Usuário não encontrado.",
+        "couldntSendEmail": "Não foi possível enviar o e-mail. Tente novamente mais tarde."
       }
     }
   }
