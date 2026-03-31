@@ -149,5 +149,32 @@
         "couldntSendEmail": "Não foi possível enviar o e-mail. Tente novamente mais tarde."
       }
     }
+  },
+  "home": {
+    "topBanner": {
+      "text": "v1.3.0 disponível agora.",
+      "linkText": "Saiba mais"
+    },
+    "navbar": {
+      "buttons": {
+        "post": "Postar",
+        "settings": "Opções",
+        "updates": "Atualizações",
+        "userDropdown": {
+          "viewProfile": "Ver perfil",
+          "theme": "Tema"
+        }
+      }
+    },
+    "posts": {
+      "emptyText": "Não há postagens. Ainda!",
+      "profilePictureAlt": "Foto de perfil de {name}",
+      "pinnedPost": "Postagem fixada"
+    },
+    "welcomeText": "Bem-vindo, {name}!",
+    "footer": {
+      "nonProfitText": "MPost é um projeto sem fins lucrativos, feito inteiramente por diversão.",
+      "devByMacielText": "Desenvolvido com carinho por Maciel."
+    }
   }
 }

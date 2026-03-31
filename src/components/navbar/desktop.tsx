@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
-import { Plus, Settings, History } from 'lucide-react'
+import { Settings, History } from 'lucide-react'
 import { UserDropdown } from './user-dropdown'
+import { PostButton } from '../post-button'
+import { useTranslations } from 'next-intl'
 
 export function DesktopNavbar() {
+    const t = useTranslations('home.navbar.buttons')
+
     return (
         <nav
             id="desktop-nav"
@@ -16,23 +20,19 @@ export function DesktopNavbar() {
             </Link>
             <ul className="flex gap-6 items-center">
                 <li>
-                    <Button asChild>
-                        <Link href="/posts/create">
-                            <Plus /> Criar Postagem
-                        </Link>
-                    </Button>
+                    <PostButton />
                 </li>
                 <li>
                     <Button variant="link" asChild>
                         <Link href="/settings/user">
-                            <Settings /> Opções
+                            <Settings /> {t('settings')}
                         </Link>
                     </Button>
                 </li>
                 <li>
                     <Button variant="link" asChild>
                         <Link href="/updates">
-                            <History /> Atualizações
+                            <History /> {t('updates')}
                         </Link>
                     </Button>
                 </li>

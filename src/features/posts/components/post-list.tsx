@@ -17,6 +17,7 @@ import {
     PostProfilePicture,
     PostUsername,
 } from './post'
+import { useTranslations } from 'next-intl'
 
 type PostType = {
     user: {
@@ -38,9 +39,10 @@ type PostListProps = {
 
 export function PostList({ posts, showPinnedHighlight }: PostListProps) {
     const { data } = useSession()
+    const t = useTranslations('home.posts')
 
     if (posts.length === 0) {
-        return <p className="text-center">Não há postagens. Ainda!</p>
+        return <p className="text-center">{t('emptyText')}</p>
     }
 
     return posts.map(({ id, content, user, isPinned, createdAt }) => {
@@ -51,14 +53,14 @@ export function PostList({ posts, showPinnedHighlight }: PostListProps) {
             <Post key={id} {...contextValue}>
                 {isPinned && showPinnedHighlight && (
                     <PostHeaderGroup>
-                        <PostBadge>Postagem fixada</PostBadge>
+                        <PostBadge>{t('pinnedPost')}</PostBadge>
                     </PostHeaderGroup>
                 )}
                 <PostHeader>
                     <PostHeaderGroup>
                         <PostProfilePicture
                             src={user.image}
-                            alt={`${user.name}'s Profile Picture`}
+                            alt={t('profilePictureAlt', { name: user.name })}
                             fallback={getInitials(user.name)}
                         />
                         <PostUsername atsign={user.atsign}>

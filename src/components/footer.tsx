@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { FooterMacielImage } from './footer-maciel-image'
+import { useTranslations } from 'next-intl'
 
 export function Footer() {
+    const t = useTranslations('home.footer')
+
     return (
         <footer className="border-t border-accent flex flex-col items-center">
             <ul className="flex justify-center items-center gap-3.5 py-5">
@@ -25,12 +28,9 @@ export function Footer() {
                     </Link>
                 </li>
             </ul>
+            <small className="text-sm text-center">{t('nonProfitText')}</small>
             <small className="text-sm text-center">
-                MPost é um projeto sem fins lucrativos, feito inteiramente por
-                diversão.
-            </small>
-            <small className="text-sm text-center">
-                Desenvolvido com carinho por Maciel.
+                {t('devByMacielText')}
             </small>
         </footer>
     )

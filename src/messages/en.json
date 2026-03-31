@@ -149,5 +149,32 @@
         "couldntSendEmail": "Could not send verification e-mail. Please try again later."
       }
     }
+  },
+  "home": {
+    "topBanner": {
+      "text": "v1.3.0 out now.",
+      "linkText": "Read more"
+    },
+    "navbar": {
+      "buttons": {
+        "post": "Post",
+        "settings": "Settings",
+        "updates": "Updates",
+        "userDropdown": {
+          "viewProfile": "View profile",
+          "theme": "Theme"
+        }
+      }
+    },
+    "posts": {
+      "emptyText": "There aren't any posts. Yet!",
+      "profilePictureAlt": "{name}'s profile picture",
+      "pinnedPost": "Pinned post"
+    },
+    "welcomeText": "Welcome, {name}!",
+    "footer": {
+      "nonProfitText": "MPost is a non-profit project, made entirely for fun.",
+      "devByMacielText": "Developed with care by Maciel."
+    }
   }
 }

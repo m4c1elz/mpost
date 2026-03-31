@@ -13,9 +13,11 @@ import {
 } from '../ui/dropdown-menu'
 import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export function UserDropdown() {
     const { data: session, update } = useSession()
+    const t = useTranslations('home.navbar.buttons.userDropdown')
 
     useEffect(() => {
         if (!session) {
@@ -52,7 +54,7 @@ export function UserDropdown() {
                             href={`/users/${atsign}`}
                             className="text-sky-500 underline underline-offset-2"
                         >
-                            Ver perfil
+                            {t('viewProfile')}
                         </Link>
                     ) : (
                         <Loader2 className="animate-spin" />
@@ -60,7 +62,7 @@ export function UserDropdown() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="font-bold flex-col items-start">
-                    <p>Tema</p>
+                    <p>{t('theme')}</p>
                     <ThemeSwitch />
                 </DropdownMenuItem>
                 <DropdownMenuItem>
