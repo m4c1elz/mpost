@@ -260,5 +260,82 @@
     "emptyText": "Não há notificações :(",
     "commentedOnPost": "comentou na sua postagem",
     "repliedComment": "respondeu ao seu comentário"
+  },
+  "settings": {
+    "title": "Opções",
+    "sidebar": {
+      "moreOptions": "Mais opções"
+    },
+    "options": {
+      "user": {
+        "title": "Usuário",
+        "info": {
+          "title": "Informações",
+          "description": "Altere seu usuário do MPost.",
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "Fulano"
+            },
+            "username": {
+              "label": "Username",
+              "placeholder": "fulanobeltrano"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Me sentindo bem!"
+            },
+            "externalUrl": {
+              "label": "External URL",
+              "placeholder": "https://maciel.app"
+            },
+            "buttons": {
+              "sendButton": {
+                "normal": "Enviar",
+                "pending": "Enviando..."
+              }
+            }
+          }
+        },
+        "profilePic": {
+          "title": "Foto de perfil",
+          "description": "Altere sua foto de perfil. (Tamanho máx. de 500KB)",
+          "buttons": {
+            "sendButton": {
+              "normal": "Enviar",
+              "pending": "Enviando..."
+            },
+            "removeImageButton": {
+              "normal": "Remover imagem",
+              "pending": "Removendo..."
+            }
+          },
+          "onSuccess": {
+            "title": "Imagem atualizada com sucesso.",
+            "description": "Talvez demore até que a imagem apareça para alguns usuários."
+          },
+          "onError": {
+            "title": "Erro ao atualizar a imagem!",
+            "description": "Por favor, espere por alguns minutos e tente novamente."
+          },
+          "noImageSelectedError": "Nenhuma imagem foi selecionada.",
+          "imageTooLargeError": "Imagem passa do limite de 500KB.",
+          "notAnImageError": "Arquivo enviado não é uma imagem. Por favor, envie uma imagem.",
+          "onRemoveSuccess": {
+            "title": "Imagem removida.",
+            "description": "Talvez demore até que as mudanças se apliquem."
+          },
+          "onRemoveError": {
+            "title": "Erro ao remover imagem.",
+            "description": "Por favor, tente novamente depois de alguns instantes."
+          },
+          "userNotFoundError": "Usuário não encontrado.",
+          "noImageToRemoveError": "Não há imagem para remover."
+        }
+      },
+      "appearance": {
+        "title": "Appearance"
+      }
+    }
   }
 }

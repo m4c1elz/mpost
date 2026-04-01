@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         return Response.json({ error: 'Dados inválidos.' }, { status: 400 })
     }
 
-    const t = await getTranslations('options.user.profilePic')
+    const t = await getTranslations('settings.options.user.profilePic')
 
     const recievedImage = (await req.formData()).get('image')
 

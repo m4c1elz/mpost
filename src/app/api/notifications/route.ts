@@ -47,6 +47,7 @@ export async function GET(req: NextRequest) {
     const totalPages = Math.ceil(notificationCount / limit)
 
     const notificationsList = notifications.map(item => {
+        // FIXME: this api route is not localized. format on client-side.
         const messages: Record<$Enums.NotificationType, string> = {
             CommentedOnPost: t('commentedOnPost'),
             RepliedComment: t('repliedComment'),
