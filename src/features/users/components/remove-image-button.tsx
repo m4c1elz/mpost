@@ -6,6 +6,7 @@ import { removeProfilePicture } from '../actions/remove-profile-picture'
 import { Loader2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 export function RemoveImageButton() {
     const [state, action, isPending] = useActionState(
@@ -16,6 +17,7 @@ export function RemoveImageButton() {
     const [_, startTransition] = useTransition()
     const { toast } = useToast()
     const { update } = useSession()
+    const t = useTranslations('settings.options.user.profilePic.buttons')
 
     async function handleStateChange() {
         if (!state) return
@@ -48,10 +50,11 @@ export function RemoveImageButton() {
         >
             {isPending ? (
                 <>
-                    <Loader2 className="animate-spin" /> Removendo...
+                    <Loader2 className="animate-spin" />{' '}
+                    {t('removeImageButton.pending')}
                 </>
             ) : (
-                'Remover Imagem'
+                t('removeImageButton.normal')
             )}
         </Button>
     )

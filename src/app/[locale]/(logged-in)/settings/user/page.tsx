@@ -12,17 +12,15 @@ import { getTranslations } from 'next-intl/server'
 
 export default async function UserSettings() {
     const session = await auth()
-    const t = await getTranslations('settings.options')
+    const t = await getTranslations('settings.options.user')
 
     return (
         <div className="space-y-4 w-full">
-            <h3 className="text-xl font-bold">{t('user.title')}</h3>
+            <h3 className="text-xl font-bold">{t('title')}</h3>
             <Card className="w-full md:w-[450px]">
                 <CardHeader>
-                    <CardTitle>{t('user.info.title')}</CardTitle>
-                    <CardDescription>
-                        {t('user.info.description')}
-                    </CardDescription>
+                    <CardTitle>{t('info.title')}</CardTitle>
+                    <CardDescription>{t('info.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <EditUserForm
@@ -35,9 +33,9 @@ export default async function UserSettings() {
             </Card>
             <Card className="w-full md:w-[450px]">
                 <CardHeader>
-                    <CardTitle>Foto de perfil</CardTitle>
+                    <CardTitle>{t('profilePic.title')}</CardTitle>
                     <CardDescription>
-                        Altere sua foto de perfil. (Tamanho máx. de 500KB)
+                        {t('profilePic.description')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">

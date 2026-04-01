@@ -12,11 +12,13 @@ import { Loader2 } from 'lucide-react'
 import { uploadProfilePictureSchema } from '../schemas/upload-profile-picture-schema'
 import { RemoveImageButton } from './remove-image-button'
 import { getInitials } from '@/helpers/get-initials'
+import { useTranslations } from 'next-intl'
 
 export function ProfilePictureForm() {
     const [image, setImage] = useState<File | null>(null)
     const { toast } = useToast()
     const { update, data: session, status: sessionStatus } = useSession()
+    const t = useTranslations('settings.options.user.profilePic')
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: uploadProfilePicture,
@@ -85,10 +87,11 @@ export function ProfilePictureForm() {
                 <Button type="submit" className="w-min" disabled={isPending}>
                     {isPending ? (
                         <>
-                            <Loader2 className="animate-spin" /> Enviando...
+                            <Loader2 className="animate-spin" />{' '}
+                            {t('buttons.sendButton.sending')}
                         </>
                     ) : (
-                        'Enviar'
+                        t('buttons.sendButton.normal')
                     )}
                 </Button>
                 <RemoveImageButton />

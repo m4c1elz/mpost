@@ -299,15 +299,15 @@
         },
         "profilePic": {
           "title": "Profile picture",
-          "description": "Change your profile picture. (Max size 500KB)",
+          "description": "Change your profile picture. (Max. size 500KB)",
           "buttons": {
             "sendButton": {
               "normal": "Send",
               "pending": "Sending..."
             },
             "removeImageButton": {
-              "normal": "",
-              "pending": ""
+              "normal": "Remove image",
+              "pending": "Removing..."
             }
           }
         }
