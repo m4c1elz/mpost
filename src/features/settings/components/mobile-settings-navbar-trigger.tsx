@@ -13,7 +13,7 @@ import { availableSettings } from '../available-settings'
 import { getTranslations } from 'next-intl/server'
 
 export async function MobileSettingsNavbarTrigger() {
-    const t = await getTranslations('settings.options')
+    const t = await getTranslations('settings')
 
     return (
         <Sheet>
@@ -24,7 +24,7 @@ export async function MobileSettingsNavbarTrigger() {
             </SheetTrigger>
             <SheetContent side="left">
                 <SheetHeader>
-                    <SheetTitle>Mais opções</SheetTitle>
+                    <SheetTitle>{t('sidebar.moreOptions')}</SheetTitle>
                 </SheetHeader>
                 <div className="w-full flex flex-col gap-4 px-4">
                     {availableSettings(t).map(({ href, name }) => (

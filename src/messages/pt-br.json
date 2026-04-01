@@ -278,7 +278,7 @@
               "placeholder": "Fulano"
             },
             "username": {
-              "label": "Username",
+              "label": "Apelido",
               "placeholder": "fulanobeltrano"
             },
             "status": {
@@ -286,7 +286,7 @@
               "placeholder": "Me sentindo bem!"
             },
             "externalUrl": {
-              "label": "External URL",
+              "label": "Link externo",
               "placeholder": "https://maciel.app"
             },
             "buttons": {

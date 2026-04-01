@@ -7,7 +7,7 @@ import { availableSettings } from '../available-settings'
 import { useTranslations } from 'next-intl'
 
 export function DesktopSettingsNavbar() {
-    const t = useTranslations('settings.options')
+    const t = useTranslations('settings')
 
     return (
         <nav className="border-r flex flex-col gap-4 items-start w-72 h-[700px] z-10 top-0 bg-background">
