@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Comment } from '@/features/posts/components/comment'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getCommentById } from '@/features/posts/services/get-comment-by-id'
 import { getInitials } from '@/helpers/get-initials'
 import {

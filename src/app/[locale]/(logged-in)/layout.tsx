@@ -4,7 +4,7 @@ import { TopBanner } from '@/components/top-banner'
 import { Toaster } from '@/components/ui/toaster'
 import { ChevronRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 interface ProtectedLayoutProps {
     children: React.ReactNode

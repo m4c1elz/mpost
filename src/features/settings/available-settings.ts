@@ -5,6 +5,7 @@ type Setting = {
     href: string
 }
 
+// TODO: add a page to change the current locale
 export const availableSettings = (t: _Translator): Setting[] => [
     {
         name: t('user.title'),

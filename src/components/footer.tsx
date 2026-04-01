@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { FooterMacielImage } from './footer-maciel-image'
 import { useTranslations } from 'next-intl'
 

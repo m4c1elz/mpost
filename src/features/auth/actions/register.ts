@@ -4,9 +4,9 @@ import { z } from 'zod'
 import { getUserByEmail } from '@/features/users/services/get-user-by-email'
 import { createUser } from '@/features/users/services/create-user'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { _Translator } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 const registerSchema = (t: _Translator) =>
     z
@@ -89,5 +89,7 @@ export async function register(
 
     const { email: createdUserEmail } = await createUser(data)
 
-    redirect(`/verify?email=${createdUserEmail}`)
+    const locale = await getLocale()
+
+    redirect({ href: `/verify?email=${createdUserEmail}`, locale })
 }

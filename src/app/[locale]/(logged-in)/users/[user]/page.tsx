@@ -6,7 +6,7 @@ import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 import { getUserPostsByAtsign } from '@/features/users/services/get-user-posts'
 import { AppPagination } from '@/components/app-pagination'
 import { Link as LinkIcon } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
 import { UserJoinDate } from '@/features/users/components/user-join-date'
 

@@ -3,9 +3,9 @@
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
 import { _Translator } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 
 const loginSchema = (t: _Translator) =>
@@ -31,6 +31,7 @@ export async function login(
     const password = formData.get('password')
 
     const t = await getTranslations('auth.login.form')
+    const locale = await getLocale()
 
     const { success, data, error } = loginSchema(t).safeParse({
         email,
@@ -52,7 +53,7 @@ export async function login(
 
         if (error instanceof AuthError) {
             if (error.cause?.err?.message === 'EMAIL_NOT_VERIFIED') {
-                redirect(`/verify?email=${data.email}`)
+                redirect({ href: `/verify?email=${data.email}`, locale })
             }
 
             if ((error.type = 'CredentialsSignin')) {

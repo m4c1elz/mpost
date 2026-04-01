@@ -1,4 +1,5 @@
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { auth } from '@/auth'
 import { Metadata } from 'next'
 import {
@@ -21,7 +22,7 @@ import { AppPagination } from '@/components/app-pagination'
 import { DeletePostButton } from '@/features/posts/components/delete-post-button'
 import { EditPostButton } from '@/features/posts/components/edit-post-button'
 import { PinPostButton } from '@/features/posts/components/pin-post-button'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
@@ -49,9 +50,10 @@ export default async function PostPage({
     const { page } = await searchParams
 
     const parsedPage = isNaN(Number(page)) ? 1 : Number(page)
+    const locale = await getLocale()
 
     if (isNaN(Number(id))) {
-        return redirect('/')
+        return redirect({ href: '/', locale })
     }
 
     const [post, comments] = await Promise.all([

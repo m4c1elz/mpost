@@ -17,7 +17,7 @@ import { Loader2, Trash } from 'lucide-react'
 // hooks
 import { startTransition, useActionState, useEffect, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
 
 // action
 import { deletePost } from '../actions/delete-post'

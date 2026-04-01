@@ -1,11 +1,11 @@
 'use server'
 
 import { editUser } from '@/features/users/services/edit-user'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 import { hash } from 'bcrypt-ts'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { _Translator } from 'next-intl'
 
 const setNewPasswordSchema = (t: _Translator) =>
@@ -33,6 +33,7 @@ export async function setNewPassword(
     const password = formData.get('password')
     const confirmPassword = formData.get('confirm-password')
     const t = await getTranslations('auth.passwordReset.form')
+    const locale = await getLocale()
 
     const { data, error } = setNewPasswordSchema(t).safeParse({
         password,
@@ -48,7 +49,7 @@ export async function setNewPassword(
 
     try {
         await editUser(userId, { password: await hash(data.password, 10) })
-        redirect('/forgotpassword/success')
+        redirect({ href: '/forgotpassword/success', locale })
     } catch (error) {
         console.log(error)
 

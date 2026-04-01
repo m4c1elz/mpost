@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Button } from '../ui/button'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
 import { Settings, History } from 'lucide-react'

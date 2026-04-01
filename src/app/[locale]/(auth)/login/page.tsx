@@ -6,7 +6,7 @@ import {
     CardContent,
     CardFooter,
 } from '@/components/ui/card'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { LoginForm } from '@/features/auth/components/login-form'
 import { useTranslations } from 'next-intl'
 

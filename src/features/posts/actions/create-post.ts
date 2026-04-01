@@ -1,17 +1,18 @@
 'use server'
 
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 import { createPost as createPostFromDb } from '../services/create-post'
 import { _Translator } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 const createPostSchema = (t: _Translator) =>
     z.string().max(140, t('maxChars')).nonempty(t('nonEmpty')).trim()
 
 export async function createPost(_prevState: unknown, formData: FormData) {
     const session = await auth()
+    const locale = await getLocale()
     const user = session!.user!
     const post = formData.get('post')
 
@@ -27,5 +28,5 @@ export async function createPost(_prevState: unknown, formData: FormData) {
 
     await createPostFromDb(data, user.email!)
 
-    redirect('/')
+    redirect({ href: '/', locale })
 }

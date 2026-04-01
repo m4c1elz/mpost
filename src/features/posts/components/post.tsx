@@ -3,7 +3,7 @@
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Geist } from 'next/font/google'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { PropsWithChildren, useState } from 'react'
 import { createContext, useContext } from 'react'
 import { useFormatter, useNow } from 'next-intl'
