@@ -15,4 +15,8 @@ export const availableSettings = (t: _Translator): Setting[] => [
         name: t('options.appearance.title'),
         href: '/settings/appearance',
     },
+    {
+        name: t('options.language.title'),
+        href: '/settings/language',
+    },
 ]
