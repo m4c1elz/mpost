@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation'
 // action
 import { editPost } from '../actions/edit-post'
 import { usePost } from './post'
+import { useTranslations } from 'next-intl'
 
 export function EditPostButton() {
     const { id, content } = usePost()
@@ -31,12 +32,14 @@ export function EditPostButton() {
     const { toast } = useToast()
     const router = useRouter()
 
+    const t = useTranslations()
+
     useEffect(() => {
         if (state && state.success) {
             setOpen(false)
             router.refresh()
             toast({
-                description: 'Postagem editada.',
+                description: t('posts.edit.onSuccessText'),
             })
         }
     }, [state])
@@ -50,10 +53,12 @@ export function EditPostButton() {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Editar postagem</DialogTitle>
+                    <DialogTitle>{t('posts.edit.title')}</DialogTitle>
                 </DialogHeader>
                 <Form action={action} id="edit-post-form" className="space-y-2">
-                    <Label htmlFor="content">Conteúdo da postagem</Label>
+                    <Label htmlFor="content">
+                        {t('posts.edit.postContentLabel')}
+                    </Label>
                     <Textarea
                         placeholder="hello world (editado!)"
                         name="content"
@@ -73,10 +78,11 @@ export function EditPostButton() {
                     >
                         {isPending ? (
                             <>
-                                <Loader2 className="animate-spin" /> Salvando...
+                                <Loader2 className="animate-spin" />{' '}
+                                {t('common.sendButton.sending')}
                             </>
                         ) : (
-                            'Editar'
+                            t('common.sendButton.send')
                         )}
                     </Button>
                 </DialogFooter>

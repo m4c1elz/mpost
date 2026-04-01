@@ -1,6 +1,5 @@
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
-import { $Enums } from '@prisma/client'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -45,15 +44,10 @@ export async function GET(req: NextRequest) {
     const totalPages = Math.ceil(notificationCount / limit)
 
     const notificationsList = notifications.map(item => {
-        const messages: Record<$Enums.NotificationType, string> = {
-            CommentedOnPost: 'comentou na sua postagem',
-            RepliedComment: 'respondeu ao seu comentário',
-        }
-
         return {
             id: item.id,
             user: item.user.atsign,
-            message: messages[item.type],
+            action: item.type,
             href: item.redirectTo,
             createdAt: item.createdAt,
             isRead: item.isRead,

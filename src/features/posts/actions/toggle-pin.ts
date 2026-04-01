@@ -4,8 +4,11 @@ import { auth } from '@/auth'
 import { setPinnedPost } from '../services/set-pinned'
 import { getPinnedPost } from '../services/get-pinned-post'
 import { revalidatePath } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 
 export async function togglePin(id: number, pin: boolean, _prevState: unknown) {
+    const t = await getTranslations('posts.pins')
+
     try {
         const session = await auth()
 
@@ -29,8 +32,7 @@ export async function togglePin(id: number, pin: boolean, _prevState: unknown) {
     } catch (error) {
         return {
             success: false,
-            error:
-                error instanceof Error ? error?.message : 'Pinning post failed',
+            error: error instanceof Error ? error?.message : t('onError'),
         }
     }
 }

@@ -2,19 +2,21 @@
 
 import { signIn } from '@/auth'
 import { AuthError } from 'next-auth'
+import { _Translator } from 'next-intl'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 
-const loginSchema = z.object({
-    email: z.string().email('E-mail inválido.').trim(),
-    password: z
-        .string()
-        .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-        .trim(),
-})
+const loginSchema = (t: _Translator) =>
+    z.object({
+        email: z.string().email(t('invalidEmail')).trim(),
+        password: z.string().min(8, t('passwordMinChars')).trim(),
+    })
 
-type ErrorResponse = z.inferFlattenedErrors<typeof loginSchema>['fieldErrors']
+type ErrorResponse = z.inferFlattenedErrors<
+    ReturnType<typeof loginSchema>
+>['fieldErrors']
 
 type LoginResponse = {
     errors: ErrorResponse
@@ -28,7 +30,13 @@ export async function login(
     const email = formData.get('email')
     const password = formData.get('password')
 
-    const { success, data, error } = loginSchema.safeParse({ email, password })
+    const t = await getTranslations('auth.login.form')
+    const locale = await getLocale()
+
+    const { success, data, error } = loginSchema(t).safeParse({
+        email,
+        password,
+    })
 
     if (!success) {
         return {
@@ -45,7 +53,7 @@ export async function login(
 
         if (error instanceof AuthError) {
             if (error.cause?.err?.message === 'EMAIL_NOT_VERIFIED') {
-                redirect(`/verify?email=${data.email}`)
+                redirect({ href: `/verify?email=${data.email}`, locale })
             }
 
             if ((error.type = 'CredentialsSignin')) {

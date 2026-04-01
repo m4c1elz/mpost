@@ -1,15 +1,18 @@
+import { _Translator } from 'next-intl'
+
 type Setting = {
     name: string
     href: string
 }
 
-export const availableSettings: Setting[] = [
+// TODO: add a page to change the current locale
+export const availableSettings = (t: _Translator): Setting[] => [
     {
-        name: 'Usuário',
+        name: t('options.user.title'),
         href: '/settings/user',
     },
     {
-        name: 'Aparência',
+        name: t('options.appearance.title'),
         href: '/settings/appearance',
     },
 ]

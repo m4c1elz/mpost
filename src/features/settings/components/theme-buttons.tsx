@@ -1,8 +1,10 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 export function ThemeButtons() {
     const { setTheme } = useTheme()
+    const t = useTranslations('settings.options.appearance.form.themes')
 
     return (
         <div className="flex gap-4 items-center">
@@ -16,7 +18,7 @@ export function ThemeButtons() {
                     <div className="bg-[hsl(240,10%,3.9%)]/50 h-2 rounded-full w-full" />
                     <div className="bg-[hsl(240,10%,3.9%)]/50 h-2 rounded-full w-full" />
                 </button>
-                <p>Tema Claro</p>
+                <p>{t('light')}</p>
             </div>
             <div className="flex flex-col items-center gap-2">
                 <button
@@ -28,7 +30,7 @@ export function ThemeButtons() {
                     <div className="bg-[hsl(0,0%,99%)]/50 h-2 rounded-full w-full" />
                     <div className="bg-[hsl(0,0%,99%)]/50 h-2 rounded-full w-full" />
                 </button>
-                <p>Tema Escuro</p>
+                <p>{t('dark')}</p>
             </div>
         </div>
     )

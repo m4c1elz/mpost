@@ -6,16 +6,18 @@ import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { env } from '@/env'
 import { r2 } from '@/lib/cloudflare'
 import { changeUserProfilePicture } from '../services/change-user-profile-picture'
+import { getTranslations } from 'next-intl/server'
 
 export async function removeProfilePicture(_prevState: unknown) {
     const session = await auth()
+    const t = await getTranslations('settings.options.user.profilePic')
 
     const user = await getUserByEmail(session?.user.email!)
 
     if (!user)
         return {
             success: false,
-            error: 'Usuário não encontrado.',
+            error: t('userNotFoundError'),
         }
 
     const imageUrl = user.image
@@ -23,7 +25,7 @@ export async function removeProfilePicture(_prevState: unknown) {
     if (!imageUrl) {
         return {
             success: false,
-            error: 'Não há imagem para remover.',
+            error: t('noImageToRemoveError'),
         }
     }
 
@@ -49,7 +51,7 @@ export async function removeProfilePicture(_prevState: unknown) {
         console.log(error)
         return {
             success: false,
-            error: 'Erro ao enviar a imagem.',
+            error: t('onRemoveError.title'),
         }
     }
 }
