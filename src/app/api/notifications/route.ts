@@ -1,10 +1,12 @@
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
 import { $Enums } from '@prisma/client'
+import { getTranslations } from 'next-intl/server'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
     const session = await auth()
+    const t = await getTranslations('notifications')
 
     if (!session) {
         return new Response('Unauthorized', { status: 401 })
@@ -46,8 +48,8 @@ export async function GET(req: NextRequest) {
 
     const notificationsList = notifications.map(item => {
         const messages: Record<$Enums.NotificationType, string> = {
-            CommentedOnPost: 'comentou na sua postagem',
-            RepliedComment: 'respondeu ao seu comentário',
+            CommentedOnPost: t('commentedOnPost'),
+            RepliedComment: t('repliedComment'),
         }
 
         return {

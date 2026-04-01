@@ -255,5 +255,10 @@
   "profile": {
     "joinedIn": "Joined in {date}",
     "postsTitle": "Posts"
+  },
+  "notifications": {
+    "emptyText": "You have no notifications :(",
+    "commentedOnPost": "commented on your post",
+    "repliedComment": "replied to your comment"
   }
 }

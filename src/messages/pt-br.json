@@ -255,5 +255,10 @@
   "profile": {
     "joinedIn": "Entrou em {date}",
     "postsTitle": "Postagens"
+  },
+  "notifications": {
+    "emptyText": "Não há notificações :(",
+    "commentedOnPost": "comentou na sua postagem",
+    "repliedComment": "respondeu ao seu comentário"
   }
 }
