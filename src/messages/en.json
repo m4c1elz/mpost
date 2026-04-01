@@ -345,6 +345,10 @@
             "dark": "Dark mode"
           }
         }
+      },
+      "language": {
+        "title": "Language",
+        "description": "Set the language used for MPost's interface."
       }
     }
   },

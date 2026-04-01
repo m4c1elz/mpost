@@ -345,6 +345,10 @@
             "dark": "Modo noturno"
           }
         }
+      },
+      "language": {
+        "title": "Linguagem",
+        "description": "Defina a linguagem usada na interface do MPost."
       }
     }
   },
