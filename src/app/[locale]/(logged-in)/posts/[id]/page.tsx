@@ -21,6 +21,7 @@ import { AppPagination } from '@/components/app-pagination'
 import { DeletePostButton } from '@/features/posts/components/delete-post-button'
 import { EditPostButton } from '@/features/posts/components/edit-post-button'
 import { PinPostButton } from '@/features/posts/components/pin-post-button'
+import { getTranslations } from 'next-intl/server'
 
 interface PostPageProps {
     params: Promise<{ id: string }>
@@ -62,11 +63,12 @@ export default async function PostPage({
         return notFound()
     }
     const session = await auth()
+    const t = await getTranslations('posts')
     const isPostFromCurrentUser = session?.user.atsign == post.user.atsign
 
     return (
         <div className="space-y-4">
-            <p className="text-xl font-bold">Postagem</p>
+            <p className="text-xl font-bold">{t('title')}</p>
             <Post key={post.id} {...post}>
                 <PostHeader>
                     <PostHeaderGroup>

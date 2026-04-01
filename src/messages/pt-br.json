@@ -184,6 +184,7 @@
     }
   },
   "posts": {
+    "title": "Postagem",
     "create": {
       "title": "Criar postagem",
       "description": "Fale um pouco do seu dia!",
@@ -217,6 +218,33 @@
       "onPinText": "Postagem fixada com sucesso.",
       "onUnpinText": "Postagem desafixada com sucesso.",
       "onError": "Erro ao fixar/desafixar postagem."
+    },
+    "comments": {
+      "highlighted": "Comentário em destaque",
+      "showReplies": "Mostrar respostas",
+      "form": {
+        "placeholder": "Comente aqui!",
+        "button": {
+          "normal": "Comentar",
+          "pending": "Enviando..."
+        }
+      },
+      "delete": {
+        "title": "Apagar comentário",
+        "description": "Tem certeza que deseja excluir este comentário?",
+        "deleteButton": {
+          "normal": "Apagar",
+          "pending": "Apagando..."
+        },
+        "cancelBtnLabel": "Cancelar",
+        "onSuccessLabel": "Comentário removido.",
+        "onErrorLabel": "Erro ao remover comentário."
+      }
+    },
+    "notFound": {
+      "title": "Que estranho.",
+      "description": "Parece que essa postagem não existe.",
+      "backToHomeLink": "Voltar a página principal"
     }
   }
 }

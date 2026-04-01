@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader2, Plus } from 'lucide-react'
 import { Ref, useActionState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 interface AddCommentFormProps {
     postId: number
@@ -24,6 +25,7 @@ export function AddCommentForm({
     }
 
     const [state, action, isPending] = useActionState(addComment, undefined)
+    const t = useTranslations('posts.comments.form')
 
     useEffect(() => {
         if (state?.success && onSuccess) {
@@ -33,15 +35,16 @@ export function AddCommentForm({
 
     return (
         <form action={action} className="space-y-2" ref={ref}>
-            <Textarea required placeholder="Comente aqui!" name="content" />
+            <Textarea required placeholder={t('placeholder')} name="content" />
             <Button type="submit" disabled={isPending}>
                 {isPending ? (
                     <>
-                        <Loader2 className="animate-spin" /> Comentar
+                        <Loader2 className="animate-spin" />{' '}
+                        {t('button.pending')}
                     </>
                 ) : (
                     <>
-                        <Plus /> Comentar
+                        <Plus /> {t('button.normal')}
                     </>
                 )}
             </Button>
