@@ -334,7 +334,15 @@
         }
       },
       "appearance": {
-        "title": "Appearance"
+        "title": "Appearance",
+        "form": {
+          "title": "Theme",
+          "description": "Choose a theme that's comfortable for your eyes.",
+          "themes": {
+            "light": "Light mode",
+            "dark": "Dark mode"
+          }
+        }
       }
     }
   }

@@ -6,17 +6,18 @@ import {
     CardContent,
 } from '@/components/ui/card'
 import { ThemeButtons } from '@/features/settings/components/theme-buttons'
+import { getTranslations } from 'next-intl/server'
 
-export default function AppearanceSettings() {
+export default async function AppearanceSettings() {
+    const t = await getTranslations('settings.options.appearance')
+
     return (
         <div className="space-y-4 w-full">
-            <h2 className="text-xl font-bold">Aparência</h2>
+            <h2 className="text-xl font-bold">{t('title')}</h2>
             <Card className="h-min w-full md:w-[450px]">
                 <CardHeader>
-                    <CardTitle>Tema</CardTitle>
-                    <CardDescription>
-                        Escolha um tema que seja agradável aos seus olhos.
-                    </CardDescription>
+                    <CardTitle>{t('form.title')}</CardTitle>
+                    <CardDescription>{t('form.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <ThemeButtons />
