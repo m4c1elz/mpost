@@ -192,6 +192,31 @@
         "maxChars": "Post cannot contain more than 140 characters.",
         "nonEmpty": "Post cannot be empty."
       }
+    },
+    "edit": {
+      "title": "Edit post",
+      "postContentLabel": "Post content",
+      "onSuccessText": "Post edited."
+    },
+    "delete": {
+      "title": "Do you really wish to delete the post?",
+      "description": "This action is irreversible!",
+      "cancelBtnLabel": "Cancel",
+      "deleteButton": {
+        "normal": "Delete",
+        "pending": "Deleting..."
+      },
+      "onSuccess": {
+        "description": "Post deleted successfully."
+      },
+      "onError": {
+        "title": "Error!"
+      }
+    },
+    "pins": {
+      "onPinText": "Post pinned successfully.",
+      "onUnpinText": "Post unpinned successfully.",
+      "onError": "Post pinning/unpinning failed."
     }
   }
 }

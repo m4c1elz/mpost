@@ -22,6 +22,7 @@ import { usePathname, useRouter } from 'next/navigation'
 // action
 import { deletePost } from '../actions/delete-post'
 import { PostAction, usePost } from './post'
+import { useTranslations } from 'next-intl'
 
 export function DeletePostButton() {
     const { id } = usePost()
@@ -38,6 +39,8 @@ export function DeletePostButton() {
         undefined,
     )
 
+    const t = useTranslations('posts.delete')
+
     useEffect(() => {
         if (state) {
             if (state.success) {
@@ -49,11 +52,11 @@ export function DeletePostButton() {
                 }
 
                 toast({
-                    description: 'Postagem excluída.',
+                    description: t('onSuccess.description'),
                 })
             } else {
                 toast({
-                    title: 'Erro!',
+                    title: t('onError.title'),
                     description: state.error,
                 })
             }
@@ -69,14 +72,12 @@ export function DeletePostButton() {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Deseja mesmo excluir a postagem?</DialogTitle>
-                    <DialogDescription>
-                        Esta ação é irreversível!
-                    </DialogDescription>
+                    <DialogTitle>{t('title')}</DialogTitle>
+                    <DialogDescription>{t('description')}</DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button variant="outline">Cancelar</Button>
+                        <Button variant="outline">{t('cancelBtnLabel')}</Button>
                     </DialogClose>
                     <Button
                         disabled={isPending}
@@ -86,10 +87,10 @@ export function DeletePostButton() {
                         {isPending ? (
                             <>
                                 <Loader2 className="animate-spin" />{' '}
-                                Excluindo...
+                                {t('deleteButton.pending')}
                             </>
                         ) : (
-                            'Excluir'
+                            t('deleteButton.normal')
                         )}
                     </Button>
                 </DialogFooter>

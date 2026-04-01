@@ -192,6 +192,31 @@
         "maxChars": "Postagem não pode ter mais que 140 caracteres.",
         "nonEmpty": "Postagem não pode ser vazia."
       }
+    },
+    "edit": {
+      "title": "Editar postagem",
+      "postContentLabel": "Conteúdo da postagem",
+      "onSuccessText": "Postagem editada."
+    },
+    "delete": {
+      "title": "Você realmente deseja excluir a postagem?",
+      "description": "Essa ação é irreversível!",
+      "cancelBtnLabel": "Cancelar",
+      "deleteButton": {
+        "normal": "Excluir",
+        "pending": "Excluindo..."
+      },
+      "onSuccess": {
+        "description": "Postagem excluída com sucesso."
+      },
+      "onError": {
+        "title": "Erro!"
+      }
+    },
+    "pins": {
+      "onPinText": "Postagem fixada com sucesso.",
+      "onUnpinText": "Postagem desafixada com sucesso.",
+      "onError": "Erro ao fixar/desafixar postagem."
     }
   }
 }

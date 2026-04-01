@@ -135,6 +135,7 @@ export function PostDate({
         <time
             dateTime={new Date(date).toISOString()}
             className="text-foreground/50 text-xs sm:text-sm"
+            suppressHydrationWarning
         >
             {formatter.relativeTime(new Date(date), now)}{' '}
             {isEdited && '(editado)'}

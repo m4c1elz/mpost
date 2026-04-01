@@ -5,6 +5,7 @@ import { togglePin } from '../actions/toggle-pin'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { PostAction, usePost } from './post'
+import { useTranslations } from 'next-intl'
 
 export function PinPostButton() {
     const { id, isPinned } = usePost()
@@ -21,15 +22,15 @@ export function PinPostButton() {
     const [_, startTransition] = useTransition()
     const { toast } = useToast()
 
+    const t = useTranslations('posts.pins')
+
     useEffect(() => {
         if (state?.success) {
             setDesiredAction(desiredAction === 'unpin' ? 'pin' : 'unpin')
 
             toast({
                 description:
-                    desiredAction === 'pin'
-                        ? 'Postagem fixada com sucesso.'
-                        : 'Postagem desafixada com sucesso.',
+                    desiredAction === 'pin' ? t('onPinText') : t('onUnpinText'),
             })
         }
     }, [state])
