@@ -3,6 +3,11 @@
     "sendButton": {
       "send": "Send",
       "sending": "Sending..."
+    },
+    "notFound": {
+      "title": "That's odd.",
+      "description": "Looks like this page does not exist.",
+      "backToHomeLink": "Go back to home page"
     }
   },
   "auth": {

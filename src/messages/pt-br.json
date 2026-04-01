@@ -3,6 +3,11 @@
     "sendButton": {
       "send": "Enviar",
       "sending": "Enviando..."
+    },
+    "notFound": {
+      "title": "Que estranho.",
+      "description": "Parece que essa página não existe.",
+      "backToHomeLink": "Voltar a página principal"
     }
   },
   "auth": {
