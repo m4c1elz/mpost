@@ -345,5 +345,9 @@
         }
       }
     }
+  },
+  "updates": {
+    "title": "Updates",
+    "allUpdates": "All updates"
   }
 }

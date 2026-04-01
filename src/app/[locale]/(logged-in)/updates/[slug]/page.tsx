@@ -1,21 +1,21 @@
+import { notFound } from 'next/navigation'
+import { versions } from '../versions'
+
 type Params = Promise<{
+    locale: string
     slug: string
 }>
 
 export default async function UpdatePage({ params }: { params: Params }) {
-    const { slug } = await params
+    const { locale, slug } = await params
 
     const { default: Markdown } = await import(
-        `@/app/[locale]/(logged-in)/updates/_markdown/${slug}.md`
-    )
+        `@/app/[locale]/(logged-in)/updates/_markdown/${locale}/${slug}.md`
+    ).catch(() => notFound())
 
     return <Markdown />
 }
 
 export function generateStaticParams() {
-    const availableUpdatePages = ['v1.3.0']
-
-    return availableUpdatePages.map(v => ({
-        slug: v,
-    }))
+    return versions.map(({ version }) => ({ slug: version }))
 }

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import { Geist } from 'next/font/google'
 
 const geistSans = Geist({
@@ -5,7 +6,13 @@ const geistSans = Geist({
     subsets: ['latin'],
 })
 
-export default function MdxLayout({ children }: { children: React.ReactNode }) {
+type UpdatesLayoutProps = {
+    children: React.ReactNode
+}
+
+export default async function UpdatesLayout({ children }: UpdatesLayoutProps) {
+    const t = await getTranslations('updates')
+
     return (
         <div
             className={
@@ -13,7 +20,7 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
                 ' prose prose-sm prose-headings:text-foreground prose-strong:text-foreground text-foreground prose-a:text-primary m-auto md:prose-base md:w-[800px]'
             }
         >
-            <h1>Atualizações</h1>
+            <h1>{t('title')}</h1>
             {children}
         </div>
     )
