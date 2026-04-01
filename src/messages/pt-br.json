@@ -190,6 +190,7 @@
   },
   "posts": {
     "title": "Postagem",
+    "originalPost": "Postagem original",
     "create": {
       "title": "Criar postagem",
       "description": "Fale um pouco do seu dia!",
@@ -227,6 +228,7 @@
     "comments": {
       "highlighted": "Comentário em destaque",
       "showReplies": "Mostrar respostas",
+      "viewAllComments": "Ver todos os comentários",
       "form": {
         "placeholder": "Comente aqui!",
         "button": {

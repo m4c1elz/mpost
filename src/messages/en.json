@@ -190,6 +190,7 @@
   },
   "posts": {
     "title": "Post",
+    "originalPost": "Original Post",
     "create": {
       "title": "Create post",
       "description": "Talk a bit about your day!",
@@ -227,6 +228,7 @@
     "comments": {
       "highlighted": "Highlighted comment",
       "showReplies": "Show replies",
+      "viewAllComments": "View all comments",
       "form": {
         "placeholder": "Comment here!",
         "button": {

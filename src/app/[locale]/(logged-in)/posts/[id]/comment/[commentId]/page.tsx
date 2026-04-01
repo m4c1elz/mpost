@@ -13,6 +13,7 @@ import {
     PostContent,
     PostDate,
 } from '@/features/posts/components/post'
+import { getTranslations } from 'next-intl/server'
 
 interface CommentPageProps {
     params: Promise<{ commentId: string }>
@@ -23,13 +24,14 @@ export default async function CommentPage({ params }: CommentPageProps) {
     if (isNaN(Number(commentId))) {
         return notFound()
     }
+    const t = await getTranslations('posts')
 
     const comment = await getCommentById(Number(commentId))
     if (!comment) return notFound()
 
     return (
         <div className="space-y-4">
-            <p className="text-xl font-bold">Postagem original</p>
+            <p className="text-xl font-bold">{t('originalPost')}</p>
 
             <Post {...comment.post}>
                 <PostHeader>
@@ -54,7 +56,7 @@ export default async function CommentPage({ params }: CommentPageProps) {
             )}
             <Button variant="link">
                 <Link href={`/posts/${comment.postId}`}>
-                    Ver todos os comentários
+                    {t('comments.viewAllComments')}
                 </Link>
             </Button>
         </div>
