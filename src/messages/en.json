@@ -309,7 +309,28 @@
               "normal": "Remove image",
               "pending": "Removing..."
             }
-          }
+          },
+          "onSuccess": {
+            "title": "Image successfully updated.",
+            "description": "Might take a while until the image appears to some users."
+          },
+          "onError": {
+            "title": "Error while updating image!",
+            "description": "Please, wait for a few moments then try again."
+          },
+          "noImageSelectedError": "No image is selected.",
+          "imageTooLargeError": "Image goes beyond the 500kb limit.",
+          "notAnImageError": "Sent file is not an image. Please, send an image.",
+          "onRemoveSuccess": {
+            "title": "Image removed.",
+            "description": "Might take a while until the changes apply."
+          },
+          "onRemoveError": {
+            "title": "Error while removing image.",
+            "description": "Please, try again later."
+          },
+          "userNotFoundError": "User not found.",
+          "noImageToRemoveError": "There is no image to remove."
         }
       },
       "appearance": {

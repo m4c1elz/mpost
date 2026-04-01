@@ -24,17 +24,16 @@ export function ProfilePictureForm() {
         mutationFn: uploadProfilePicture,
         onSuccess: async () => {
             toast({
-                title: 'Imagem atualizada com sucesso.',
-                description:
-                    'Talvez demore até que a imagem apareça para alguns usuários.',
+                title: t('onSuccess.title'),
+                description: t('onSuccess.description'),
             })
             // update() requires at least one argument to actually update user session
             await update({ dummy: true })
         },
         onError: err => {
             toast({
-                title: 'Erro ao atualizar imagem!',
-                description: err.message,
+                title: t('onError.title'),
+                description: err.message ?? t('onError.description'),
                 variant: 'destructive',
             })
         },
@@ -43,16 +42,16 @@ export function ProfilePictureForm() {
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
         if (!image) {
-            toast({ description: 'Imagem não foi alterada.' })
+            toast({ description: t('noImageSelectedError') })
             return
         }
 
         const { data: validatedImage, error } =
-            uploadProfilePictureSchema.safeParse(image)
+            uploadProfilePictureSchema(t).safeParse(image)
 
         if (error) {
             toast({
-                title: 'Erro ao atualizar imagem!',
+                title: t('onError.title'),
                 description: error.flatten().formErrors,
                 variant: 'destructive',
             })
@@ -88,7 +87,7 @@ export function ProfilePictureForm() {
                     {isPending ? (
                         <>
                             <Loader2 className="animate-spin" />{' '}
-                            {t('buttons.sendButton.sending')}
+                            {t('buttons.sendButton.pending')}
                         </>
                     ) : (
                         t('buttons.sendButton.normal')

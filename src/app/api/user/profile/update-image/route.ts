@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { env } from '@/env'
 import { auth } from '@/auth'
 import { uploadProfilePictureSchema } from '@/features/users/schemas/upload-profile-picture-schema'
+import { getTranslations } from 'next-intl/server'
 
 export async function POST(req: Request) {
     const session = await auth()
@@ -12,10 +13,12 @@ export async function POST(req: Request) {
         return Response.json({ error: 'Dados inválidos.' }, { status: 400 })
     }
 
+    const t = await getTranslations('options.user.profilePic')
+
     const recievedImage = (await req.formData()).get('image')
 
     const { data: image, error } =
-        uploadProfilePictureSchema.safeParse(recievedImage)
+        uploadProfilePictureSchema(t).safeParse(recievedImage)
 
     if (!image && error) {
         return Response.json({ error: 'Dados inválidos.' }, { status: 400 })

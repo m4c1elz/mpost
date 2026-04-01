@@ -17,22 +17,21 @@ export function RemoveImageButton() {
     const [_, startTransition] = useTransition()
     const { toast } = useToast()
     const { update } = useSession()
-    const t = useTranslations('settings.options.user.profilePic.buttons')
+    const t = useTranslations('settings.options.user.profilePic')
 
     async function handleStateChange() {
         if (!state) return
 
         if (state.success) {
             toast({
-                title: 'Imagem removida.',
-                description:
-                    'Talvez demore um pouco até que as mudanças se apliquem.',
+                title: t('onRemoveSuccess.title'),
+                description: t('onRemoveSuccess.description'),
             })
             await update({ dummyData: true })
         } else {
             toast({
-                title: 'Erro ao remover imagem.',
-                description: state.error,
+                title: t('onRemoveError.title'),
+                description: state.error ?? t('onRemoveError.description'),
                 variant: 'destructive',
             })
         }
@@ -51,10 +50,10 @@ export function RemoveImageButton() {
             {isPending ? (
                 <>
                     <Loader2 className="animate-spin" />{' '}
-                    {t('removeImageButton.pending')}
+                    {t('buttons.removeImageButton.pending')}
                 </>
             ) : (
-                t('removeImageButton.normal')
+                t('buttons.removeImageButton.normal')
             )}
         </Button>
     )
