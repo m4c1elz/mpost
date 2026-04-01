@@ -246,5 +246,9 @@
       "description": "Parece que essa postagem não existe.",
       "backToHomeLink": "Voltar a página principal"
     }
+  },
+  "profile": {
+    "joinedIn": "Entrou em {date}",
+    "postsTitle": "Postagens"
   }
 }

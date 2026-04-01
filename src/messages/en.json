@@ -246,5 +246,9 @@
       "description": "Looks like this post does not exist.",
       "backToHomeLink": "Go back to home page"
     }
+  },
+  "profile": {
+    "joinedIn": "Joined in {date}",
+    "postsTitle": "Posts"
   }
 }

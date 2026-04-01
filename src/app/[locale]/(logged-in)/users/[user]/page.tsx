@@ -1,15 +1,14 @@
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getInitials } from '@/helpers/get-initials'
-import { CalendarDays } from 'lucide-react'
-import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale/pt-BR'
 import { PostList } from '@/features/posts/components/post-list'
 import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
 import { getUserPostsByAtsign } from '@/features/users/services/get-user-posts'
 import { AppPagination } from '@/components/app-pagination'
 import { Link as LinkIcon } from 'lucide-react'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
+import { UserJoinDate } from '@/features/users/components/user-join-date'
 
 type UserProps = {
     params: Promise<{ user: string }>
@@ -27,6 +26,8 @@ export default async function User({ params, searchParams }: UserProps) {
             getUserByAtsign(atsign),
             getUserPostsByAtsign(atsign, parsedPage),
         ])
+
+    const t = await getTranslations('profile')
 
     if (!user) {
         return notFound()
@@ -55,15 +56,7 @@ export default async function User({ params, searchParams }: UserProps) {
                     )}
 
                     <div className="space-y-2">
-                        <div className="flex gap-2 items-center">
-                            <CalendarDays />{' '}
-                            <span>
-                                Entrou em{' '}
-                                {format(user.createdAt, "MMMM 'de' yyyy", {
-                                    locale: ptBR,
-                                })}
-                            </span>
-                        </div>
+                        <UserJoinDate date={user.createdAt} />
                     </div>
                     {user.url && (
                         <div className="flex gap-2 justify-center items-center">
@@ -81,7 +74,7 @@ export default async function User({ params, searchParams }: UserProps) {
                 </div>
             </div>
             <div className="space-y-6">
-                <p className="text-xl font-bold">Postagens</p>
+                <p className="text-xl font-bold">{t('postsTitle')}</p>
                 <PostList posts={posts} showPinnedHighlight />
                 {postsPagination.totalPages > 1 && (
                     <AppPagination
