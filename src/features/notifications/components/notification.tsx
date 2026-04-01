@@ -2,10 +2,10 @@ import { PopoverClose } from '@radix-ui/react-popover'
 import { useRouter } from 'next-nprogress-bar'
 import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
-import { formatRelativeDate } from '@/helpers/format-relative-date'
 import { getQueryClient } from '@/lib/react-query'
 import { sleep } from '@/helpers/sleep'
 import { markNotificationAsRead } from '../services/mark-notification-as-read'
+import { useFormatter, useNow } from 'next-intl'
 
 interface NotificationProps {
     id: string
@@ -26,6 +26,9 @@ export function Notification({
 }: NotificationProps) {
     const router = useRouter()
     const queryClient = getQueryClient()
+
+    const formatter = useFormatter()
+    const now = useNow()
 
     const { mutateAsync: markAsRead } = useMutation({
         mutationFn: markNotificationAsRead,
@@ -55,7 +58,7 @@ export function Notification({
                     <b>{user}</b> {message}
                 </span>
                 <small className="block text-foreground/50">
-                    {formatRelativeDate(new Date(createdAt))}
+                    {formatter.relativeTime(new Date(createdAt), now)}
                 </small>
             </button>
         </PopoverClose>
