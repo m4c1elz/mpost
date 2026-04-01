@@ -1,12 +1,9 @@
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
-import { $Enums } from '@prisma/client'
-import { getTranslations } from 'next-intl/server'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
     const session = await auth()
-    const t = await getTranslations('notifications')
 
     if (!session) {
         return new Response('Unauthorized', { status: 401 })
@@ -47,16 +44,10 @@ export async function GET(req: NextRequest) {
     const totalPages = Math.ceil(notificationCount / limit)
 
     const notificationsList = notifications.map(item => {
-        // FIXME: this api route is not localized. format on client-side.
-        const messages: Record<$Enums.NotificationType, string> = {
-            CommentedOnPost: t('commentedOnPost'),
-            RepliedComment: t('repliedComment'),
-        }
-
         return {
             id: item.id,
             user: item.user.atsign,
-            message: messages[item.type],
+            action: item.type,
             href: item.redirectTo,
             createdAt: item.createdAt,
             isRead: item.isRead,
