@@ -1,4 +1,10 @@
 {
+  "common": {
+    "sendButton": {
+      "send": "Enviar",
+      "sending": "Enviando..."
+    }
+  },
   "auth": {
     "login": {
       "form": {
@@ -175,6 +181,17 @@
     "footer": {
       "nonProfitText": "MPost é um projeto sem fins lucrativos, feito inteiramente por diversão.",
       "devByMacielText": "Desenvolvido com carinho por Maciel."
+    }
+  },
+  "posts": {
+    "create": {
+      "title": "Criar postagem",
+      "description": "Fale um pouco do seu dia!",
+      "placeholder": "Lorem ipsum dolor it sit amet.",
+      "validation": {
+        "maxChars": "Postagem não pode ter mais que 140 caracteres.",
+        "nonEmpty": "Postagem não pode ser vazia."
+      }
     }
   }
 }
