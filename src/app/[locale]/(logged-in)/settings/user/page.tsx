@@ -8,18 +8,20 @@ import {
 } from '@/components/ui/card'
 import { EditUserForm } from '@/features/users/components/edit-user-form'
 import { ProfilePictureForm } from '@/features/users/components/profile-picture-form'
+import { getTranslations } from 'next-intl/server'
 
 export default async function UserSettings() {
     const session = await auth()
+    const t = await getTranslations('settings.options')
 
     return (
         <div className="space-y-4 w-full">
-            <h3 className="text-xl font-bold">Usuário</h3>
+            <h3 className="text-xl font-bold">{t('user.title')}</h3>
             <Card className="w-full md:w-[450px]">
                 <CardHeader>
-                    <CardTitle>Informações</CardTitle>
+                    <CardTitle>{t('user.info.title')}</CardTitle>
                     <CardDescription>
-                        Altere seu usuário do MPost.
+                        {t('user.info.description')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">

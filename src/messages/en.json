@@ -260,5 +260,61 @@
     "emptyText": "You have no notifications :(",
     "commentedOnPost": "commented on your post",
     "repliedComment": "replied to your comment"
+  },
+  "settings": {
+    "title": "Settings",
+    "sidebar": {
+      "moreOptions": "More options"
+    },
+    "options": {
+      "user": {
+        "title": "User",
+        "info": {
+          "title": "User Info",
+          "description": "Edit your MPost user.",
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "John Doe"
+            },
+            "username": {
+              "label": "Username",
+              "placeholder": "johndoe"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Woo! Feelin' good!"
+            },
+            "externalUrl": {
+              "label": "External URL",
+              "placeholder": "https://maciel.app"
+            },
+            "buttons": {
+              "sendButton": {
+                "normal": "Send",
+                "pending": "Sending..."
+              }
+            }
+          }
+        },
+        "profilePic": {
+          "title": "Profile picture",
+          "description": "Change your profile picture. (Max size 500KB)",
+          "buttons": {
+            "sendButton": {
+              "normal": "Send",
+              "pending": "Sending..."
+            },
+            "removeImageButton": {
+              "normal": "",
+              "pending": ""
+            }
+          }
+        }
+      },
+      "appearance": {
+        "title": "Appearance"
+      }
+    }
   }
 }

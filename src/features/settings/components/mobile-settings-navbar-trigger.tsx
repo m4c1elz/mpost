@@ -10,8 +10,11 @@ import {
 import { EllipsisVertical } from 'lucide-react'
 import { SettingsNavbarLink } from './settings-navbar-link'
 import { availableSettings } from '../available-settings'
+import { getTranslations } from 'next-intl/server'
 
-export function MobileSettingsNavbarTrigger() {
+export async function MobileSettingsNavbarTrigger() {
+    const t = await getTranslations('settings.options')
+
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -24,7 +27,7 @@ export function MobileSettingsNavbarTrigger() {
                     <SheetTitle>Mais opções</SheetTitle>
                 </SheetHeader>
                 <div className="w-full flex flex-col gap-4 px-4">
-                    {availableSettings.map(({ href, name }) => (
+                    {availableSettings(t).map(({ href, name }) => (
                         <SheetClose key={href} asChild>
                             <SettingsNavbarLink href={href}>
                                 {name}

@@ -1,15 +1,17 @@
+import { _Translator } from 'next-intl'
+
 type Setting = {
     name: string
     href: string
 }
 
-export const availableSettings: Setting[] = [
+export const availableSettings = (t: _Translator): Setting[] => [
     {
-        name: 'Usuário',
+        name: t('user.title'),
         href: '/settings/user',
     },
     {
-        name: 'Aparência',
+        name: t('appearance.title'),
         href: '/settings/appearance',
     },
 ]

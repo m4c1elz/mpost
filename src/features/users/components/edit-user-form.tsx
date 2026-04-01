@@ -9,6 +9,7 @@ import { useActionState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/hooks/use-toast'
+import { useTranslations } from 'next-intl'
 
 interface EditUserFormProps {
     defaultName: string
@@ -27,6 +28,7 @@ export function EditUserForm({
     const { update } = useSession()
     const router = useRouter()
     const { toast } = useToast()
+    const t = useTranslations('settings.options.user.info.form')
 
     useEffect(() => {
         if (state?.success) {
@@ -43,10 +45,10 @@ export function EditUserForm({
     return (
         <Form action={action} className="flex flex-col gap-4">
             <div className="space-y-2">
-                <Label>Nome</Label>
+                <Label>{t('name.label')}</Label>
                 <Input
                     type="text"
-                    placeholder="Fulano Beltrano"
+                    placeholder={t('name.placeholder')}
                     defaultValue={defaultName}
                     name="name"
                 />
@@ -57,10 +59,10 @@ export function EditUserForm({
                 )}
             </div>
             <div className="space-y-2">
-                <Label>Apelido</Label>
+                <Label>{t('username.label')}</Label>
                 <Input
                     type="text"
-                    placeholder="Fulano Beltrano"
+                    placeholder={t('username.placeholder')}
                     defaultValue={defaultAtsign}
                     name="atsign"
                 />
@@ -71,10 +73,10 @@ export function EditUserForm({
                 )}
             </div>
             <div className="space-y-2">
-                <Label>Status</Label>
+                <Label>{t('status.label')}</Label>
                 <Input
                     type="text"
-                    placeholder="Me sentindo bem!"
+                    placeholder={t('status.placeholder')}
                     defaultValue={defaultStatus}
                     name="status"
                 />
@@ -85,10 +87,10 @@ export function EditUserForm({
                 )}
             </div>
             <div className="space-y-2">
-                <Label>Link externo</Label>
+                <Label>{t('externalUrl.label')}</Label>
                 <Input
                     type="text"
-                    placeholder="https://maciel.app"
+                    placeholder={t('externalUrl.placeholder')}
                     defaultValue={defaultUrl}
                     name="url"
                 />
@@ -99,7 +101,7 @@ export function EditUserForm({
                 )}
             </div>
             <Button type="submit" className="w-min" disabled={isPending}>
-                Enviar
+                {t('buttons.sendButton.normal')}
             </Button>
         </Form>
     )
