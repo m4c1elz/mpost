@@ -6,6 +6,7 @@ import { useActionState, useEffect, useState } from 'react'
 import { sendResetPasswordEmail } from '../actions/send-reset-password-email'
 import { ButtonWithDelay } from './button-with-delay'
 import { useToast } from '@/hooks/use-toast'
+import { useTranslations } from 'next-intl'
 
 export function RequestPasswordResetForm() {
     const [wasSubmitted, setWasSubmitted] = useState(false)
@@ -17,17 +18,19 @@ export function RequestPasswordResetForm() {
 
     const { toast } = useToast()
 
+    const t = useTranslations('auth.sendMailButton')
+
     useEffect(() => {
         if (!state) return
 
         if (state.success) {
             toast({
-                title: 'E-mail enviado.',
-                description: 'Verifique sua caixa de entrada.',
+                title: t('onSent.title'),
+                description: t('onSent.description'),
             })
         } else if (state.error) {
             toast({
-                title: 'Erro ao enviar e-mail!',
+                title: t('onFail.title'),
                 description: state.error,
                 variant: 'destructive',
             })
@@ -42,11 +45,11 @@ export function RequestPasswordResetForm() {
             <Input
                 type="email"
                 name="email"
-                placeholder="fulanodetal@gmail.com"
+                placeholder="johndoe@gmail.com"
                 required
             />
             <ButtonWithDelay wasSubmitted={wasSubmitted} isLoading={isPending}>
-                {isPending ? 'Enviando...' : 'Enviar e-mail'}
+                {isPending ? t('sending') : t('sendMail')}
             </ButtonWithDelay>
         </form>
     )

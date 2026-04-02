@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useActionState, useEffect } from 'react'
+import { useActionState } from 'react'
 import { setNewPassword } from '../actions/set-new-password'
 import { Loader2 } from 'lucide-react'
 import { PasswordInput } from '@/components/password-input'
+import { useTranslations } from 'next-intl'
 
 type CreateNewPasswordFormProps = {
     userId: string
@@ -19,16 +19,21 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
         undefined,
     )
 
+    const t = useTranslations('auth.passwordReset.form')
+
     return (
         <Card className="w-[300px]">
             <CardHeader>
-                <CardTitle>Criar nova senha</CardTitle>
+                <CardTitle>{t('title')}</CardTitle>
             </CardHeader>
             <CardContent>
                 <form action={action} className="space-y-6">
                     <div className="space-y-4">
-                        <Label htmlFor="password">Nova senha</Label>
-                        <PasswordInput name="password" placeholder="senha123" />
+                        <Label htmlFor="password">{t('password.label')}</Label>
+                        <PasswordInput
+                            name="password"
+                            placeholder={t('password.placeholder')}
+                        />
                         {state && (
                             <span className="text-sm text-destructive font-bold py-1">
                                 {state.errors.password}
@@ -37,11 +42,11 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
                     </div>
                     <div className="space-y-4">
                         <Label htmlFor="confirm-password">
-                            Confirmar senha
+                            {t('confirmPassword.label')}
                         </Label>
                         <PasswordInput
                             name="confirm-password"
-                            placeholder="senha123"
+                            placeholder={t('confirmPassword.placeholder')}
                         />
                         {state && (
                             <span className="text-sm text-destructive font-bold py-1">
@@ -52,10 +57,11 @@ export function CreateNewPasswordForm({ userId }: CreateNewPasswordFormProps) {
                     <Button type="submit" disabled={isPending}>
                         {isPending ? (
                             <>
-                                <Loader2 className="animate-spin" /> Enviando...
+                                <Loader2 className="animate-spin" />{' '}
+                                {t('submitButton.sending')}
                             </>
                         ) : (
-                            'Enviar'
+                            t('submitButton.send')
                         )}
                     </Button>
                 </form>

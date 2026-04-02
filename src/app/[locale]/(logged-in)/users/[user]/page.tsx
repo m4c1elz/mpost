@@ -1,0 +1,88 @@
+import { notFound } from 'next/navigation'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { getInitials } from '@/helpers/get-initials'
+import { PostList } from '@/features/posts/components/post-list'
+import { getUserByAtsign } from '@/features/users/services/get-user-by-atsign'
+import { getUserPostsByAtsign } from '@/features/users/services/get-user-posts'
+import { AppPagination } from '@/components/app-pagination'
+import { Link as LinkIcon } from 'lucide-react'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
+import { UserJoinDate } from '@/features/users/components/user-join-date'
+
+type UserProps = {
+    params: Promise<{ user: string }>
+    searchParams: Promise<{ page: string }>
+}
+
+export default async function User({ params, searchParams }: UserProps) {
+    const { user: atsign } = await params
+    const { page } = await searchParams
+
+    const parsedPage = isNaN(Number(page)) ? 1 : Number(page)
+
+    const [user, { data: posts, pagination: postsPagination }] =
+        await Promise.all([
+            getUserByAtsign(atsign),
+            getUserPostsByAtsign(atsign, parsedPage),
+        ])
+
+    const t = await getTranslations('profile')
+
+    if (!user) {
+        return notFound()
+    }
+
+    return (
+        <div className="space-y-6">
+            <div className="flex flex-col items-center gap-4 h-auto md:flex-row">
+                <Avatar className="size-36">
+                    <AvatarFallback className="text-3xl font-bold">
+                        {getInitials(user.name)}
+                    </AvatarFallback>
+                    <AvatarImage src={user.image ?? ''} alt={user.name} />
+                </Avatar>
+                <div className="flex h-auto flex-col items-center md:items-start gap-4 md:gap-4 md:justify-around">
+                    <div className="flex gap-2 items-end">
+                        <h1 className="text-2xl font-bold">{user.name}</h1>
+                        <h2 className="text-lg font-medium text-foreground/50">
+                            @{user.atsign}
+                        </h2>
+                    </div>
+                    {user.status && (
+                        <div className="space-y-2">
+                            &quot;{user.status}&quot;
+                        </div>
+                    )}
+
+                    <div className="space-y-2">
+                        <UserJoinDate date={user.createdAt} />
+                    </div>
+                    {user.url && (
+                        <div className="flex gap-2 justify-center items-center">
+                            <LinkIcon size={15} />
+                            <Link
+                                href={user.url}
+                                className="font-medium underline line-clamp-1 text-sm md:text-base"
+                                target="_blank"
+                                referrerPolicy="no-referrer"
+                            >
+                                {user.url}
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="space-y-6">
+                <p className="text-xl font-bold">{t('postsTitle')}</p>
+                <PostList posts={posts} showPinnedHighlight />
+                {postsPagination.totalPages > 1 && (
+                    <AppPagination
+                        page={postsPagination.page}
+                        totalPages={postsPagination.totalPages}
+                    />
+                )}
+            </div>
+        </div>
+    )
+}

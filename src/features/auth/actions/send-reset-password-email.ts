@@ -6,6 +6,7 @@ import PasswordResetEmail from '../components/password-reset-email'
 import { z } from 'zod'
 import { sendMail } from '../lib/email'
 import { signJWT } from '../lib/jwt'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 const sendResetPasswordEmailSchema = z.string().email()
 
@@ -13,6 +14,7 @@ export async function sendResetPasswordEmail(
     _prevState: unknown,
     formData: FormData,
 ) {
+    const t = await getTranslations('auth.emails.resetPassword')
     const sentEmail = formData.get('email')
 
     const { error, data: email } =
@@ -21,7 +23,7 @@ export async function sendResetPasswordEmail(
     if (error && !email) {
         return {
             success: false,
-            error: 'E-mail inválido enviado.',
+            error: t('invalidEmail'),
         }
     }
 
@@ -30,7 +32,7 @@ export async function sendResetPasswordEmail(
     if (!user) {
         return {
             success: false,
-            error: 'Usuário não encontrado.',
+            error: t('userNotFound'),
         }
     }
 
@@ -50,11 +52,13 @@ export async function sendResetPasswordEmail(
         env.EMAIL_REDIRECT_URL,
     ).toString()
 
+    const locale = await getLocale()
+
     try {
         await sendMail(
             email,
-            'Reinicialização de senha',
-            PasswordResetEmail({ redirectUrl }),
+            t('subject'),
+            PasswordResetEmail({ redirectUrl, locale }),
         )
 
         return {
@@ -65,7 +69,7 @@ export async function sendResetPasswordEmail(
         console.log(error)
         return {
             success: false,
-            error: 'Não foi possível enviar o e-mail. Tente novamente mais tarde.',
+            error: t('couldntSendEmail'),
         }
     }
 }

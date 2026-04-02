@@ -1,0 +1,359 @@
+{
+  "common": {
+    "sendButton": {
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "notFound": {
+      "title": "That's odd.",
+      "description": "Looks like this page does not exist.",
+      "backToHomeLink": "Go back to home page"
+    }
+  },
+  "auth": {
+    "login": {
+      "form": {
+        "title": "Login",
+        "description": "Enter with your account.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "password123"
+        },
+        "forgotPassword": "I forgot my password",
+        "registerNoAccount": "Don't have an account yet?",
+        "registerHere": "Register here",
+        "sendButton": {
+          "send": "Log in",
+          "sending": "Sending..."
+        },
+        "invalidEmail": "Invalid e-mail.",
+        "passwordMinChars": "Password should have at least 8 characters.",
+        "invalidCredentials": "Email or password is incorrect."
+      }
+    },
+    "register": {
+      "form": {
+        "title": "Register",
+        "description": "Create an account on MPost.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "name": {
+          "label": "Name",
+          "placeholder": "Felipe Maciel"
+        },
+        "username": {
+          "label": "Username",
+          "placeholder": "maciel"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "password123"
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": "password123"
+        },
+        "alreadyHasAccount": "Got an account already?",
+        "loginHere": "Log in here",
+        "sendButton": {
+          "send": "Create account",
+          "sending": "Sending..."
+        },
+        "invalidEmail": "Invalid e-mail.",
+        "passwordMinChars": "Password should have at least 8 characters.",
+        "nameMinChars": "Name should have at least 3 characters.",
+        "usernameMinChars": "Username should have at least 3 characters.",
+        "usernameMaxChars": "Username should not have more than 12 characters.",
+        "usernameInUse": "Username already in use.",
+        "passwordsNotMatching": "Passwords do not match."
+      },
+      "accountVerify": {
+        "title": "Almost there! Verify your account",
+        "description": "It's necessary that you verify your account before you can start using it. An e-mail will be sent to you with the verification link.",
+        "success": {
+          "title": "E-mail verified!",
+          "description": "You can now log in on the platform.",
+          "loginLink": "Sign in"
+        },
+        "failed": {
+          "title": "An error occoured during verification.",
+          "description": "Try again requesting a new verification link."
+        }
+      }
+    },
+    "sendMailButton": {
+      "sendMail": "Send Email",
+      "sending": "Sending...",
+      "onSent": {
+        "title": "E-mail sent",
+        "description": "Check your inbox."
+      },
+      "onFail": {
+        "title": "Error while sending email",
+        "description": "An unknown error happened while sending the email. Please wait for a few moments then try again"
+      }
+    },
+    "passwordReset": {
+      "title": "Reset password",
+      "description": "To reset your password, an email containing a password reset link will be sent to you. Type your email below:",
+      "form": {
+        "title": "Create new password",
+        "password": {
+          "label": "New password",
+          "placeholder": "password123"
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": "password123"
+        },
+        "submitButton": {
+          "send": "Send",
+          "sending": "Sending..."
+        },
+        "validation": {
+          "passwordMinChars": "Password should have at least 8 characters.",
+          "passwordsNotMatching": "Passwords do not match."
+        },
+        "errorWhileUpdating": "Error while updating user."
+      },
+      "onSuccess": {
+        "title": "Password reset!",
+        "description": "You can now log in with your new password.",
+        "loginLink": "Log in"
+      },
+      "onFail": {
+        "title": "Invalid URL",
+        "description": "You are using an invalid password reset link. It's likely that the URL has expired. Please try requesting the password reset email again.",
+        "tryAgainLink": "Try again"
+      }
+    },
+    "logoutButton": {
+      "logoutText": "Log out",
+      "loggingOutText": "Logging out..."
+    },
+    "emails": {
+      "verifyAccount": {
+        "subject": "Email Verification",
+        "preview": "Confirm your email",
+        "title": "Almost there!",
+        "description": "To verify your account on MPost, follow",
+        "link": "this link",
+        "footerText": "Made by Maciel.",
+        "unknownError": "Unknown error while sending confirmation e-mail."
+      },
+      "resetPassword": {
+        "subject": "Password Reset",
+        "preview": "Reset your password",
+        "title": "Reset your password",
+        "description": "To continue and reset your password, follow",
+        "link": "this link",
+        "ignoreEmail": "If you didn't request this email, please ignore it.",
+        "footerText": "Made by Maciel.",
+        "invalidEmail": "Invalid e-mail.",
+        "userNotFound": "User not found.",
+        "couldntSendEmail": "Could not send verification e-mail. Please try again later."
+      }
+    }
+  },
+  "home": {
+    "topBanner": {
+      "text": "We support english now.",
+      "linkText": "Read more"
+    },
+    "navbar": {
+      "buttons": {
+        "post": "Post",
+        "settings": "Settings",
+        "updates": "Updates",
+        "userDropdown": {
+          "viewProfile": "View profile",
+          "theme": "Theme"
+        }
+      }
+    },
+    "posts": {
+      "emptyText": "There aren't any posts. Yet!",
+      "profilePictureAlt": "{name}'s profile picture",
+      "pinnedPost": "Pinned post"
+    },
+    "welcomeText": "Welcome, {name}!",
+    "footer": {
+      "nonProfitText": "MPost is a non-profit project, made entirely for fun.",
+      "devByMacielText": "Developed with care by Maciel."
+    }
+  },
+  "posts": {
+    "title": "Post",
+    "originalPost": "Original Post",
+    "create": {
+      "title": "Create post",
+      "description": "Talk a bit about your day!",
+      "placeholder": "Lorem ipsum dolor it sit amet.",
+      "validation": {
+        "maxChars": "Post cannot contain more than 140 characters.",
+        "nonEmpty": "Post cannot be empty."
+      }
+    },
+    "edit": {
+      "title": "Edit post",
+      "postContentLabel": "Post content",
+      "onSuccessText": "Post edited."
+    },
+    "delete": {
+      "title": "Do you really wish to delete the post?",
+      "description": "This action is irreversible!",
+      "cancelBtnLabel": "Cancel",
+      "deleteButton": {
+        "normal": "Delete",
+        "pending": "Deleting..."
+      },
+      "onSuccess": {
+        "description": "Post deleted successfully."
+      },
+      "onError": {
+        "title": "Error!"
+      }
+    },
+    "pins": {
+      "onPinText": "Post pinned successfully.",
+      "onUnpinText": "Post unpinned successfully.",
+      "onError": "Post pinning/unpinning failed."
+    },
+    "comments": {
+      "highlighted": "Highlighted comment",
+      "showReplies": "Show replies",
+      "viewAllComments": "View all comments",
+      "form": {
+        "placeholder": "Comment here!",
+        "button": {
+          "normal": "Comment",
+          "pending": "Sending..."
+        }
+      },
+      "delete": {
+        "title": "Delete comment",
+        "description": "Are you sure you want to delete this comment?",
+        "deleteButton": {
+          "normal": "Delete",
+          "pending": "Deleting..."
+        },
+        "cancelBtnLabel": "Cancel",
+        "onSuccessLabel": "Comment deleted.",
+        "onErrorLabel": "Error while removing comment."
+      }
+    },
+    "notFound": {
+      "title": "That's odd.",
+      "description": "Looks like this post does not exist.",
+      "backToHomeLink": "Go back to home page"
+    }
+  },
+  "profile": {
+    "joinedIn": "Joined in {date}",
+    "postsTitle": "Posts"
+  },
+  "notifications": {
+    "emptyText": "You have no notifications :(",
+    "commentedOnPost": "commented on your post",
+    "repliedComment": "replied to your comment"
+  },
+  "settings": {
+    "title": "Settings",
+    "sidebar": {
+      "moreOptions": "More options"
+    },
+    "options": {
+      "user": {
+        "title": "User",
+        "info": {
+          "title": "User Info",
+          "description": "Edit your MPost user.",
+          "form": {
+            "name": {
+              "label": "Name",
+              "placeholder": "John Doe"
+            },
+            "username": {
+              "label": "Username",
+              "placeholder": "johndoe"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Woo! Feelin' good!"
+            },
+            "externalUrl": {
+              "label": "External URL",
+              "placeholder": "https://maciel.app"
+            },
+            "buttons": {
+              "sendButton": {
+                "normal": "Send",
+                "pending": "Sending..."
+              }
+            }
+          }
+        },
+        "profilePic": {
+          "title": "Profile picture",
+          "description": "Change your profile picture. (Max. size 500KB)",
+          "buttons": {
+            "sendButton": {
+              "normal": "Send",
+              "pending": "Sending..."
+            },
+            "removeImageButton": {
+              "normal": "Remove image",
+              "pending": "Removing..."
+            }
+          },
+          "onSuccess": {
+            "title": "Image successfully updated.",
+            "description": "Might take a while until the image appears to some users."
+          },
+          "onError": {
+            "title": "Error while updating image!",
+            "description": "Please, wait for a few moments then try again."
+          },
+          "noImageSelectedError": "No image is selected.",
+          "imageTooLargeError": "Image goes beyond the 500kb limit.",
+          "notAnImageError": "Sent file is not an image. Please, send an image.",
+          "onRemoveSuccess": {
+            "title": "Image removed.",
+            "description": "Might take a while until the changes apply."
+          },
+          "onRemoveError": {
+            "title": "Error while removing image.",
+            "description": "Please, try again later."
+          },
+          "userNotFoundError": "User not found.",
+          "noImageToRemoveError": "There is no image to remove."
+        }
+      },
+      "appearance": {
+        "title": "Appearance",
+        "form": {
+          "title": "Theme",
+          "description": "Choose a theme that's comfortable for your eyes.",
+          "themes": {
+            "light": "Light mode",
+            "dark": "Dark mode"
+          }
+        }
+      },
+      "language": {
+        "title": "Language",
+        "description": "Set the language used for MPost's interface."
+      }
+    }
+  },
+  "updates": {
+    "title": "Updates",
+    "allUpdates": "All updates"
+  }
+}

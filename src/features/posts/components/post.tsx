@@ -1,12 +1,12 @@
 'use client'
 
 import { Button, ButtonProps } from '@/components/ui/button'
-import { formatRelativeDate } from '@/helpers/format-relative-date'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Geist } from 'next/font/google'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { PropsWithChildren, useState } from 'react'
 import { createContext, useContext } from 'react'
+import { useFormatter, useNow } from 'next-intl'
 
 const geist = Geist({
     subsets: ['latin'],
@@ -128,12 +128,17 @@ export function PostDate({
     date: Date | string
     isEdited?: boolean
 }) {
+    const formatter = useFormatter()
+    const now = useNow()
+
     return (
         <time
             dateTime={new Date(date).toISOString()}
             className="text-foreground/50 text-xs sm:text-sm"
+            suppressHydrationWarning
         >
-            {formatRelativeDate(new Date(date))} {isEdited && '(editado)'}
+            {formatter.relativeTime(new Date(date), now)}{' '}
+            {isEdited && '(editado)'}
         </time>
     )
 }

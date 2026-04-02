@@ -2,7 +2,7 @@
 
 import { Settings, History } from 'lucide-react'
 import { Button } from '../ui/button'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { NotificationsButton } from '@/features/notifications/components/notifications-button'
 import { UserDropdown } from './user-dropdown'
 

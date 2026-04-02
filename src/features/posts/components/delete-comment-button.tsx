@@ -13,6 +13,7 @@ import { useActionState, useEffect, useState, useTransition } from 'react'
 import { deleteComment } from '../actions/delete-comment'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/hooks/use-toast'
+import { useTranslations } from 'next-intl'
 
 type DeleteCommentButtonProps = {
     id: number
@@ -30,6 +31,8 @@ export function DeleteCommentButton({ id }: DeleteCommentButtonProps) {
     const router = useRouter()
     const { toast } = useToast()
 
+    const t = useTranslations('posts.comments.delete')
+
     useEffect(() => {
         if (!state) return
 
@@ -38,11 +41,11 @@ export function DeleteCommentButton({ id }: DeleteCommentButtonProps) {
             router.refresh()
 
             toast({
-                description: 'Comentário removido.',
+                description: t('onSuccessLabel'),
             })
         } else {
             toast({
-                description: 'Erro ao remover comentário.',
+                description: t('onErrorLabel'),
             })
         }
     }, [state])
@@ -56,10 +59,8 @@ export function DeleteCommentButton({ id }: DeleteCommentButtonProps) {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Apagar comentário</DialogTitle>
-                    <DialogDescription>
-                        Tem certeza que deseja excluir este comentário?
-                    </DialogDescription>
+                    <DialogTitle>{t('title')}</DialogTitle>
+                    <DialogDescription>{t('description')}</DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
                     <Button
@@ -69,13 +70,14 @@ export function DeleteCommentButton({ id }: DeleteCommentButtonProps) {
                     >
                         {isPending ? (
                             <>
-                                <Loader2 className="animate-spin" /> Apagando...
+                                <Loader2 className="animate-spin" />{' '}
+                                {t('deleteButton.pending')}
                             </>
                         ) : (
-                            'Apagar'
+                            t('deleteButton.normal')
                         )}
                     </Button>
-                    <Button variant="secondary">Cancelar</Button>
+                    <Button variant="secondary">{t('cancelBtnLabel')}</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
