@@ -296,7 +296,17 @@
                 "normal": "Send",
                 "pending": "Sending..."
               }
-            }
+            },
+            "validation": {
+              "nameMinChars": "Name should have at least 3 characters.",
+              "usernameMinChars": "Username should have at least 3 characters.",
+              "usernameMaxChars": "Username should not have more than 12 characters.",
+              "statusMinChars": "Status should not have more than 50 characters.",
+              "invalidUrl": "Invalid URL!",
+              "usernameInUse": "Username already in use."
+            },
+            "onSuccessText": "User successfully updated.",
+            "onErrorText": "Error while updating user."
           }
         },
         "profilePic": {

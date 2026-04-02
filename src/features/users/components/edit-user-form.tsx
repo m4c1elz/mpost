@@ -34,7 +34,7 @@ export function EditUserForm({
         if (state?.success) {
             ;(async () => {
                 toast({
-                    description: 'Usuário editado com sucesso.',
+                    description: t('onSuccessText'),
                 })
                 await update(state.user)
                 router.refresh()

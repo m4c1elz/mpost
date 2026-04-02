@@ -296,7 +296,17 @@
                 "normal": "Enviar",
                 "pending": "Enviando..."
               }
-            }
+            },
+            "validation": {
+              "nameMinChars": "Nome deve conter ao menos 3 caracteres",
+              "usernameMinChars": "Apelido deve conter ao menos 3 caracteres",
+              "usernameMaxChars": "Apelido não pode ter mais que 12 caracteres.",
+              "statusMinChars": "Status não pode conter mais que 50 caracteres.",
+              "invalidUrl": "URL inválido!",
+              "usernameInUse": "Apelido já em uso."
+            },
+            "onSuccessText": "User successfully updated.",
+            "onErrorText": "Error while updating user."
           }
         },
         "profilePic": {
