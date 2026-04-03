@@ -248,6 +248,10 @@
         "button": {
           "normal": "Comentar",
           "pending": "Enviando..."
+        },
+        "validation": {
+          "maxChars": "Comentário não deve ter mais que 140 caracteres.",
+          "nonEmpty": "Comentário não pode ser vazio."
         }
       },
       "delete": {

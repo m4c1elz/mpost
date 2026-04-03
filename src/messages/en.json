@@ -248,6 +248,10 @@
         "button": {
           "normal": "Comment",
           "pending": "Sending..."
+        },
+        "validation": {
+          "maxChars": "Comment cannot contain more than 140 characters.",
+          "nonEmpty": "Comment cannot be empty."
         }
       },
       "delete": {
