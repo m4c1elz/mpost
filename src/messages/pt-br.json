@@ -8,6 +8,16 @@
       "title": "Que estranho.",
       "description": "Parece que essa página não existe.",
       "backToHomeLink": "Voltar a página principal"
+    },
+    "pagination": {
+      "next": {
+        "title": "Próximo",
+        "description": "Ir para a próxima página"
+      },
+      "previous": {
+        "title": "Anterior",
+        "description": "Ir para a página anterior"
+      }
     }
   },
   "auth": {

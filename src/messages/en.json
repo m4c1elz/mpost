@@ -8,6 +8,16 @@
       "title": "That's odd.",
       "description": "Looks like this page does not exist.",
       "backToHomeLink": "Go back to home page"
+    },
+    "pagination": {
+      "next": {
+        "title": "Next",
+        "description": "Go to next page"
+      },
+      "previous": {
+        "title": "Previous",
+        "description": "Go to previous page"
+      }
     }
   },
   "auth": {
