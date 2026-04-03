@@ -201,6 +201,7 @@
   "posts": {
     "title": "Post",
     "originalPost": "Original Post",
+    "editedMarker": "(edited)",
     "create": {
       "title": "Create post",
       "description": "Talk a bit about your day!",

@@ -201,6 +201,7 @@
   "posts": {
     "title": "Postagem",
     "originalPost": "Postagem original",
+    "editedMarker": "(editado)",
     "create": {
       "title": "Criar postagem",
       "description": "Fale um pouco do seu dia!",
