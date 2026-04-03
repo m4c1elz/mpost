@@ -7,7 +7,13 @@ import { _Translator } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
 const editPostSchema = (t: _Translator) =>
-    z.string().trim().max(140, t('maxChars')).nonempty(t('nonEmpty'))
+    z
+        .string()
+        .trim()
+        .nonempty(t('nonEmpty'))
+        .refine(post => post.replace(/\r\n/g, '\n').length <= 140, {
+            message: t('maxChars'),
+        })
 
 export async function editPost(
     id: number,

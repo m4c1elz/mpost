@@ -9,7 +9,13 @@ import { z } from 'zod'
 import { getTranslations } from 'next-intl/server'
 
 const createCommentSchema = (t: _Translator) =>
-    z.string().trim().max(140, t('maxChars')).nonempty(t('nonEmpty'))
+    z
+        .string()
+        .trim()
+        .nonempty(t('nonEmpty'))
+        .refine(post => post.replace(/\r\n/g, '\n').length <= 140, {
+            message: t('maxChars'),
+        })
 
 export async function addComment(
     postId: number,
