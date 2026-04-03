@@ -4,9 +4,9 @@ import { Button, ButtonProps } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Geist } from 'next/font/google'
 import { Link } from '@/i18n/navigation'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren } from 'react'
 import { createContext, useContext } from 'react'
-import { useFormatter, useNow } from 'next-intl'
+import { useFormatter, useNow, useTranslations } from 'next-intl'
 
 const geist = Geist({
     subsets: ['latin'],
@@ -40,8 +40,6 @@ export function Post({
     isEdited = false,
     children,
 }: PropsWithChildren & PostContextType) {
-    const [] = useState<PostContextType>({ id, content })
-
     return (
         <PostContext value={{ id, content, isPinned, isEdited }}>
             <div className="block border rounded space-y-2 px-4 py-2">
@@ -101,35 +99,41 @@ export function PostBadge({ children }: PropsWithChildren) {
     )
 }
 
+// helper to define if the post should be a url or not
+function PostContentRoot({
+    renderLink,
+    children,
+}: { renderLink: boolean } & PropsWithChildren) {
+    const { id } = usePost()
+
+    return renderLink ? (
+        <Link href={`/posts/${id}`}>{children}</Link>
+    ) : (
+        <>{children}</>
+    )
+}
+
 export function PostContent({
     children,
     asLink = true,
 }: PropsWithChildren & { asLink?: boolean }) {
-    const { id } = usePost()
-
-    const Root = ({ children }: PropsWithChildren) =>
-        asLink ? <Link href={`/posts/${id}`}>{children}</Link> : <>{children}</>
-
     return (
-        <Root>
+        <PostContentRoot renderLink={asLink}>
             <article
                 className={`${geist.className} whitespace-pre-line text-wrap break-anywhere`}
             >
                 {children}
             </article>
-        </Root>
+        </PostContentRoot>
     )
 }
 
-export function PostDate({
-    date,
-    isEdited = false,
-}: {
-    date: Date | string
-    isEdited?: boolean
-}) {
+export function PostDate({ date }: { date: Date | string }) {
+    const { isEdited } = usePost()
     const formatter = useFormatter()
     const now = useNow()
+
+    const t = useTranslations('posts')
 
     return (
         <time
@@ -138,7 +142,7 @@ export function PostDate({
             suppressHydrationWarning
         >
             {formatter.relativeTime(new Date(date), now)}{' '}
-            {isEdited && '(editado)'}
+            {isEdited && t('editedMarker')}
         </time>
     )
 }

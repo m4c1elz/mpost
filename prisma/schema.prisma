@@ -30,6 +30,7 @@ model Post {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   isPinned  Boolean   @default(false) @map("is_pínned")
+  isEdited  Boolean   @default(false) @map("is_edited")
   comments  Comment[]
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
