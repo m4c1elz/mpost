@@ -5,6 +5,7 @@ export async function updatePost(id: number, content: string, userId: string) {
     const post = await prisma.post.update({
         data: {
             content,
+            isEdited: true,
         },
         where: {
             id,

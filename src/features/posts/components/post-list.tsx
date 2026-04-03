@@ -30,6 +30,7 @@ type PostType = {
     createdAt: Date
     updatedAt: Date | null
     isPinned?: boolean
+    isEdited?: boolean
 }
 
 type PostListProps = {
@@ -45,9 +46,9 @@ export function PostList({ posts, showPinnedHighlight }: PostListProps) {
         return <p className="text-center">{t('emptyText')}</p>
     }
 
-    return posts.map(({ id, content, user, isPinned, createdAt }) => {
+    return posts.map(({ id, content, user, isPinned, isEdited, createdAt }) => {
         const isPostFromCurrentUser = user.atsign === data?.user.atsign
-        const contextValue = { id, content, isPinned }
+        const contextValue = { id, content, isPinned, isEdited }
 
         return (
             <Post key={id} {...contextValue}>
