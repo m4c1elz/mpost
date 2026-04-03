@@ -213,7 +213,11 @@
     "edit": {
       "title": "Editar postagem",
       "postContentLabel": "Conteúdo da postagem",
-      "onSuccessText": "Postagem editada."
+      "onSuccessText": "Postagem editada.",
+      "validation": {
+        "maxChars": "Postagem não pode ter mais de 140 caracteres.",
+        "nonEmpty": "Postagem não pode ser vazia."
+      }
     },
     "delete": {
       "title": "Você realmente deseja excluir a postagem?",

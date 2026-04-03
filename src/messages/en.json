@@ -213,7 +213,11 @@
     "edit": {
       "title": "Edit post",
       "postContentLabel": "Post content",
-      "onSuccessText": "Post edited."
+      "onSuccessText": "Post edited.",
+      "validation": {
+        "maxChars": "Post cannot contain more than 140 characters.",
+        "nonEmpty": "Post cannot be empty."
+      }
     },
     "delete": {
       "title": "Do you really wish to delete the post?",
