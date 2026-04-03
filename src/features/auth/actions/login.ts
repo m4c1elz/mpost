@@ -59,7 +59,7 @@ export async function login(
             if ((error.type = 'CredentialsSignin')) {
                 return {
                     errors: {
-                        password: ['Credenciais inválidas.'],
+                        password: [t('invalidCredentials')],
                     },
                 }
             }
