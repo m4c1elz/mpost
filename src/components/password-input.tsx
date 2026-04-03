@@ -12,7 +12,11 @@ export function PasswordInput(props: PasswordInputProps) {
 
     return (
         <div className="flex gap-1">
-            <Input {...props} type={isShowingPassword ? 'text' : 'password'} />
+            <Input
+                {...props}
+                type={isShowingPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+            />
             <Button
                 type="button"
                 size="icon"
