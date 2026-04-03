@@ -365,5 +365,10 @@
   "updates": {
     "title": "Updates",
     "allUpdates": "All updates"
+  },
+  "globalError": {
+    "title": "Oops! Something went wrong.",
+    "description": "An unknown error happened. Try reloading the page or coming back later.",
+    "resetPageBtnLabel": "Refresh page"
   }
 }

@@ -365,5 +365,10 @@
   "updates": {
     "title": "Atualizações",
     "allUpdates": "Todas as atualizações"
+  },
+  "globalError": {
+    "title": "Opa! Algo deu errado.",
+    "description": "Um erro desconhecido acabou de acontecer. Tente recarregar a página ou voltar mais tarde.",
+    "resetPageBtnLabel": "Reiniciar a página"
   }
 }
