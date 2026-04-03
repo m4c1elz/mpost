@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next'
 import createMDX from '@next/mdx'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const nextConfig: NextConfig = {
     eslint: {
@@ -13,4 +14,6 @@ const withMdx = createMDX({
     extension: /\.(md|mdx)$/,
 })
 
-export default withMdx(nextConfig)
+const withIntl = createNextIntlPlugin()
+
+export default withIntl(withMdx(nextConfig))

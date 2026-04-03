@@ -9,7 +9,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from './ui/pagination'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
+import { useSearchParams } from 'next/navigation'
 
 interface AppPaginationProps {
     page: number

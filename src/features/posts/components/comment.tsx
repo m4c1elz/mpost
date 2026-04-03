@@ -25,6 +25,7 @@ import { useSession } from 'next-auth/react'
 import { DeleteCommentButton } from './delete-comment-button'
 import { getInitials } from '@/helpers/get-initials'
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 export interface CommentProps extends Omit<CommentType, 'userId'> {
     user: Pick<UserType, 'name' | 'atsign' | 'image'>
@@ -44,6 +45,8 @@ export function Comment({
     updatedAt,
 }: CommentProps) {
     const { data } = useSession()
+    const t = useTranslations('posts.comments')
+
     const isCommentFromCurrentUser = user.atsign === data?.user.atsign
 
     const {
@@ -70,7 +73,7 @@ export function Comment({
     return (
         <div className="space-y-2">
             <Post {...{ id, content }}>
-                {isHighlighted && <PostBadge>Comentário em destaque</PostBadge>}
+                {isHighlighted && <PostBadge>{t('highlighted')}</PostBadge>}
                 <PostHeader>
                     <PostHeaderGroup>
                         <PostProfilePicture
@@ -114,7 +117,7 @@ export function Comment({
                     {repliesQuery.isLoading ? (
                         <Loader2 className="animate-spin" />
                     ) : (
-                        'Mostrar respostas'
+                        t('showReplies')
                     )}
                 </Button>
             )}
@@ -145,19 +148,6 @@ function CommentReplies({
                     ))}
                 </div>
             ))}
-            {repliesQuery.hasNextPage && (
-                <Button
-                    onClick={() => repliesQuery.fetchNextPage()}
-                    disabled={repliesQuery.isFetchingNextPage}
-                    variant="outline"
-                >
-                    {repliesQuery.isFetchingNextPage ? (
-                        <Loader2 className="animate-spin" />
-                    ) : (
-                        'Carregar mais comentários'
-                    )}
-                </Button>
-            )}
         </div>
     )
 }

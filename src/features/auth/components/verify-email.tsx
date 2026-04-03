@@ -10,37 +10,48 @@ import {
     Link,
     Hr,
 } from '@react-email/components'
+import { createTranslator } from 'next-intl'
 
 interface VerifyEmailProps {
     redirectUrl: string
+    locale: string
 }
 
-export default function VerifyEmail({ redirectUrl }: VerifyEmailProps) {
+export default async function VerifyEmail({
+    redirectUrl,
+    locale,
+}: VerifyEmailProps) {
+    const t = createTranslator({
+        messages: await import(`../../../messages/${locale}.json`),
+        namespace: 'auth.emails.verifyAccount',
+        locale,
+    })
+
     return (
         <Html lang="pt-br">
             <Head>
                 <Font fontFamily="Roboto" fallbackFontFamily="sans-serif" />
             </Head>
-            <Preview>Confirme seu e-mail</Preview>
+            <Preview>{t('preview')}</Preview>
             <Tailwind>
                 <Body>
                     <Text className="text-center text-3xl font-bold">
                         MPost
                     </Text>
                     <Container>
-                        <Text className="text-2xl font-bold">Falta pouco!</Text>
+                        <Text className="text-2xl font-bold">{t('title')}</Text>
                         <Text>
-                            Para se logar em sua conta no MPost, siga{' '}
+                            {t('description')}{' '}
                             <Link
                                 href={redirectUrl}
                                 className="text-sky-500 cursor-pointer"
                             >
-                                este link
+                                {t('link')}
                             </Link>
                             .
                         </Text>
                         <Hr />
-                        <Text className="text-center">Feito por Maciel.</Text>
+                        <Text className="text-center">{t('footerText')}</Text>
                     </Container>
                 </Body>
             </Tailwind>

@@ -11,6 +11,7 @@ export async function getPostById(id: number) {
             content: true,
             createdAt: true,
             updatedAt: true,
+            isEdited: true,
             user: {
                 select: {
                     image: true,

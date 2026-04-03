@@ -1,26 +1,29 @@
 'use server'
 
 import { editUser } from '@/features/users/services/edit-user'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 import { hash } from 'bcrypt-ts'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { _Translator } from 'next-intl'
 
-const setNewPasswordSchema = z
-    .object({
-        password: z
-            .string()
-            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-            .trim(),
-        confirmPassword: z
-            .string()
-            .min(8, 'Senha deve conter no mínimo 8 caracteres.')
-            .trim(),
-    })
-    .refine(data => data.password === data.confirmPassword, {
-        message: 'Senhas não coincidem.',
-        path: ['confirmPassword'],
-    })
+const setNewPasswordSchema = (t: _Translator) =>
+    z
+        .object({
+            password: z
+                .string()
+                .min(8, t('validation.passwordMinChars'))
+                .trim(),
+            confirmPassword: z
+                .string()
+                .min(8, t('validation.passwordMinChars'))
+                .trim(),
+        })
+        .refine(data => data.password === data.confirmPassword, {
+            message: t('validation.passwordsNotMatching'),
+            path: ['confirmPassword'],
+        })
 
 export async function setNewPassword(
     userId: string,
@@ -29,8 +32,10 @@ export async function setNewPassword(
 ) {
     const password = formData.get('password')
     const confirmPassword = formData.get('confirm-password')
+    const t = await getTranslations('auth.passwordReset.form')
+    const locale = await getLocale()
 
-    const { data, error } = setNewPasswordSchema.safeParse({
+    const { data, error } = setNewPasswordSchema(t).safeParse({
         password,
         confirmPassword,
     })
@@ -44,7 +49,7 @@ export async function setNewPassword(
 
     try {
         await editUser(userId, { password: await hash(data.password, 10) })
-        redirect('/forgotpassword/success')
+        redirect({ href: '/forgotpassword/success', locale })
     } catch (error) {
         console.log(error)
 
@@ -55,7 +60,7 @@ export async function setNewPassword(
         return {
             success: true,
             errors: {
-                confirmPassword: ['Erro ao atualizar o usuário.'],
+                confirmPassword: [t('errorWhileUpdating')],
             },
         }
     }

@@ -11,6 +11,7 @@ export async function getUserPostsByAtsign(
             id: true,
             content: true,
             isPinned: true,
+            isEdited: true,
             createdAt: true,
             updatedAt: true,
             user: {

@@ -11,6 +11,7 @@ export async function getCommentById(commentId: number) {
                     user: true,
                     createdAt: true,
                     updatedAt: true,
+                    isEdited: true,
                     content: true,
                 },
             },

@@ -1,7 +1,9 @@
+import { $Enums } from '@prisma/client'
+
 type NotificationList = {
     id: string
     user: string
-    message: string
+    action: $Enums.NotificationType
     href: string
     createdAt: string
     isRead: boolean

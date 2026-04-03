@@ -4,21 +4,25 @@ import { auth } from '@/auth'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { z } from 'zod'
 import { editUser as editUserFromDb } from '../services/edit-user'
+import { _Translator } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-const editUserSchema = z.object({
-    name: z.string().min(3, 'Nome deve conter no mínimo 3 caracteres.').trim(),
-    atsign: z
-        .string()
-        .min(3, 'Apelido deve conter ao menos 3 caracteres.')
-        .max(12, 'Apelido não pode conter mais de 12 caracteres.')
-        .trim(),
-    status: z
-        .string()
-        .max(50, 'Status não deve conter mais que 50 caracteres.')
-        .trim()
-        .optional(),
-    url: z.string().url('URL inválido!').trim().optional().or(z.literal('')),
-})
+const editUserSchema = (t: _Translator) =>
+    z.object({
+        name: z.string().min(3, t('nameMinChars')).trim(),
+        atsign: z
+            .string()
+            .min(3, t('usernameMinChars'))
+            .max(12, t('usernameMaxChars'))
+            .trim(),
+        status: z.string().max(50, t('statusMinChars')).trim().optional(),
+        url: z
+            .string()
+            .url(t('invalidUrl'))
+            .trim()
+            .optional()
+            .or(z.literal('')),
+    })
 
 export async function editUser(_prevState: unknown, formData: FormData) {
     const session = await auth()
@@ -28,7 +32,11 @@ export async function editUser(_prevState: unknown, formData: FormData) {
     const status = formData.get('status')
     const url = formData.get('url')
 
-    const { success, data, error } = editUserSchema.safeParse({
+    const t = await getTranslations(
+        'settings.options.user.info.form.validation',
+    )
+
+    const { success, data, error } = editUserSchema(t).safeParse({
         name,
         atsign,
         status,
@@ -58,7 +66,7 @@ export async function editUser(_prevState: unknown, formData: FormData) {
             return {
                 success: false,
                 error: {
-                    atsign: ['Já existe alguém com este apelido!'],
+                    atsign: [t('usernameInUse')],
                     name: '',
                     status: '',
                     url: '',

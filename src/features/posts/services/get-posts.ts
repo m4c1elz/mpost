@@ -12,6 +12,7 @@ export async function getPosts(page = 1, limit = 15) {
             createdAt: true,
             updatedAt: true,
             isPinned: true,
+            isEdited: true,
             user: {
                 select: {
                     name: true,

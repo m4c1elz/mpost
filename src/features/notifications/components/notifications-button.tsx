@@ -8,10 +8,12 @@ import {
 import { Notification } from './notification'
 import { cn } from '@/lib/utils'
 import { useNotificationsButton } from './notifications-button.hooks'
+import { useTranslations } from 'next-intl'
 
 export function NotificationsButton() {
     const { data, isPending, hasUnseenNotifications, ref, isFetchingNextPage } =
         useNotificationsButton()
+    const t = useTranslations('notifications')
 
     return (
         <Popover modal>
@@ -34,7 +36,7 @@ export function NotificationsButton() {
                     <div key={page.pagination.page}>
                         {page.data.length === 0 && (
                             <small className="font-bold block text-center p-2">
-                                Não há notificações {':('}
+                                {t('emptyText')}
                             </small>
                         )}
                         {page.data.map(notification => (

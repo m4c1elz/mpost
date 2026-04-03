@@ -1,22 +1,30 @@
 'use server'
 
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 import { z } from 'zod'
 import { createPost as createPostFromDb } from '../services/create-post'
+import { _Translator } from 'next-intl'
+import { getLocale, getTranslations } from 'next-intl/server'
 
-const createPostSchema = z
-    .string()
-    .max(140, 'Postagem não deve conter mais de 140 caracteres.')
-    .nonempty('Postagem não pode estar vazia.')
-    .trim()
+const createPostSchema = (t: _Translator) =>
+    z
+        .string()
+        .trim()
+        .nonempty(t('nonEmpty'))
+        .refine(post => post.replace(/\r\n/g, '\n').length <= 140, {
+            message: t('maxChars'),
+        })
 
 export async function createPost(_prevState: unknown, formData: FormData) {
     const session = await auth()
+    const locale = await getLocale()
     const user = session!.user!
     const post = formData.get('post')
 
-    const { success, data, error } = createPostSchema.safeParse(post)
+    const t = await getTranslations('posts.create.validation')
+
+    const { success, data, error } = createPostSchema(t).safeParse(post)
 
     if (!success) {
         return {
@@ -26,5 +34,5 @@ export async function createPost(_prevState: unknown, formData: FormData) {
 
     await createPostFromDb(data, user.email!)
 
-    redirect('/')
+    redirect({ href: '/', locale })
 }

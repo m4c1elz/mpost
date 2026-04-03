@@ -3,12 +3,17 @@
 import { auth } from '@/auth'
 import { z } from 'zod'
 import { updatePost } from '../services/update-post'
+import { _Translator } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-const editPostSchema = z
-    .string()
-    .trim()
-    .max(140, 'Postagem não pode ter mais de 140 caracteres.')
-    .nonempty('Por favor, insira a postagem no campo.')
+const editPostSchema = (t: _Translator) =>
+    z
+        .string()
+        .trim()
+        .nonempty(t('nonEmpty'))
+        .refine(post => post.replace(/\r\n/g, '\n').length <= 140, {
+            message: t('maxChars'),
+        })
 
 export async function editPost(
     id: number,
@@ -18,7 +23,9 @@ export async function editPost(
     const session = await auth()
     const content = formData.get('content')
 
-    const { success, data, error } = editPostSchema.safeParse(content)
+    const t = await getTranslations('posts.edit.validation')
+
+    const { success, data, error } = editPostSchema(t).safeParse(content)
 
     if (!success) {
         return {
