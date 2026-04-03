@@ -52,7 +52,7 @@ export function ProfilePictureForm() {
         if (error) {
             toast({
                 title: t('onError.title'),
-                description: error.flatten().formErrors,
+                description: error.flatten().formErrors[0],
                 variant: 'destructive',
             })
             return
@@ -64,7 +64,10 @@ export function ProfilePictureForm() {
     return (
         <form className="space-y-2" onSubmit={handleSubmit}>
             <Avatar className="m-auto my-2 size-32">
-                <AvatarImage src={session?.user.image!} alt="Foto de perfil" />
+                <AvatarImage
+                    src={session?.user.image ?? 'null'}
+                    alt={t('title')}
+                />
                 <AvatarFallback className="text-2xl">
                     {sessionStatus === 'loading' ? (
                         <Loader2 className="animate-spin" />
