@@ -8,6 +8,16 @@
       "title": "Que estranho.",
       "description": "Parece que essa página não existe.",
       "backToHomeLink": "Voltar a página principal"
+    },
+    "pagination": {
+      "next": {
+        "title": "Próximo",
+        "description": "Ir para a próxima página"
+      },
+      "previous": {
+        "title": "Anterior",
+        "description": "Ir para a página anterior"
+      }
     }
   },
   "auth": {
@@ -203,7 +213,11 @@
     "edit": {
       "title": "Editar postagem",
       "postContentLabel": "Conteúdo da postagem",
-      "onSuccessText": "Postagem editada."
+      "onSuccessText": "Postagem editada.",
+      "validation": {
+        "maxChars": "Postagem não pode ter mais de 140 caracteres.",
+        "nonEmpty": "Postagem não pode ser vazia."
+      }
     },
     "delete": {
       "title": "Você realmente deseja excluir a postagem?",
@@ -296,7 +310,17 @@
                 "normal": "Enviar",
                 "pending": "Enviando..."
               }
-            }
+            },
+            "validation": {
+              "nameMinChars": "Nome deve conter ao menos 3 caracteres",
+              "usernameMinChars": "Apelido deve conter ao menos 3 caracteres",
+              "usernameMaxChars": "Apelido não pode ter mais que 12 caracteres.",
+              "statusMinChars": "Status não pode conter mais que 50 caracteres.",
+              "invalidUrl": "URL inválido!",
+              "usernameInUse": "Apelido já em uso."
+            },
+            "onSuccessText": "User successfully updated.",
+            "onErrorText": "Error while updating user."
           }
         },
         "profilePic": {
@@ -355,5 +379,10 @@
   "updates": {
     "title": "Atualizações",
     "allUpdates": "Todas as atualizações"
+  },
+  "globalError": {
+    "title": "Opa! Algo deu errado.",
+    "description": "Um erro desconhecido acabou de acontecer. Tente recarregar a página ou voltar mais tarde.",
+    "resetPageBtnLabel": "Reiniciar a página"
   }
 }
