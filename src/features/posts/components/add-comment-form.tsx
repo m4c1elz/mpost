@@ -34,8 +34,17 @@ export function AddCommentForm({
     }, [state])
 
     return (
-        <form action={action} className="space-y-2" ref={ref}>
+        <form
+            action={action}
+            className="flex flex-col items-start gap-2"
+            ref={ref}
+        >
             <Textarea required placeholder={t('placeholder')} name="content" />
+            {state?.error && (
+                <span className="text-destructive">
+                    {state.error.formErrors}
+                </span>
+            )}
             <Button type="submit" disabled={isPending}>
                 {isPending ? (
                     <>

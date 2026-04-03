@@ -4,6 +4,12 @@ import { auth } from '@/auth'
 import { revalidatePath } from 'next/cache'
 import { createComment } from '../services/create-comment'
 import { createNotification } from '@/features/notifications/services/create-notification'
+import { _Translator } from 'next-intl'
+import { z } from 'zod'
+import { getTranslations } from 'next-intl/server'
+
+const createCommentSchema = (t: _Translator) =>
+    z.string().trim().max(140, t('maxChars')).nonempty(t('nonEmpty'))
 
 export async function addComment(
     postId: number,
@@ -14,8 +20,19 @@ export async function addComment(
     const content = formData.get('content') as string
     const session = await auth()
 
+    const t = await getTranslations('posts.comments.form.validation')
+
+    const { data, error, success } = createCommentSchema(t).safeParse(content)
+
+    if (!success) {
+        return {
+            success,
+            error: error.flatten(),
+        }
+    }
+
     const createdComment = await createComment(
-        content,
+        data,
         postId,
         session?.user.id!,
         parentId,
@@ -52,5 +69,5 @@ export async function addComment(
     }
 
     revalidatePath('/posts/[id]')
-    return { success: true }
+    return { success: true, error: null }
 }

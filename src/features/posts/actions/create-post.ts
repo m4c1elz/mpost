@@ -8,7 +8,7 @@ import { _Translator } from 'next-intl'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 const createPostSchema = (t: _Translator) =>
-    z.string().max(140, t('maxChars')).nonempty(t('nonEmpty')).trim()
+    z.string().trim().max(140, t('maxChars')).nonempty(t('nonEmpty'))
 
 export async function createPost(_prevState: unknown, formData: FormData) {
     const session = await auth()
