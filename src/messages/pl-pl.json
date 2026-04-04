@@ -1,0 +1,393 @@
+{
+  "common": {
+    "sendButton": {
+      "send": "Wyślij",
+      "sending": "Wysyłanie..."
+    },
+    "notFound": {
+      "title": "Dziwne.",
+      "description": "Wygląda na to, że ta strona nie istnieje.",
+      "backToHomeLink": "Wróć do strony głównej"
+    },
+    "pagination": {
+      "next": {
+        "title": "Następna",
+        "description": "Przejdź do następnej strony"
+      },
+      "previous": {
+        "title": "Poprzednia",
+        "description": "Wróc do poprzedniej strony"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "form": {
+        "title": "Logowanie",
+        "description": "Zaloguj się na swoje konto.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "password": {
+          "label": "Hasło",
+          "placeholder": "haslo123"
+        },
+        "forgotPassword": "Zapomniałem swojego hasła",
+        "registerNoAccount": "Nie masz jeszcze konta?",
+        "registerHere": "Zarejestruj się tutaj",
+        "sendButton": {
+          "send": "Zaloguj się",
+          "sending": "Wysyłanie..."
+        },
+        "invalidEmail": "Nieprawidłowy e-mail.",
+        "passwordMinChars": "Hasło powinno mieć conajmniej 8 znaków.",
+        "invalidCredentials": "Email lub hasło są nieprawidłowe."
+      }
+    },
+    "register": {
+      "form": {
+        "title": "Rejestracja",
+        "description": "Utwórz konto w MPost.",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "felipemmaciel06@gmail.com"
+        },
+        "name": {
+          "label": "Imię",
+          "placeholder": "Sebastian"
+        },
+        "username": {
+          "label": "Nazwa użytkownika",
+          "placeholder": "sebcia"
+        },
+        "password": {
+          "label": "Hasło",
+          "placeholder": "haslo123"
+        },
+        "confirmPassword": {
+          "label": "Potwiedź hasło",
+          "placeholder": "haslo123"
+        },
+        "alreadyHasAccount": "Masz już konto?",
+        "loginHere": "Zaloguj się tutaj",
+        "sendButton": {
+          "send": "Utwórz konto",
+          "sending": "Wysyłanie..."
+        },
+        "invalidEmail": "Nieprawidłowy e-mail.",
+        "passwordMinChars": "Hasło powinno mieć conajmniej 8 znaków.",
+        "nameMinChars": "Imię powinno mieć conajmniej 3 znaki.",
+        "usernameMinChars": "Nazwa użytkownika powinna mieć conajmniej 3 znaki.",
+        "usernameMaxChars": "Nazwa użytkownika nie może mieć więcej niż 12 znaków.",
+        "usernameInUse": "Nazwa użytkownika jest już zajęta.",
+        "passwordsNotMatching": "Hasła nie są takie same."
+      },
+      "accountVerify": {
+        "title": "Prawie gotowe! Zweryfikuj swoje konto",
+        "description": "Musisz zweryfikować swoje konto, zanim zaczniesz z niego korzystać. Na Twój adres e-mail zostanie wysłany link weryfikacyjny.",
+        "success": {
+          "title": "E-mail potwierdzony!",
+          "description": "Możesz już się zalogować na platforme.",
+          "loginLink": "Zaloguj się"
+        },
+        "failed": {
+          "title": "Wystąpił błąd podczas weryfikacji.",
+          "description": "Spróbuj ponownie, prosząc o nowy link weryfikacyjny."
+        }
+      }
+    },
+    "sendMailButton": {
+      "sendMail": "Wyślij Email",
+      "sending": "Wysyłanie...",
+      "onSent": {
+        "title": "E-mail został wysłany",
+        "description": "Sprawdź swoją skrzynkę odbiorczą."
+      },
+      "onFail": {
+        "title": "Błąd podczas wysyłania e-maila",
+        "description": "Wystąpił nieznany błąd podczas wysyłania e-maila. Poczekaj chwilę i spróbuj ponownie."
+      }
+    },
+    "passwordReset": {
+      "title": "Resetowanie hasła",
+      "description": "Aby zresetować hasło, wyślemy do Ciebie e-mail z linkiem do jego zmiany. Wpisz swój adres e-mail poniżej:",
+      "form": {
+        "title": "Utwórz nowe hasło",
+        "password": {
+          "label": "Nowe hasło",
+          "placeholder": "haslo123"
+        },
+        "confirmPassword": {
+          "label": "Potwiedź hasło",
+          "placeholder": "haslo123"
+        },
+        "submitButton": {
+          "send": "Wyślij",
+          "sending": "Wysyłanie..."
+        },
+        "validation": {
+          "passwordMinChars": "Hasło powinno mieć conajmniej 8 znaków.",
+          "passwordsNotMatching": "Hasła nie są takie same."
+        },
+        "errorWhileUpdating": "Błąd podczas aktulizacji użytkownika."
+      },
+      "onSuccess": {
+        "title": "Hasło zresetowane!",
+        "description": "Możesz się zalogować za pomocą nowego hasła.",
+        "loginLink": "Zaloguj się"
+      },
+      "onFail": {
+        "title": "Nieprawidłowy link",
+        "description": "Używasz nieprawidłowego linku do resetowania hasła. Najprawdopodobniej wygasł. Spróbuj ponownie poprosić o e-mail do resetowania hasła.",
+        "tryAgainLink": "Spróbuj jeszcze raz"
+      }
+    },
+    "logoutButton": {
+      "logoutText": "Wyloguj się",
+      "loggingOutText": "Trwa wylogowywanie..."
+    },
+    "emails": {
+      "verifyAccount": {
+        "subject": "Weryfikacja email",
+        "preview": "Potwiedź swój adres email",
+        "title": "Prawie gotowe!",
+        "description": "Aby zweryfikować swoje konto na MPost, kliknij",
+        "link": "ten link",
+        "footerText": "Stworzone przez Maciel.",
+        "unknownError": "Nieznany błąd podczas wysyłania e-maila z potwierdzeniem."
+      },
+      "resetPassword": {
+        "subject": "Resetowanie hasła",
+        "preview": "Zresetuj swoje hasło",
+        "title": "Zresetuj swoje hasło",
+        "description": "Aby kontynuować i zresetować swoje hasło, kliknij",
+        "link": "ten link",
+        "ignoreEmail": "Jeżeli nie prosiłeś o ten e-mail, zignoruj go.",
+        "footerText": "Stworzone przez Maciel.",
+        "invalidEmail": "Nieprawidłowy e-mail.",
+        "userNotFound": "Użytkownik nie znaleziony.",
+        "couldntSendEmail": "Nie można wysłać e-maila z potwierdzeniem. Spróbuj ponownie później."
+      }
+    }
+  },
+  "home": {
+    "topBanner": {
+      "text": "Wersja v1.4.1 - już dostępna.",
+      "linkText": "Dowiedz się więcej"
+    },
+    "navbar": {
+      "buttons": {
+        "post": "Post",
+        "settings": "Ustawienia",
+        "updates": "Aktualności",
+        "userDropdown": {
+          "viewProfile": "Zobacz profil",
+          "theme": "Motyw"
+        }
+      }
+    },
+    "posts": {
+      "emptyText": "Nie ma jeszcze żadnych postów!",
+      "profilePictureAlt": "Zdjęcie profilowe użytkownika {name}",
+      "pinnedPost": "Przypięty post"
+    },
+    "welcomeText": "Witaj, {name}!",
+    "footer": {
+      "nonProfitText": "MPost to projekt non-profit, tworzony całkowicie dla zabawy.",
+      "devByMacielText": "Tworzony z troską przez Maciel."
+    }
+  },
+  "posts": {
+    "title": "Post",
+    "originalPost": "Oryginalny Post",
+    "editedMarker": "(edytowane)",
+    "create": {
+      "title": "Utwórz post",
+      "description": "Opowiedz o swoim dniu!",
+      "placeholder": "Lorem ipsum dolor it sit amet.",
+      "validation": {
+        "maxChars": "Post nie może zawierać więcej niż 140 znaków.",
+        "nonEmpty": "Post nie może być pusty."
+      }
+    },
+    "edit": {
+      "title": "Zedytuj post",
+      "postContentLabel": "Treść postu",
+      "onSuccessText": "Post został zedytowany.",
+      "validation": {
+        "maxChars": "Post nie może zawierać więcej niż 140 znaków.",
+        "nonEmpty": "Post nie może być pusty."
+      }
+    },
+    "delete": {
+      "title": "Na pewno chcesz usunąć swój post?",
+      "description": "Ta akcja jest nieodwracalna!",
+      "cancelBtnLabel": "Anuluj",
+      "deleteButton": {
+        "normal": "Usuń",
+        "pending": "Usuwanie..."
+      },
+      "onSuccess": {
+        "description": "Post usunięto pomyślnie."
+      },
+      "onError": {
+        "title": "Błąd!"
+      }
+    },
+    "pins": {
+      "onPinText": "Post przypięto pomyślnie.",
+      "onUnpinText": "Post odpięto pomyślnie.",
+      "onError": "Przypinanie/odpinanie postu nie udało się."
+    },
+    "comments": {
+      "highlighted": "Wyróżniony komentarz",
+      "showReplies": "Pokaż odpowiedzi",
+      "viewAllComments": "Pokaż wszystkie komentarze",
+      "form": {
+        "placeholder": "Komentuj tutaj!",
+        "button": {
+          "normal": "Komentuj",
+          "pending": "Wysyłanie..."
+        },
+        "validation": {
+          "maxChars": "Komentarz nie może zawierać więcej niż 140 znaków.",
+          "nonEmpty": "Komentarz nie może być pusty."
+        }
+      },
+      "delete": {
+        "title": "Usuń komentarz",
+        "description": "Na pewno chcesz usunąć ten komentarz?",
+        "deleteButton": {
+          "normal": "Usuń",
+          "pending": "Usuwanie..."
+        },
+        "cancelBtnLabel": "Anuluj",
+        "onSuccessLabel": "Komentarz został usunięty.",
+        "onErrorLabel": "Error while removing comment."
+      }
+    },
+    "notFound": {
+      "title": "Dziwne.",
+      "description": "Wygląda na to, że ten post nie intnieje.",
+      "backToHomeLink": "Wróć do strony głównej"
+    }
+  },
+  "profile": {
+    "joinedIn": "Dołączył {date}",
+    "postsTitle": "Posty"
+  },
+  "notifications": {
+    "emptyText": "Nie masz żadnych powiadomień :(",
+    "commentedOnPost": "skomentował twój post",
+    "repliedComment": "odpowiedział na twój komentarz"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "sidebar": {
+      "moreOptions": "Więcej opcji"
+    },
+    "options": {
+      "user": {
+        "title": "Użytkownik",
+        "info": {
+          "title": "Informacje o użytkowniku",
+          "description": "Zedytuj swojego użytkownika na MPost.",
+          "form": {
+            "name": {
+              "label": "Imię",
+              "placeholder": "Sebastian"
+            },
+            "username": {
+              "label": "Nazwa użytkownika",
+              "placeholder": "sebcia"
+            },
+            "status": {
+              "label": "Status",
+              "placeholder": "Woo! Czuję się świetnie!"
+            },
+            "externalUrl": {
+              "label": "Link zewnętrzny",
+              "placeholder": "https://maciel.app"
+            },
+            "buttons": {
+              "sendButton": {
+                "normal": "Wyślij",
+                "pending": "Wysyłanie..."
+              }
+            },
+            "validation": {
+              "nameMinChars": "Imię powinno mieć conajmniej 3 znaki.",
+              "usernameMinChars": "Nazwa użytkownika powinna mieć conajmniej 3 znaki.",
+              "usernameMaxChars": "Nazwa użytkownika nie może mieć więcej niż 12 znaków.",
+              "statusMinChars": "Status nie może mieć więcej niż 50 znaków.",
+              "invalidUrl": "Nieprawidłowy link!",
+              "usernameInUse": "Nazwa użytkownika jest już zajęta."
+            },
+            "onSuccessText": "Użytkownik został zaaktulizowany pomyślnie.",
+            "onErrorText": "Bład podczas aktulizacji użytkownika."
+          }
+        },
+        "profilePic": {
+          "title": "Zdjęcie profilowe",
+          "description": "Zmień swoje zdjęcie profilowe. (Maks. rozmiar 500KB)",
+          "buttons": {
+            "sendButton": {
+              "normal": "Wyślij",
+              "pending": "Wysyłanie..."
+            },
+            "removeImageButton": {
+              "normal": "Usuń zdjęcie",
+              "pending": "Usuwanie..."
+            }
+          },
+          "onSuccess": {
+            "title": "Zdjęcie zaaktulizowane pomyślnie",
+            "description": "Może minąć trochę czasu, zanim zdjęcie pojawi się u niektórych użytkowników."
+          },
+          "onError": {
+            "title": "Bład podczas aktulizacji zdjęcia!",
+            "description": "Zaczekaj chwilę i spróbuj ponownie."
+          },
+          "noImageSelectedError": "Nie wybrano żadnego zdjęcia.",
+          "imageTooLargeError": "Zdjęcie jest powyżej limitu 500kb.",
+          "notAnImageError": "Przesłany plik nie jest zdjęciem. Prześlij plik obrazu.",
+          "onRemoveSuccess": {
+            "title": "Zdjęcie zostało usunięte.",
+            "description": "Może minąć trochę czasu, zanim zmiany zostaną zastosowane."
+          },
+          "onRemoveError": {
+            "title": "Błąd podczas usuwania zdjęcia.",
+            "description": "Spróbuj ponownie później."
+          },
+          "userNotFoundError": "Użytkownik nie został znaleziony.",
+          "noImageToRemoveError": "Nie ma zdjęcia do usunięcia."
+        }
+      },
+      "appearance": {
+        "title": "Wygląd",
+        "form": {
+          "title": "Motyw",
+          "description": "Wybierz motyw, który jest przyjazny dla Twoich oczu.",
+          "themes": {
+            "light": "Tryb jasny",
+            "dark": "Tryb ciemny"
+          }
+        }
+      },
+      "language": {
+        "title": "Język",
+        "description": "Wybierz język używany w interfejsie MPost."
+      }
+    }
+  },
+  "updates": {
+    "title": "Nowości",
+    "allUpdates": "Wszystkie aktulizacje"
+  },
+  "globalError": {
+    "title": "Oops! Coś poszło nie tak.",
+    "description": "Wystąpil nieznany błąd. Spróbuj odświeżyć stronę lub wrócić później",
+    "resetPageBtnLabel": "Odśwież stronę"
+  }
+}

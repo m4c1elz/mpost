@@ -52,6 +52,7 @@ export function SetLanguageCard() {
                     <SelectContent>
                         <SelectItem value="pt-br">Português (PT-BR)</SelectItem>
                         <SelectItem value="en">English (EN)</SelectItem>
+                        <SelectItem value="pl-pl">Polski (PL)</SelectItem>
                     </SelectContent>
                 </Select>
             </CardContent>
