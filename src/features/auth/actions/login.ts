@@ -45,7 +45,7 @@ export async function login(
     }
 
     try {
-        await signIn('credentials', { ...data, redirectTo: '/' })
+        await signIn('credentials', { ...data, redirectTo: `/${locale}` })
     } catch (error) {
         if (isRedirectError(error)) {
             throw error

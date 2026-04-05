@@ -1,8 +1,11 @@
 'use server'
 import { signOut } from '@/auth'
+import { getLocale } from 'next-intl/server'
 
 export async function logout(_prevState: unknown) {
+    const locale = await getLocale()
+
     await signOut({
-        redirectTo: '/login',
+        redirectTo: `/${locale}/login`,
     })
 }
