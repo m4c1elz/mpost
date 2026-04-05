@@ -1,6 +1,6 @@
 import createMiddleware from 'next-intl/middleware'
 import { NextResponse } from 'next/server'
-import { defaultLocale, locales } from './locales'
+import { defaultLocale, locales } from './i18n/locales'
 import { auth } from '@/auth'
 
 const handle18nRouting = createMiddleware({
