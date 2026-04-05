@@ -56,7 +56,7 @@ export async function login(
                 redirect({ href: `/verify?email=${data.email}`, locale })
             }
 
-            if ((error.type = 'CredentialsSignin')) {
+            if (error.type == 'CredentialsSignin') {
                 return {
                     errors: {
                         password: [t('invalidCredentials')],
