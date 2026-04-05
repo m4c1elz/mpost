@@ -4,6 +4,11 @@ import { z } from 'zod'
 import { compare } from 'bcrypt-ts'
 import { env } from '@/env'
 import { getUserByEmail } from './features/users/services/get-user-by-email'
+import { NextResponse } from 'next/server'
+import { getLocale } from 'next-intl/server'
+
+const PRIVATE = ['/posts', '/settings', '/users', '/updates', '/api']
+const PUBLIC = ['/login', '/signin', '/verify', '/forgotpassword']
 
 export const { auth, signOut, signIn, handlers } = NextAuth({
     secret: env.AUTH_SECRET,
@@ -57,6 +62,38 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
         }),
     ],
     callbacks: {
+        async authorized({ auth, request: req }) {
+            console.log('reached auth middleware')
+            const { pathname } = req.nextUrl
+            const locale = await getLocale()
+
+            // remove locale from url
+            const normalizePathname = (pathname: string) =>
+                pathname.replace(/^\/(en|pt-br)(\/|$)/, '/') || '/'
+
+            const normalizedPathname = normalizePathname(pathname)
+
+            const isAuthenticated = !!auth
+
+            const isPublicRoute = PUBLIC.some(route =>
+                normalizedPathname.startsWith(route),
+            )
+
+            const isPrivateRoute =
+                PRIVATE.some(route => normalizedPathname.startsWith(route)) ||
+                normalizedPathname === '/'
+
+            if (isAuthenticated && isPublicRoute) {
+                console.log(new URL(`/${locale}`, req.url).toString())
+                return NextResponse.redirect(new URL(`/${locale}`, req.url))
+            }
+
+            if (!isAuthenticated && isPrivateRoute) {
+                return NextResponse.redirect(
+                    new URL(`/${locale}/login`, req.url),
+                )
+            }
+        },
         async jwt({ token, user, trigger }) {
             if (user) {
                 token.atsign = user.atsign
