@@ -54,22 +54,22 @@ export async function sendResetPasswordEmail(
 
     const locale = await getLocale()
 
-    try {
-        await sendMail(
-            email,
-            t('subject'),
-            PasswordResetEmail({ redirectUrl, locale }),
-        )
+    const result = await sendMail(
+        email,
+        t('subject'),
+        PasswordResetEmail({ redirectUrl, locale }),
+    )
 
-        return {
-            success: true,
-            error: null,
-        }
-    } catch (error) {
-        console.log(error)
+    if (result.error) {
+        console.log(result.error)
         return {
             success: false,
             error: t('couldntSendEmail'),
         }
+    }
+
+    return {
+        success: true,
+        error: null,
     }
 }
