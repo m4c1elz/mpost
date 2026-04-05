@@ -16,16 +16,15 @@ export async function sendVerificationEmail(email: string) {
     const locale = await getLocale()
     const t = await getTranslations('auth.emails.verifyAccount')
 
-    try {
-        const info = await sendMail(
-            email,
-            t('subject'),
-            VerifyEmail({ redirectUrl, locale }),
-        )
+    const { error } = await sendMail(
+        email,
+        t('subject'),
+        VerifyEmail({ redirectUrl, locale }),
+    )
 
-        console.log(info)
-    } catch (error) {
-        console.log(error)
+    if (error) {
+        console.error(error)
+
         return {
             error: { email: [t('unknownError')] },
             success: false,
