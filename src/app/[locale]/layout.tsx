@@ -1,4 +1,4 @@
-import { locales } from '@/locales'
+import { locales } from '@/i18n/locales'
 import { ReactNode } from 'react'
 
 type LocaleLayoutProps = {

@@ -1,4 +1,4 @@
-import { defaultLocale, Locale, locales } from '@/locales'
+import { defaultLocale, Locale, locales } from '@/i18n/locales'
 import { getRequestConfig } from 'next-intl/server'
 
 const config = getRequestConfig(async ({ requestLocale }) => {
