@@ -63,7 +63,6 @@ export const { auth, signOut, signIn, handlers } = NextAuth({
     ],
     callbacks: {
         async authorized({ auth, request: req }) {
-            console.log('reached auth middleware')
             const { pathname } = req.nextUrl
             const locale = await getLocale()
 
