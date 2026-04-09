@@ -1,20 +1,47 @@
-# MPost
-
 <center>
-    <p>O MPost é um projeto de rede social feita com Next.js, onde usuários podem criar postagens e interagir uns com os outros.</p>
-    <img src='./images/post.png' alt="Postagem do MPost.">
+    <img src='./images/banner.png' alt="Postagem do MPost.">
 </center>
 
-Altamente inspirado pelo X (antigo Twitter), trata-se de um "sucessor espiritual" a um projeto anterior meu, o [MBlog](https://github.com/m4c1elz/mblog-web), que havia como intuito me ajudar a aprender novas funcionalidades como autenticação e autorização com JWT, verificação de e-mail, entre outros.
+---
 
-Algumas das funcionalidades que o projeto inclui:
+Inspired by X (Twiiter)'s UI, MPost is just a simple social media app where you can post and comment on other people's posts.
 
--   Verificação de E-mail
--   Autorização e Autenticação com Next-Auth
--   Extensivo uso de Server Actions e funcionalidades do App Router (Next.js 15)
--   Notificações ao comentar em postagens e responder comentários
--   Validação de dados em formulários com Zod
--   Tema Claro/Noturno
--   Interface feita com Shadcn/ui
--   Criação, Leitura, Edição e Remoção de novas postagens dos usuários
--   Criação, Leitura, Edição e Remoção do usuário registrado na sessão atual
+This is **a non-profit project** maintained purely for fun.
+
+### Running locally
+
+Requirements:
+
+- Node.js (v18+)
+- PNPM
+- Docker (optional, used for local database)
+
+Clone the repo and install the dependencies:
+
+```sh
+git clone https://github.com/m4c1elz/mpost
+cd mpost
+pnpm install
+```
+
+If you're going to use the docker-compose.yaml database, run the following:
+
+```sh
+pnpm db:up
+```
+
+(Make sure to create a .env file with the database URL.)
+
+Run the following commands to apply migrations:
+
+```sh
+pnpm db:migrate
+pnpm db:generate # generating prisma client, mpost uses prisma v6
+pnpm db:seed # adding fake data to the db
+```
+
+Once that's done, you can set up the development server:
+
+```sh
+pnpm dev
+```
