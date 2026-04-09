@@ -1,13 +1,14 @@
-# MPost
-
 <center>
-    <p><a href="https://mpost.maciel.app">MPost</a> is a simple social media app made with Next.js.</p>
     <img src='./images/banner.png' alt="Postagem do MPost.">
 </center>
 
-Inspired by X (Twiiter)'s UI, MPost is just a simple social media app where you can post and comment on other people's posts. This is a non-profit project maintained purely for fun.
+---
 
-### Building locally
+Inspired by X (Twiiter)'s UI, MPost is just a simple social media app where you can post and comment on other people's posts.
+
+This is **a non-profit project** maintained purely for fun.
+
+### Running locally
 
 Requirements:
 
