@@ -20,7 +20,7 @@ export default async function ProtectedLayout({
             <TopBanner>
                 <span className="font-medium">{t('text')}</span>{' '}
                 <Link
-                    href="/updates/v1.4.1"
+                    href="/updates/v1.5.0"
                     className="font-bold flex gap-1 items-center"
                 >
                     {t('linkText')} <ChevronRight />
