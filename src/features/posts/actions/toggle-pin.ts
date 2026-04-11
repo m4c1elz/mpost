@@ -17,10 +17,10 @@ export async function togglePin(id: number, pin: boolean, _prevState: unknown) {
         const alreadyPinnedPost = await getPinnedPost(userId)
 
         if (alreadyPinnedPost && pin) {
-            await setPinnedPost(alreadyPinnedPost.id, false)
+            await setPinnedPost(alreadyPinnedPost.id, userId, false)
         }
 
-        const result = await setPinnedPost(id, pin)
+        const result = await setPinnedPost(id, userId, pin)
 
         if (result) {
             revalidatePath('/users/[user]')

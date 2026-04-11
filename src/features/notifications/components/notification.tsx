@@ -3,7 +3,6 @@ import { useRouter } from 'next-nprogress-bar'
 import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { getQueryClient } from '@/lib/react-query'
-import { sleep } from '@/helpers/sleep'
 import { markNotificationAsRead } from '../services/mark-notification-as-read'
 import { useFormatter, useNow, useTranslations } from 'next-intl'
 import { $Enums } from '@prisma/client'
@@ -71,4 +70,9 @@ export function Notification({
             </button>
         </PopoverClose>
     )
+}
+
+// helper function
+function sleep(ms: number) {
+    return new Promise(r => setTimeout(r, ms))
 }
